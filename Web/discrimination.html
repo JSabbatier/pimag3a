@@ -1,0 +1,96 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr">
+<head>
+	<script src="jquery-2.1.1.min.js"></script>  
+    <script type="text/javascript" src="jquery_barcode/jquery-barcode.js"></script>  
+
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+</head>
+<body onload="document.getElementById('Text0').focus();">
+	<table>
+		<tr>
+			<td>
+				Hauteur: 
+			</td>
+			<td>
+				<input id="Text0" type="text" />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				largeur 1 : 
+			</td>
+			<td>
+				<input id="Text1" type="text" />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				largeur 2 : 
+			</td>
+			<td>
+				<input id="Text2" type="text" />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				BarCode : 
+			</td>
+			<td>
+				<input id="Text3" type="text" />
+			</td>
+		</tr>
+	</table>
+    <div id="bcTarget"></div>   
+</body>
+<script type='text/javascript'>
+
+/*function CrcEan13 (code){
+	if (e.which == 13) {
+		var sum1 = 3 * (parseInt(code[1]) + parseInt(code[3]) + parseInt(code[5]) + parseInt(code[7]) + parseInt(code[9]) + parseInt(code[11]));
+		var sum2 = parseInt(code[0]) + parseInt(code[2]) + parseInt(code[4]) + parseInt(code[6]) + parseInt(code[8]) + parseInt(code[10]);
+		var checksum_value = sum1 + sum2;
+
+		var checksum_digit = 10 - (checksum_value % 10);
+		if (checksum_digit == 10) 
+		    {checksum_digit = 0;}
+
+		alert(checksum_digit);
+	}
+}*/
+	
+
+    $("#bcTarget").barcode("512309678901", "ean13",{barWidth:2, barHeight:100}); 
+
+var inputs = $(':input').keypress(function(e){ 
+    if (e.which == 13) {
+       e.preventDefault();
+       var nextInput = inputs.get(inputs.index(this) + 1);
+       if (nextInput) {
+          nextInput.focus();
+       }
+    	if(e.target.value.length == 13 ){
+    		console.log("Douchette");
+
+    		var code = document.getElementById("Text3").value;
+    		var sum1 = 3 * (parseInt(code[1]) + parseInt(code[3]) + parseInt(code[5]) + parseInt(code[7]) + parseInt(code[9]) + parseInt(code[11]));
+			var sum2 = parseInt(code[0]) + parseInt(code[2]) + parseInt(code[4]) + parseInt(code[6]) + parseInt(code[8]) + parseInt(code[10]);
+			var checksum_value = sum1 + sum2;
+
+			var checksum_digit = 10 - (checksum_value % 10);
+			if (checksum_digit == 10) 
+			    {checksum_digit = 0;}
+
+			
+			if (checksum_digit == code[12])
+			{
+				console.log("Code barre lu avec succes");
+			}else{
+				console.log("Echec de lecture du code barre");
+			}
+    	}else{
+    		console.log("Pied a coulisse");
+    	}
+    }
+});
+</script>
+</html>
