@@ -8,7 +8,9 @@
 	        <link rel="stylesheet" href="style.css" type="text/css">
 	        <script src="./amcharts/amcharts.js" type="text/javascript"></script>
 	        <script src="./amcharts/pie.js" type="text/javascript"></script> 
+	        <script src="jquery-2.1.1.min.js" type="text/javascript"></script> 
 	        <script type="text/javascript">
+	            
 	            var chart;
 	            var chartcolumn;
 	            var legend;
@@ -66,9 +68,9 @@
                     
                  // chargement des régions
                     $.ajax({
-                        url: 'france.php',
-                        data: 'go', // on envoie $_GET['go']
-                        dataType: 'json', // on veut un retour JSON
+                        url: 'http://perso.imerir.com/tprak/test.php',
+                        //data: 'go', // on envoie $_GET['go']
+                        //dataType: 'json', // on veut un retour JSON
                         success: function(json) {
                             $.each(json, function(index, value) { // pour chaque noeud JSON
                                 // on ajoute l option dans la liste
@@ -77,26 +79,25 @@
                         }
                     });
 
-                    // à la sélection d une région dans la liste
-                    $fournisseur.on('change', function() {
-                        var val = $(this).val(); // on récupère la valeur de la région
-                 
-                        if(val != '') {
-                            $departements.empty(); // on vide la liste des départements
-                             
-                            $.ajax({
-                                url: 'france.php',
-                                data: 'id_fournisseur='+ val, // on envoie $_GET['id_region']
-                                dataType: 'json',
-                                success: function(json) {
-                                    $.each(json, function(index, value) {
-                                        $departements.append('<option value="'+ index +'">'+ value +'</option>');
-                                    });
-                                }
-                            });
-                        }
-                    });
-                });
+                 /* à la sélection d une région dans la liste
+			    $fournisseur.on('change', function() {
+			        var val = $(this).val(); // on récupère la valeur de la région
+			 
+			        if(val != '') { 
+			            $.ajax({
+			                url: 'perso.imerir.com/tprak/www/test.php',
+			                data: 'id_region='+ val, // on envoie $_GET['id_region']
+			                dataType: 'json',
+			                success: function(json) {
+			                    $.each(json, function(index, value) {
+			                        $departements.append('<option value="'+ index +'">'+ value +'</option>');
+			                    });
+			                }
+			            });
+			        }
+    			});*/
+
+             });
 
 	        </script>
 	</head>
@@ -107,18 +108,29 @@
 		<form>
 			<label> Nom du fournisseur:</label> 
             <select id="fournisseur" name="fournisseur">
-                <option value="volvo">Volvo</option>
+                <option value="">-- Fournisseur --</option>
              </select>
-			
             <br>
-
-			<label> Adresse: </label>
+			<label> Adresse: </label> <div id="adresse" name="adresse"> </div>
+			<label> Téléphone:</label> <div id="telephone" name="telephone"> </div>
+			<label> Fax:</label> <div id="fax" name="fax"> </div>
+			<label> Mail:</label> <div id="mail" name="mail"> </div>
 			<br>
-			<label> Téléphone:</label>
-			<br>
-			<label> Mail:</label>
+			<label> Date du </label> <input type="date" name="datePremierLot"> <label> au </label><input type="date" name="dateDernierLot">
 		</form>
-		<div id="chartdiv" style="width: 100%; height: 400px;"></div>
-		<div id="chartcolumn" style="width: 100%; height: 400px;"></div>
+		
+		<div id="chartdiv" style="width: 40%; height: 400px;"></div>
+
+		
+		
+
+
+
+
+
 	</body>
+
+
+
+
 </html>
