@@ -20,11 +20,42 @@
           <option value="6">
           <option value="7">
           <option value="8">
-        </datalist>
-      
+        </datalist><br>
+        
+       <label for="choix_fournisseur">Indiquez le fourniseur :</label>
+        <input list="fournisseur" type="text" id="choix_fournisseur">
+        <datalist id="fournisseur">
+          <option value="riri">
+          <option value="fifi">
+          <option value="loulou">
+        </datalist><br>
+        
+       <label for="date">Indiquez la date d'arrivée:</label>
+        <input type="date" name="date"><br>
+        
+       <label for="quantite">Quantité:</label>
+       	<input type="number" step="10000" value="0" min="0" ><br>
+        
+       <label for="prix_lot">Indiquez le prix du lot(1000) :</label>
+       	<input type="number" step="10" value="0" min="0" >
+        <input list="devise" type="text" id="choix_devise">
+        <datalist id="devise">
+          <option value="€">
+          <option value="$">
+          <option value="£">
+        </datalist><br>
+        
+        
       <button type="button">Enregistrer</button>
+      
 
     </section>
+    
+    <a href="index.html">Retour Accueil</a></li>
 
 </body>
+
+        <footer>
+            <p>IMERIR<br /></p>
+        </footer>
 </html>

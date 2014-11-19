@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Controle d'entrée</title>
+</head>
+
+<body>
+
+    <section>
+        <h1>EXPEDITION</h1>
+    
+		<label for="date">Indiquez la date de commande:</label>
+        	<input type="date" name="dt_commande"><br>
+        
+     	<label for="date">Indiquez la date de livraison souhaitée:</label>
+        	<input type="date" name="dt_souhaite"><br>
+        
+     	<label for="date">Indiquez la date de livraison souhaitée:</label>
+        	<input type="date" name="dt_reel"><br>
+        
+		<label for="quantite">Quantité:</label>
+       		<input type="number" step="10000" value="0" min="0" ><br>
+        
+       <label for="prix_lot">Indiquez le prix du lot(1000) :</label>
+       		<input type="number" step="10" value="0" min="0" >
+        	<input list="devise" type="text" id="choix_devise">
+            <datalist id="devise">
+              <option value="€">
+              <option value="$">
+              <option value="£">
+            </datalist><br>
+            
+		<label for="delai_paiment">delai de paiment :</label>
+       		<input type="number" step="1" value="0" min="0"> <br>
+        
+        
+      <button type="button">Enregistrer</button>
+
+    </section>  
+    <a href="index.html">Retour Accueil</a></li>
+        
+</body>
+<footer>
+   <p>IMERIR<br /></p>
+</footer>
+</html>
