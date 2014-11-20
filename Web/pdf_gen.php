@@ -1,8 +1,5 @@
 <?php
-$mesDatas = '{"arrivage":{"dateArr":"2014-11-08","dateCont":"2014-03-17 07:01","numArr":648770,"nomFour":"Ortega","qualite":7,"numTrac":354306,"quantite":888067,"longueur":44,"tcaf":53,"tcai":21,"gout":"non","derog":"non","codebarre":44437924037},"seuil":{"long":{"min":1,"max":98},"diam1":{"min":23.5,"max":24.5},"diam2":{"min":23.5,"max":24.5},"ovali":0.7,"humi":{"min":4,"max":6},"diam_comp":90,"tcaf":95,"tcai":96},"bouchon":[{"id":1,"long":52.94,"diam1":23.61,"diam2":23.74,"ovali":0.79,"humi":3.98,"diam_comp":96.91},{"id":2,"long":37.75,"diam1":24.01,"diam2":23.93,"ovali":0.65,"humi":4.24,"diam_comp":98.95},{"id":3,"long":81.21,"diam1":23.4,"diam2":24.57,"ovali":0.38,"humi":4.72,"diam_comp":89.2},{"id":4,"long":17.01,"diam1":24.03,"diam2":24.08,"ovali":0.03,"humi":4.07,"diam_comp":92.65},{"id":5,"long":46.9,"diam1":23.82,"diam2":24.21,"ovali":0.54,"humi":6.13,"diam_comp":93.7},{"id":6,"long":37.05,"diam1":24.49,"diam2":24.26,"ovali":0.36,"humi":4.76,"diam_comp":92.18},{"id":7,"long":21.08,"diam1":23.58,"diam2":23.45,"ovali":0.01,"humi":4.25,"diam_comp":98.},{"id":8,"long":1.39,"diam1":24.22,"diam2":24.01,"ovali":0.94,"humi":6.15,"diam_comp":88.44},{"id":9,"long":53.88,"diam1":24.48,"diam2":23.68,"ovali":0.51,"humi":4.03,"diam_comp":95.77},{"id":10,"diam1":23.86,"diam2":24.49,"ovali":0.51,"humi":5.96,"diam_comp":89.4},{"id":11,"long":55.54,"diam2":23.92,"ovali":0.46,"humi":3.93,"diam_comp":88.61},{"id":12,"long":79,"diam1":24.18,"ovali":0.13,"humi":4.34,"diam_comp":90.36},{"id":13,"long":90.98,"diam1":23.81,"diam2":23.94,"humi":5.15,"diam_comp":98.56},{"id":14,"long":80.44,"diam1":23.69,"diam2":24.49,"ovali":0.37,"diam_comp":89.34},{"id":15,"long":30.08,"diam1":24.1,"diam2":23.95,"ovali":0.39,"humi":5.58},{"id":16,"long":34.4,"diam1":23.6,"diam2":24.01,"ovali":0.14,"humi":4.6,"diam_comp":98.28}]}';
-
 require('fpdf17/fpdf.php');
-//require('fpdf17/PDF_Code39.php');
 
 class PDF extends FPDF
 {
@@ -133,7 +130,7 @@ function Pied($data)
     $this->SetY(-70);
     $this->SetX(-200);
 
-$w = array(10, 30, 30, 30, 30, 30, 30);
+    $w = array(10, 30, 30, 30, 30, 30, 30);
     // Police Arial italique 8
     $this->SetFont('Arial','',11);
     // Numéro de page
@@ -163,10 +160,17 @@ function TitreChapitre($libelle)
 function ImprovedTable( $data)
 {
     $conf=$this->Conformite($data);
-    if ($conf=="CONFORME"){
+    $dero="";
+
+    if (($conf==0) || ($conf==1)){
+        if ($conf==1){
+            $dero="Dérogation";
+        }
         $rouge="25";$vert="225";
+        $conf="CONFORME";
     }else{
-       $rouge="225";$vert="25";
+        $rouge="225";$vert="25";
+        $conf="NON CONFORME";
     }
     
     $this->SetFillColor($rouge,$vert,25); 
@@ -214,11 +218,10 @@ function ImprovedTable( $data)
 
     $this->Cell(30);
     $this->SetDrawColor($rouge,$vert,25);
-    $this->Cell(70,7,"",'TBLR',0,'R', true);
+    $this->Cell(70,7,utf8_decode($dero),'TBLR',0,'C', true);
     $this->SetDrawColor(0,0,0);
 
     $this->Ln(15);  
-
 }
 
 function Conformite($data)
@@ -239,19 +242,23 @@ function Conformite($data)
         if (isset($row["humi"])){if (($row["humi"] < $data['seuil']['humi']['min']) || ($row["humi"] > $data['seuil']['humi']['max'])){$defhumi++;}};
         if (isset($row["diam_comp"])){if ($row["diam_comp"] < $data['seuil']['diam_comp']){$defdiam_comp++;}};
     }
-
-    if ($deflong > 1){$conforme="NON CONFORME";}else{$conforme="CONFORME";}
-    if ($defdiam1 > 1){$conforme="NON CONFORME";}else{$conforme="CONFORME";}
-    if ($defdiam2 > 1){$conforme="NON CONFORME";}else{$conforme="CONFORME";}
-    if ($defovali > 2){$conforme="NON CONFORME";}else{$conforme="CONFORME";}
-    if ($defhumi > 0){$conforme="NON CONFORME";}else{$conforme="CONFORME";}
-    if ($defdiam_comp > 0){$conforme="NON CONFORME";}else{$conforme="CONFORME";}
-   // if ($ > 0){$conforme="NON CONFORME";}else{$conforme="CONFORME";} -----------------------------------------------------------------------------------------------
+    $conforme=0;
+    if ($deflong > 1){$conforme=2;}
+    if ($defdiam1 > 1){$conforme=2;}
+    if ($defdiam2 > 1){$conforme=2;}
+    if ($defovali > 2){$conforme=2;}
+    if ($defhumi > 0){$conforme=2;}
+    if ($defdiam_comp > 0){$conforme=2;}
+    if ($data["arrivage"]["tcaf"] > $data["seuil"]["tcaf"]){$conforme=2;}
+    if ($data["arrivage"]["tcai"] > $data["seuil"]["tcai"]){$conforme=2;} 
+    if ($data["arrivage"]["gout"] == "non"){$conforme=2;} 
+    if ($data["arrivage"]["derog"] == "oui"){$conforme=1;} 
 
     return $conforme;
 }
 
-function Code39($xpos, $ypos, $code, $baseline=0.5, $height=5){
+function Code39($xpos, $ypos, $code, $baseline=0.5, $height=5)
+{
 
     $wide = $baseline;
     $narrow = $baseline / 3 ; 
@@ -328,23 +335,24 @@ function Code39($xpos, $ypos, $code, $baseline=0.5, $height=5){
     }
 }
 }
+function pdf_gen ($mesDatas)
+{
+    $pdf = new PDF();
+    // Titres des colonnes
+    $header = array(utf8_decode('N°'), 'Longueur', utf8_decode('Diamètre 1'), utf8_decode('Diamètre 2'),'Ovalisation', utf8_decode('Humidité (%)'), utf8_decode('Diamètre A.C.'));
+    // Chargement des données
+    $data = $pdf->LoadData($mesDatas);
+    $pdf->SetFont('Arial','',11);
+    $pdf->AliasNbPages();
+    $pdf->SetFont('Times','',12);
 
-$pdf = new PDF("P");
-// Titres des colonnes
-$header = array(utf8_decode('N°'), 'Longueur', utf8_decode('Diamètre 1'), utf8_decode('Diamètre 2'),'Ovalisation', utf8_decode('Humidité (%)'), utf8_decode('Diamètre A.C.'));
-// Chargement des données
-$data = $pdf->LoadData($mesDatas);
-$pdf->SetFont('Arial','',11);
-$pdf->AliasNbPages();
-$pdf->SetFont('Times','',12);
-
-$pdf->AddPage();
-$pdf->Ln(20);
-$pdf->ImprovedTable($data);
-$pdf->Code39(100,40,$data["arrivage"]["codebarre"],1,20);
-$pdf->Conformite($data);
-$pdf->FancyTable($header,$data);
-$pdf->Pied($data);
-$pdf->Output("ControleArrivee_".$data["arrivage"]["nomFour"]."_".$data["arrivage"]["dateArr"]."_".$data["arrivage"]["numArr"].".pdf","I");
-
+    $pdf->AddPage();
+    $pdf->Ln(20);
+    $pdf->ImprovedTable($data);
+    $pdf->Code39(100,40,$data["arrivage"]["codebarre"],1,20);
+    $pdf->Conformite($data);
+    $pdf->FancyTable($header,$data);
+    $pdf->Pied($data);
+    $pdf->Output("ControleArrivee_".$data["arrivage"]["nomFour"]."_".$data["arrivage"]["dateArr"]."_".$data["arrivage"]["numArr"].".pdf","I");
+}
 ?>
