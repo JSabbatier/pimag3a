@@ -1,6 +1,6 @@
 <?php
-require_once("panier.php");
-class daoPanier
+require_once("client.php");
+class daoClient
 {
 	public function __construct()
 	{
@@ -24,6 +24,44 @@ class daoPanier
         }
     }	
 	
+	public function getClientById($id)
+	{
+		$query="select * from client where id_client=:idClient";
+		$rs=$this->dbh->prepare($query);
+		$rs->bindParam(':idclient',$id);
+		
+		$rs->execute();
+		
+		$row= $rs->fetch();
+		
+		$client = new Client;
+		
+		$client->setNomClient($row['nom_client']);
+		$client->setNumeroTel($row['numeroTel']);
+		$client->setAdresseFacturation($row['adresse_facturation']);
+		$client->setadresseLivraison($row['adresse_livraison']);
+		$client->setEmail($row['email']);
+		$client->setContact($row['contact']);
+		$client->setType($row['type']);
+		
+		return $client;
+	}
+	
+	public function getListOfClientByid($id)
+	{
+		$query="select id_client from client where id_client=:idClient";
+		$rs=$this->dbh->prepare($query);
+		
+		$rs->bindParam(':idcmd',$idcommande);
+		$rs->execute();
+		$panier = new Client;
+		while( $row= $rs->fetch())
+		{
+			$panier = $this->getListOfClientrByid($row['id_client']);
+			$list[]= $client;
+		}
+		
+	}
 	
 }
 ?>
