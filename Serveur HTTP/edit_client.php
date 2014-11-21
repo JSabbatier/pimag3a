@@ -1,11 +1,11 @@
 <?php
-require_once("classes/daoClient.php");
-require_once("classes/daoAdresse.php");
-require_once("connect.php");
+require_once("../dao/classes/daoClient.php");
+require_once("../dao/classes/daoAdresse.php");
+require_once("../dao/connect.php");
 
 $retour_txt = "";
 $retour_code = "400 Bad Request";
-if (isset($_POST["id_client"])
+if (isset($_POST["id_client"]))
 {
 	$id = $_POST["id_client"]
 	if (is_numeric($id))

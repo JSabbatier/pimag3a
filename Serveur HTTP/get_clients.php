@@ -1,6 +1,6 @@
 <?php
-require_once("classes/daoClient.php");
-require_once("connect.php");
+require_once("../dao/classes/daoClient.php");
+require_once("../dao/connect.php");
 
 $objClient = new DaoClient();
 $client = new Client();

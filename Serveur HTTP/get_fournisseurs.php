@@ -1,6 +1,6 @@
 <?php
-require_once("classes/daoFournisseur.php");
-require_once("connect.php");
+require_once("../dao/classes/daoFournisseur.php");
+require_once("../dao/connect.php");
 
 $objFournisseur = new DaoFournisseur();
 $fournisseur = new Fournisseur();
