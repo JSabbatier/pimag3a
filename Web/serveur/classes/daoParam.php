@@ -29,7 +29,7 @@ class DaoParam
 	{
 		$query="select * from param where id=:id";
 		$rs=$this->dbh->prepare($query);
-		$rs->bindParam(':id',$id);
+		$rs->bin(':id',$id);
 		
 		$rs->execute();
 		
@@ -51,11 +51,11 @@ class DaoParam
 		return $param;
 	}
 	
-	public function getParamByTypeParam($type_param)
+	public function getParamByTypeParam($id)
 	{
 		$query="select * from param where type_param=:type_param";
 		$rs=$this->dbh->prepare($query);
-		$rs->bindParam(':type_param',$type_param);
+		$rs->bin(':type_param',$type_param);
 		
 		$rs->execute();
 		

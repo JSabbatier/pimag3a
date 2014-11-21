@@ -18,7 +18,7 @@ class Expedition
 	/***********************************************
 						getters
 	************************************************/
-	public function getIdExpediteur()
+	public function getIdExpedition()
 	{
 		return $this->id;
 	}
@@ -37,7 +37,7 @@ class Expedition
 	/***********************************************
 						setters
 	************************************************/
-	public function setIdExpediteur()
+	public function setIdExpedition()
 	{
 		$this->id;
 	}

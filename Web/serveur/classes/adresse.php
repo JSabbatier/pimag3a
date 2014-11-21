@@ -1,6 +1,6 @@
 <?php 
 
-class Mesure
+class Adresse
 {
 	private $id_adresse_adresse;
 	private $id_adresse_client;

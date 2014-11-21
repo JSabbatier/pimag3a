@@ -1,6 +1,6 @@
 <?php
 require_once("mesure.php");
-class daoMesure
+class DaoMesure
 {
 	public function __construct()
 	{

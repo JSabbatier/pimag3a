@@ -1,6 +1,6 @@
 <?php
 require_once("client.php");
-class daoClient
+class DaoClient
 {
 	public function __construct()
 	{
@@ -47,7 +47,7 @@ class daoClient
 		return $client;
 	}
 	
-	public function getListOfClient()
+	public function getListOfClientByid($id)
 	{
 		$query="select id_client from client where id_client=:idClient";
 		$rs=$this->dbh->prepare($query);

@@ -6,9 +6,12 @@ class Panier
 	private $idCommande;
 	private $qualite;
 	private $quantite;
+	private $longueur;
 	private $marquage;
 	private $prixNegoce;
 	private $devise;
+	private $controle;
+	private $idFournisseurCmd;
 	
 	/**********************************************************
                        construtor    
@@ -50,7 +53,18 @@ class Panier
 	{
 		return $this->devise;
 	}
-	
+	public function getControle()
+	{
+		return $this->controle;	
+	}
+	public function getIdCommandeFournisseur()
+	{
+		return $this->idFournisseurCmd;	
+	}
+	public function getLongueur()
+	{
+		return $this->longueur;
+	}
 		
 	/***********************************************
 						setters
@@ -82,6 +96,18 @@ class Panier
 		public function setDevise($devise)
 	{
 		$this->devise=$devise;
+	}
+		public function setControle($controle)
+	{
+		$this->controle=$controle;	
+	}
+	public function setIdCmommandeFournisseur($idcmd)
+	{
+		$this->idFournisseurCmd=$idcmd;
+	}
+	public function setLongueur($long)
+	{
+		$this->longueur=$long;	
 	}
 	
 }
