@@ -1,6 +1,6 @@
 <?php
 require_once("panier.php");
-class daoPanier
+class DaoPanier
 {
 	public function __construct()
 	{
@@ -43,6 +43,10 @@ class daoPanier
 		$panier->setPrixNegocier($row['prix_negocie']);
 		$panier->setQualite($row['qualite']);
 		$panier->setQuantite($row['quantite']);
+		$panier->setControle($row['controle']);
+		$panier->setLongueur($row['longueur']);
+		$panier->setIdCmommandeFournisseur($row['id_commande_fournisseur']);
+		$panier->setTaille($row['taille']);
 		
 		return $panier;
 	}
@@ -52,23 +56,29 @@ class daoPanier
 		$tmp = new Panier;
 		$tmp = $panier;
 		
-		$query="insert into panier (id_commande,qualite,quantite,marquage,prix_negocie,devise) values (:idcmd,:qualite,:quantite,:marquage,:prixNegocie,:devise)";
+		$query="insert into panier (id_commande,qualite,quantite,longeur,marquage,prix_negocie,devise,controle,id_commande_fournisseur,taille) values (:idcmd,:qualite,:quantite,:longueur,:marquage,:prixNegocie,:devise,:controle,:idCmdF,:taille)";
 		$rs=$this->dbh->prepare($query);
 		
 		
+		$rs->bindParam(':taille',$tmp->getTaille());
 		$rs->bindParam(':idcmd',$tmp->getIdCommande());
 		$rs->bindParam(':qualite',$tmp->getQualite());
+		$rs->bindParam(':longueur',$tmp->getLongueur());
 		$rs->bindParam(':quantite',$tmp->getQuantite());
 		$rs->bindParam(':marquage',$tmp->getMarquage());
 		$rs->bindParam(':prixNegocie',$tmp->getPrixNegocier());
 		$rs->bindParam(':devise',$tmp->getDevise());
+		$rs->bindParam(':controle',$tmp->getControle());
+		$rs->bindParam(':idCmF',$tmp->getIdCommandeFournisseur());
+		
 		
 		$rs->execute();
+		return $this->dbh->lastInsertId();
 	}
 	
 	public function getListOfPanierByCommande($idcommande)
 	{
-		$query="select id_panier from panier where id_commande=:idcmd";
+		$query="select * from panier where id_commande=:idcmd";
 		$rs=$this->dbh->prepare($query);
 		
 		$rs->bindParam(':idcmd',$idcommande);
@@ -81,6 +91,27 @@ class daoPanier
 		}
 		return $list;
 		
+	}
+	public function updatePanier($panier)
+	{
+		$tmp = new Panier;
+		$tmp = $panier;
+		$query="update panier set(id_commande=:idcmd,qualite=:qualite,quantite=:quantite,longeur=:longueur,marquage=:marquage,prix_negocie=:prixNegocie,devise=:devise,controle=:controle,id_commande_fournisseur=:idCmdF,taille=:taille) where id_panier=:id";
+		
+		$rs=$this->dbh->prepare($query);
+		
+		
+		$rs->bindParam(':taille',$tmp->getTaille());
+		$rs->bindParam(':idcmd',$tmp->getIdCommande());
+		$rs->bindParam(':qualite',$tmp->getQualite());
+		$rs->bindParam(':longueur',$tmp->getLongueur());
+		$rs->bindParam(':quantite',$tmp->getQuantite());
+		$rs->bindParam(':marquage',$tmp->getMarquage());
+		$rs->bindParam(':prixNegocie',$tmp->getPrixNegocier());
+		$rs->bindParam(':devise',$tmp->getDevise());
+		$rs->bindParam(':controle',$tmp->getControle());
+		$rs->bindParam(':idCmF',$tmp->getIdCommandeFournisseur());
+		$rs->execute();
 	}
 	
 }

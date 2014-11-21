@@ -84,7 +84,7 @@ public function updateParam ($param)
             $tmp = new Param;
             $tmp= $param;
              
-            $query = "UPDATE param SET type_param=:typeParam, val_alpha=:valChar, val_alpha1= :valChar1, val_alpha2=:valChar2, val_int= :valInt, val_int2=:valInt2, val_int3=:valInt3 WHERE id= :id";
+            $query = "UPDATE param SET nom=:nom,type_param=:typeParam, val_char=:valChar, val_char3= :valChar3, val_char2=:valChar2, val_int= :valInt, val_int2=:valInt2, val_float= :valfloat, val_float2= :valfloat2, val_float3= :valfloat3, val_int3=:valInt3 WHERE id= :id";
              
             $queryPrepared = $this->dbh->prepare($query);
             $queryPrepared->bindParam(':id',$tmp->getId());

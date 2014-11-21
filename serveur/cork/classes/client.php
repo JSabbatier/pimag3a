@@ -5,8 +5,12 @@ class Client
 	private $idClient;
 	private $nomClient;
 	private $numeroTel;
-	private $adresseFacturation;
-	private $adresseLivraison;
+	private $nomContact;
+	private $emailContact;
+	private $raison;
+	private $idCommercial;
+	private $etat;
+	private $fax;
 	
 	/**********************************************************
                        construtor    
@@ -32,14 +36,30 @@ class Client
 	{
 		return $this->numeroTel;
 	}
-	public function getAdressefacturation()
+	public function getNomContact()
 	{
-		return $this->adressefacturation;
+		return $this->nomContact;
 	}
-	public function getAdresseLivraison()
+	public function getEmailContact()
 	{
-		return $this->adresseLivraison;
+		return $this->emailContact;
 	}	
+	public function getRaison()
+	{
+		return $this->raison;
+	}
+	public function getIdCommercial()
+	{
+		return $this->idCommercial;
+	}
+	public function getEtat()
+	{
+		return $this->etat;
+	}
+	public function getFax()
+	{
+		return $this->fax;
+	}
 		
 	/***********************************************
 						setters
@@ -56,15 +76,30 @@ class Client
 	{
 		$this->numeroTel=$numeroTel;
 	}
-	public function setAdressefacturation($adressefacturation)
+	public function setNomContact($nomContact)
 	{
-		$this->adressefacturation=$adressefacturation;
+		$this->nomContact=$nomContact;
 	}
-	public function setAdresseLivraison($adresseLivraison)
+	public function setEmailContact($emailContact)
 	{
-		$this->adresseLivraison=$adresseLivraison;
+		$this->emailContact=$emailContact;
 	}
-
+	public function setRaison($raison)
+	{
+		$this->raison=$raison;
+	}
+	public function setIdCommercial($idCommercial)
+	{
+		$this->idCommercial=$idCommercial;
+	}
+	public function setEtat($etat)
+	{
+		$this->etat=$etat;
+	}
+	public function setFax($fax)
+	{
+		$this->fax=$fax;
+	}
 	
 }
 ?>

@@ -1,12 +1,12 @@
-<?php 
-
-class Mesure
+<?php
+class MesureD
 {
 	private $id;
-	private $id_arrivage;
-	private $tca_fournisseur;
-	private $tca_interne;
+	private $idPanier;
+	private $tcaInt;
+	private $capilarite;
 	private $gout;
+	
 	
 	/**********************************************************
                        construtor    
@@ -20,21 +20,22 @@ class Mesure
 	/***********************************************
 						getters
 	************************************************/
+	
 	public function getId()
 	{
 		return $this->id;
 	}
-	public function getIdArrivage()
+	public function getIdPanier()
 	{
-		return $this->id_arrivage;
+		return $this->idPanier;
 	}
-	public function getTCAFournisseur()
+	public function getCapilarite()
 	{
-		return $this->tca_fournisseur;
+		return $this->capilarite;
 	}
 	public function getTCAInterne()
 	{
-		return $this->tca_interne;
+		return $this->tcaInt;
 	}
 	public function getGout()
 	{
@@ -48,22 +49,21 @@ class Mesure
 	{
 		$this->id=$id;
 	}
-	public function setIdArrivage($idArrivage)
+	public function setIdPanier($idPanier)
 	{
-		$this->idArrivage=$idArrivage;
+		$this->idPanier=$idPanier;
 	}
-	public function setTCAFournisseur($tca_fournisseur)
+	public function setCapilarite($capi)
 	{
-		$this->tca_fournisseur=$tca_fournisseur;
+		$this->capilarite=$capi;
 	}
 	public function setTCAInterne($tca_interne)
 	{
-		$this->tca_interne=$tca_interne;
+		$this->tcaInt=$tca_interne;
 	}
 	public function setGout($gout)
 	{
 		$this->gout=$gout;
-	}
-	
+	}	
 }
 ?>
