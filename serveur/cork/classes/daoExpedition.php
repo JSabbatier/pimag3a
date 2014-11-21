@@ -81,7 +81,7 @@ class DaoExpedition
 		return $list;
 		
 	}
-	public function addExpedition($expedition)
+	public function ajoutExpedition($expedition)
 	{
 		$tmp = new Expedition;
 		$tmp = $expedition;
@@ -92,7 +92,9 @@ class DaoExpedition
 		$rs->bindParam(':qte',$tmp->getQuantite());
 		
 		$rs->execute();
+		return $this->dbh->lastInsertId();
 	}
+	
 	public function updateExpedition($expe)
 	{
 		$tmp = new Expedition;

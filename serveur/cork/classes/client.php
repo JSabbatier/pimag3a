@@ -7,6 +7,9 @@ class Client
 	private $numeroTel;
 	private $adresseFacturation;
 	private $adresseLivraison;
+	private $email;
+	private $contact;
+	private $type;
 	
 	/**********************************************************
                        construtor    
@@ -40,6 +43,18 @@ class Client
 	{
 		return $this->adresseLivraison;
 	}	
+	public function getEmail()
+	{
+		return $this->email;
+	}
+	public function getContact()
+	{
+		return $this->contact;
+	}
+	public function getType()
+	{
+		return $this->type;
+	}
 		
 	/***********************************************
 						setters
@@ -64,7 +79,18 @@ class Client
 	{
 		$this->adresseLivraison=$adresseLivraison;
 	}
-
+	public function setEmail($email)
+	{
+		$this->email=$email;
+	}
+	public function setContact($contact)
+	{
+		$this->contact=$contact;
+	}
+	public function setType($type)
+	{
+		$this->type=$type;
+	}
 	
 }
 ?>

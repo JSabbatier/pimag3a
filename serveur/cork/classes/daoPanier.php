@@ -43,6 +43,9 @@ class daoPanier
 		$panier->setPrixNegocier($row['prix_negocie']);
 		$panier->setQualite($row['qualite']);
 		$panier->setQuantite($row['quantite']);
+		$panier->setControle($row['controle']);
+		$panier->setLongueur($row['longueur']);
+		$panier->setIdCmommandeFournisseur($row['id_commande_fournisseur']);
 		
 		return $panier;
 	}
@@ -52,18 +55,23 @@ class daoPanier
 		$tmp = new Panier;
 		$tmp = $panier;
 		
-		$query="insert into panier (id_commande,qualite,quantite,marquage,prix_negocie,devise) values (:idcmd,:qualite,:quantite,:marquage,:prixNegocie,:devise)";
+		$query="insert into panier (id_commande,qualite,quantite,longeur,marquage,prix_negocie,devise,controle,id_commande_fournisseur) values (:idcmd,:qualite,:quantite,:longueur,:marquage,:prixNegocie,:devise,:controle,:idCmdF)";
 		$rs=$this->dbh->prepare($query);
 		
 		
 		$rs->bindParam(':idcmd',$tmp->getIdCommande());
 		$rs->bindParam(':qualite',$tmp->getQualite());
+		$rs->bindParam(':longueur',$tmp->getLongueur());
 		$rs->bindParam(':quantite',$tmp->getQuantite());
 		$rs->bindParam(':marquage',$tmp->getMarquage());
 		$rs->bindParam(':prixNegocie',$tmp->getPrixNegocier());
 		$rs->bindParam(':devise',$tmp->getDevise());
+		$rs->bindParam(':controle',$tmp->getControle());
+		$rs->bindParam(':idCmF',$tmp->getIdCommandeFournisseur());
+		
 		
 		$rs->execute();
+		return $this->dbh->lastInsertId();
 	}
 	
 	public function getListOfPanierByCommande($idcommande)
