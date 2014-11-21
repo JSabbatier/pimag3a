@@ -11,46 +11,43 @@
 	        <script src="jquery-2.1.1.min.js" type="text/javascript"></script> 
 	        <script type="text/javascript">
 	            
-	            var chart;
+	            //Declaration des graphes
+	            var chart; // chart Pie
+	            var barGraph; 
+
 	            var chartcolumn;
 	            var legend;
+	            var nbrValide = 0;
+				var nbrNoValide = 0;
+				var nbrLot=0;
+				
+
+				var dataTab; // Tableau de type de lot 
+
 	            var chartData = [
-	                {
-	                    "country": "Lithuania",
-	                    "value": 260
-	                },
-	                {
-	                    "country": "Ireland",
-	                    "value": 201
-	                },
-	                {
-	                    "country": "Germany",
-	                    "value": 65
-	                },
-	                {
-	                    "country": "Australia",
-	                    "value": 39
-	                },
-	                {
-	                    "country": "UK",
-	                    "value": 19
-	                },
-	                {
-	                    "country": "Latvia",
-	                    "value": 10
-	                }
+	            	{
+						"lot": "Conforme",
+						"value": nbrValide,
+					},
+					{
+					    "lot": "Non conforme",
+					    "value": nbrNoValide,
+					}
 	            ];
 
-	
-
-	            AmCharts.ready(function () {
+	            AmCharts.ready(function () 
+	            {
 	                // PIE CHART
 	                chart = new AmCharts.AmPieChart();
+	                chart.animationPlayed	= false; 
 	                chart.dataProvider = chartData;
-	                chart.titleField = "country";
+
+	                // chart.titles = "Taux de conformité des lots";
+	                chart.titleField = "lot";
 	                chart.valueField = "value";
 	                chart.outlineColor = "#FFFFFF";
 	                chart.outlineAlpha = 0.8;
+	                chart.titles
 	                chart.outlineThickness = 2;
 	                chart.balloonText = "[[title]]<br><span style='font-size:14px'><b>[[value]]</b> ([[percents]]%)</span>";
 	                // this makes the chart 3D
@@ -59,45 +56,159 @@
 
 	                // WRITE
 	                chart.write("chartdiv");
+
 	            });
 
 	       
                 //REQUE CHOIX FOURNISSEUR ET CHANGEMENT DES DONNEES
-                $(document).ready( function() {
+                $(document).ready( function() 
+                {
                     var $fournisseur = $('#fournisseur');
+                    var $submitBtn 	 = $('#submitBtn');
                     
                  // chargement des régions
-                    $.ajax({
-                        url: 'http://perso.imerir.com/tprak/test.php',
-                        //data: 'go', // on envoie $_GET['go']
-                        //dataType: 'json', // on veut un retour JSON
-                        success: function(json) {
-                            $.each(json, function(index, value) { // pour chaque noeud JSON
+                    $.ajax
+                    ({
+                        //url: 'http://perso.imerir.com/tprak/test.php',
+                        url: 'http://localhost/test.php',
+                        type : 'POST',
+                        dataType: 'json', // on veut un retour JSON
+                        success: function(json)
+                        {
+                            $.each(json, function(index, value) 
+                            { // pour chaque noeud JSON
                                 // on ajoute l option dans la liste
                                 $fournisseur.append('<option value="'+ index +'">'+ value +'</option>');
                             });
                         }
                     });
 
-                 /* à la sélection d une région dans la liste
-			    $fournisseur.on('change', function() {
-			        var val = $(this).val(); // on récupère la valeur de la région
-			 
-			        if(val != '') { 
-			            $.ajax({
-			                url: 'perso.imerir.com/tprak/www/test.php',
-			                data: 'id_region='+ val, // on envoie $_GET['id_region']
-			                dataType: 'json',
-			                success: function(json) {
-			                    $.each(json, function(index, value) {
-			                        $departements.append('<option value="'+ index +'">'+ value +'</option>');
-			                    });
-			                }
-			            });
-			        }
-    			});*/
+               		 // A la sélection d'un fournisseur dans la liste
+				    $fournisseur.on('change', function() 
+				    {
+				        var val = $(this).val(); // on récupère la valeur du fournisseur
+				 		var adresse = $('#adresse');
+				 		var telephone =$('#telephone');
+				 		var fax = $('#fax ');
+				 		var mail =$('#mail');
 
-             });
+
+
+				        if(val != '')
+				        { 
+				            $.ajax
+				            ({
+				                url: 'http://localhost/test.php',
+				                //type : 'POST',
+				                data: 'id_fournisseur='+ val, // on envoie $_GET['id_region']
+				                dataType: 'json',
+				                success: function(json) 
+				                {
+				                        adresse.html(json["adresse"]);
+				                        telephone.html(json["numero_tel"]);
+				                        fax.html(json["fax"]);  
+				                        mail.html(json["email"]); 
+			                	}
+			           	 	});
+			        	}
+
+    				});
+
+    				function saveLot(taille,qualite,conformite) 
+    				{
+					      this.taille = taille;
+					      this.qualite = qualite;
+					      this.conformite = conformite;
+					}
+
+
+	    			$submitBtn.on('click', function()
+				    {
+						var dataTable = $('#dataTable');
+				    	var fournisseur = $('#fournisseur');
+				    	var val= $(fournisseur).val();
+				    	var dateDebut = $('#dateDebut').val();
+				    	var dateFin = $('#dateFin').val();
+				    	
+
+				    	if (fournisseur == '' || dateDebut == '' || dateFin == '') 
+				    	{
+							alert("Please Fill All Fields");
+						}
+						else
+						{
+							$.ajax
+							({
+								url:'http://localhost/test.php',
+								data: { 'id_fournisseur':val, 'dateDebut':dateDebut , 'dateFin':dateFin},
+								type:'POST',
+								dataType: 'json',
+								success: function(json) 
+								{
+									var dataTab =[];
+									dataTab["nbrTotalValide"] = 0;
+									dataTab["nbrTotalNoValide"] = 0;
+									//nbrValide = 0;
+									//nbrNoValide = 0;
+									nbrLot=0;
+
+					                 $.each(json["lots"], function(index, value) 
+					                 {
+					                 	
+	                               		dataTable.append("<tr><td>"+value["date"] +"</td><td>" + value["id_lot"]+"</td><td>"+ value["validite"] +"</td></tr>");
+
+	                               		nbrLot = nbrLot + 1;
+                               		
+                               			if (dataTab[value['taille']] == undefined)   
+                               				dataTab[value['taille']] = [];   
+                               			if (dataTab[value['taille']][value['qualite']] == undefined)   
+                               				dataTab[value['taille']][value['qualite']] = [];  
+	                               		if (value['validite']== "true")
+	                               		{ 
+	                               			if (dataTab[value['taille']][value['qualite']]["nbrValide"] == undefined)
+	                               				dataTab[value['taille']][value['qualite']]["nbrValide"] = 0;
+		                               		dataTab[value['taille']][value['qualite']]["nbrValide"] ++;
+		                               		dataTab["nbrTotalValide"] =dataTab["nbrTotalValide"]+1;
+	                               		}
+	                               		else
+	                               		{
+	                               			if (dataTab[value['taille']][value['qualite']]["nbrValide"] == undefined)
+	                               				dataTab[value['taille']][value['qualite']]["nbrValide"] = 0;
+		                               		dataTab[value['taille']][value['qualite']]["nbrNoValide"] ++;
+		                               		dataTab["nbrTotalNoValide"] =dataTab["nbrTotalNoValide"] +1;
+	                               		}
+
+	                               	 });
+
+	                               	 	var x = dataTab[38][3]["nbrValide"];
+	                               	 	var y = dataTab["nbrTotalValide"];
+
+	                               	 	alert( x);
+					                 	nbrNoValide=20;
+									
+									var lotData = [
+						                {
+						                    "lot": "Conforme",
+						                    "value": dataTab["nbrTotalValide"].lenght,
+						                },
+						                {
+						                    "lot": "Non conforme",
+						                    "value": dataTab["nbrTotalValide"].lenght,
+						                }
+						               
+						            ];
+
+						            chart.dataProvider = lotData;
+						            chart.titleField = "lot";
+						            chart.valueField = "value";
+									// this makes the chart 3D
+						            chart.validateData();
+						             
+								}	
+							});
+						}
+				    });
+             	});
 
 	        </script>
 	</head>
@@ -105,32 +216,60 @@
 	<body>
 
 		<H1> FICHE FOURNISSEUR</H1>
-		<form>
-			<label> Nom du fournisseur:</label> 
+		
+		<form id="fournisseur_form" method="post">
+			<label> Nom du fournisseur*</label> 
             <select id="fournisseur" name="fournisseur">
                 <option value="">-- Fournisseur --</option>
              </select>
             <br>
-			<label> Adresse: </label> <div id="adresse" name="adresse"> </div>
-			<label> Téléphone:</label> <div id="telephone" name="telephone"> </div>
-			<label> Fax:</label> <div id="fax" name="fax"> </div>
-			<label> Mail:</label> <div id="mail" name="mail"> </div>
+			<label> Adresse: </label> 	<div id="adresse" name="adresse"> </div>
+			<label> Téléphone:</label> 	<div id="telephone" name="telephone"> </div>
+			<label> Fax:</label> 		<div id="fax" name="fax"> </div>
+			<label> Mail:</label> 		<div id="mail" name="mail"> </div>
 			<br>
-			<label> Date du </label> <input type="date" name="datePremierLot"> <label> au </label><input type="date" name="dateDernierLot">
+			<label> Date du* </label> 	<input type="date" id="dateDebut" name="dateDebut"  required>
+			<label> au </label>			<input type="date" id="dateFin" name="dateFin"  required>
+			<input id="submitBtn" type="button" value="Submit">
 		</form>
 		
-		<div id="chartdiv" style="width: 40%; height: 400px;"></div>
+		<table id="dataTable" name="dateTable" style="display:none;">
+			 <tr>
+		       <th >Date</th>
+		       <th >Lot</th>
+		       <th >Validité</th>
+   			</tr>
+   		</table>	
 
-		
-		
+		<div id="chartdiv" style="width: 40%; height: 200px;"></div>
 
+		<div id="barGraph" style="width: 40%; height: 400px;"></div>
+		
+		<form id="product_form" method="post">
+			<div id="typeCheckbox">
+				<label>Taille</label><br>
+				<input type="checkbox" name="type_38" value="type_38" checked> 38<br>
+				<input type="checkbox" name="type_44" value="type_44" checked> 44<br>
+				<input type="checkbox" name="type_49" value="type_49" checked> 49<br>
+			</div>
+			<div id="typeCheckbox">
+				<label>Qualité</label><br>
+				<input type="checkbox" name="qualite_1" value="qualite_1" >Qualité 1<br>
+				<input type="checkbox" name="qualite_2" value="qualite_2" >Qualité 2<br>
+				<input type="checkbox" name="qualite_3" value="qualite_3" >Qualité 3<br>
+				<input type="checkbox" name="qualite_4" value="qualite_4" >Qualité 4<br>
+				<input type="checkbox" name="qualite_5" value="qualite_5" >Qualité 5<br>
+				<input type="checkbox" name="qualite_6" value="qualite_6" >Qualité 6<br>
+				<input type="checkbox" name="qualite_7" value="qualite_7" >Qualité 7<br>
+				<input type="checkbox" name="qualite_8" value="qualite_8" >Qualité 8<br>
+				<input type="checkbox" name="qualite_9" value="qualite_9" >Qualité 9<br>
+			</div>
+			<input id="refreshBarGraphBtn" type="button" value="Submit">
+		<form method="post">
 
 
 
 
 	</body>
-
-
-
 
 </html>
