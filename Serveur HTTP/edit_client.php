@@ -1,16 +1,17 @@
 <?php
-require_once("../dao/classes/daoClient.php");
-require_once("../dao/classes/daoAdresse.php");
-require_once("../dao/connect.php");
+require_once("../../../../mdacosta/www/pima3a/classes/daoClient.php");
+require_once("../../../../mdacosta/www/pima3a/classes/daoAdresse.php");
+require_once("../../../../mdacosta/www/pima3a/connect.php");
 
 $retour_txt = "";
 $retour_code = "400 Bad Request";
 if (isset($_POST["id_client"]))
 {
-	$id = $_POST["id_client"]
+	$id = $_POST["id_client"];
 	if (is_numeric($id))
 	{
-		$id = intval($id)
+		$id_client = intval($id);
+		$client = $objClient -> getClientById($id_client);
 	}
 	else
 	{
@@ -24,7 +25,7 @@ else
 	$retour_code = "400 Bad Request";
 }
 
-if (isset($_POST["operation"])
+if (isset($_POST["operation"]))
 {
 	$operation = $_POST["operation"];
 }
@@ -41,7 +42,6 @@ $objAdresse = new DaoAdresse();
 $adresse = new Adresse();
 $listeAdresse = Array();
 
-$client = $objClient -> getClientById($id);
 $retour = Array();
 
 if ($operation == "ajouter")
@@ -85,7 +85,7 @@ else if ($operation == "modifier")
 	if(isset($_POST["commercial"]))
 		$client -> setIdCommercial($_POST["commercial"]);
 	if(isset($_POST["etat"]))
-		$client -> setEtat($_POST["etat"]));
+		$client -> setEtat($_POST["etat"]);
 	if(isset($_POST["adresse_f"]))
 	{
 		$adresse = new Adresse();		
