@@ -5,11 +5,12 @@ class Client
 	private $idClient;
 	private $nomClient;
 	private $numeroTel;
-	private $adresseFacturation;
-	private $adresseLivraison;
-	private $email;
-	private $contact;
-	private $type;
+	private $nomContact;
+	private $emailContact;
+	private $raison;
+	private $idCommercial;
+	private $etat;
+	private $fax;
 	
 	/**********************************************************
                        construtor    
@@ -35,25 +36,29 @@ class Client
 	{
 		return $this->numeroTel;
 	}
-	public function getAdressefacturation()
+	public function getNomContact()
 	{
-		return $this->adressefacturation;
+		return $this->nomContact;
 	}
-	public function getAdresseLivraison()
+	public function getEmailContact()
 	{
-		return $this->adresseLivraison;
+		return $this->emailContact;
 	}	
-	public function getEmail()
+	public function getRaison()
 	{
-		return $this->email;
+		return $this->raison;
 	}
-	public function getContact()
+	public function getIdCommercial()
 	{
-		return $this->contact;
+		return $this->idCommercial;
 	}
-	public function getType()
+	public function getEtat()
 	{
-		return $this->type;
+		return $this->etat;
+	}
+	public function getFax()
+	{
+		return $this->fax;
 	}
 		
 	/***********************************************
@@ -71,25 +76,29 @@ class Client
 	{
 		$this->numeroTel=$numeroTel;
 	}
-	public function setAdressefacturation($adressefacturation)
+	public function setNomContact($nomContact)
 	{
-		$this->adressefacturation=$adressefacturation;
+		$this->nomContact=$nomContact;
 	}
-	public function setAdresseLivraison($adresseLivraison)
+	public function setEmailContact($emailContact)
 	{
-		$this->adresseLivraison=$adresseLivraison;
+		$this->emailContact=$emailContact;
 	}
-	public function setEmail($email)
+	public function setRaison($raison)
 	{
-		$this->email=$email;
+		$this->raison=$raison;
 	}
-	public function setContact($contact)
+	public function setIdCommercial($idCommercial)
 	{
-		$this->contact=$contact;
+		$this->idCommercial=$idCommercial;
 	}
-	public function setType($type)
+	public function setEtat($etat)
 	{
-		$this->type=$type;
+		$this->etat=$etat;
+	}
+	public function setFax($fax)
+	{
+		$this->fax=$fax;
 	}
 	
 }

@@ -1,6 +1,6 @@
 <?php
 require_once("mesureD.php");
-class daoMesureD
+class DaoMesureD
 {
 	public function __construct()
 	{
@@ -45,7 +45,7 @@ class daoMesureD
 		return $mesure;
 	}
 	
-	public function ajoutmesure($mesure)
+	public function ajoutMesureD($mesure)
 	{
 		$tmp = new mesureD;
 		$tmp = $mesure;

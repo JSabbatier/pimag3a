@@ -1,6 +1,6 @@
 <?php
 require_once("mesureA.php");
-class daoMesureA
+class DaoMesureA
 {
 	public function __construct()
 	{
@@ -48,17 +48,17 @@ class daoMesureA
 	
 	public function ajoutmesureA($mesure)
 	{
-		$tmp = new Mesure;
+		$tmp = new MesureA;
 		$tmp = $mesure;
 		
-		$query="insert into mesure (id, id_arrivage, tca_fournisseur, tca_interne,gout) values (:id,:id_arrivage,:tca_fournisseur,:tca_interne,:gout)";
+		$query="insert into mesure (id_arrivage, tca_fournisseur, tca_interne,gout) values (:id,:id_arrivage,:tca_fournisseur,:tca_interne,:gout)";
 		$rs=$this->dbh->prepare($query);	
 		
-		$rs->bindParam(':id',$tmp->getId());
-		$rs->bindParam(':id_arrivage',$tmp->getIdarrivage());
-		$rs->bindParam(':tca_fournisseur',$tmp->getTCAFournisseur());
-		$rs->bindParam(':tca_interne',$tmp->getTCAInterne());
-		$rs->bindParam(':gout',$tmp->getGout());
+		
+		$rs->bindValue(':id_arrivage',$tmp->getIdarrivage());
+		$rs->bindValue(':tca_fournisseur',$tmp->getTCAFournisseur());
+		$rs->bindValue(':tca_interne',$tmp->getTCAInterne());
+		$rs->bindValue(':gout',$tmp->getGout());
 		$rs->execute();
 		return $this->dbh->lastInsertId();
 	}
@@ -70,7 +70,7 @@ class daoMesureA
 		$tmp = new MesureA;
 		$tmp= $mesureA;
 		 
-		$query = "UPDATE mesureA SET id=:id, id_arrivage=:id_arrivage, tca_fournisseur=:tca_fournisseur, tca_interne=:tca_interne, gout=:gout";
+		$query = "UPDATE mesure_A SET id_arrivage=:id_arrivage, tca_fournisseur=:tca_fournisseur, tca_interne=:tca_interne, gout=:gout where id=:id";
 		 
 		$queryPrepared = $this->dbh->prepare($query);
 		$queryPrepared->bindParam(':id',$tmp->getId());

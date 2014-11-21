@@ -47,6 +47,7 @@ class DaoArrivage
 		$arrivage->setQualite($row['qualite']);
 		$arrivage->setQuantite($row['quantite']);
 		$arrivage->setValidite($row['validite']);
+		$arrivage->setTaille($row['taille']);
 		
 		return $arrivage;
 		
@@ -56,7 +57,7 @@ class DaoArrivage
 	{
 		$tmp = new Arrivage;
 		$tmp = $arrivage;
-		$query="insert into arrivage (date,id_fournisseur,qualite,quantite,numero_tracabilite,validite,prix_achat,devise,code_barre,etat,controle) values(:date,:id_fournisseur,:qualite,:quantite,:numero_tracabilite,:validite,:prix_achat,:devise,:code_barre,:etat,:controle)";
+		$query="insert into arrivage (date,id_fournisseur,qualite,quantite,numero_tracabilite,validite,prix_achat,devise,code_barre,etat,controle,taille) values(:date,:id_fournisseur,:qualite,:quantite,:numero_tracabilite,:validite,:prix_achat,:devise,:code_barre,:etat,:controle,:taille)";
 		$rs->dbh->prepare($query);
 		
 		$rs->bindParam(':controle', $tmp->getControle());
@@ -70,6 +71,7 @@ class DaoArrivage
 		$rs->bindParam(':devise',$tmp->getdevise());
 		$rs->bindParam(':code_barre',$tmp->getCodeBarre());
 		$rs->bindParam(':etat',$tmp->getEtat());
+		$rs->bindParam(':taille',$tmp->getTaille());
 		
 		
 		$rs->execute();
@@ -80,7 +82,7 @@ class DaoArrivage
 	{
 		$tmp = new Arrivage;
 		$tmp = $arrivage;
-		$query="update arrivage SET (date=:date,id_fournisseur=:id_fournisseur,qualite=:qualite,quantite=:quantite,numero_tracabilite=:numero_tracabilite,validite=:validite,prix_achat=:prix_achat,devise=:devise,code_barre=:code_barre,etat=:etat,controle=:controle) where id_lot=:id";
+		$query="update arrivage SET (date=:date,id_fournisseur=:id_fournisseur,qualite=:qualite,quantite=:quantite,numero_tracabilite=:numero_tracabilite,validite=:validite,prix_achat=:prix_achat,devise=:devise,code_barre=:code_barre,etat=:etat,controle=:controle, taille=:taille) where id_lot=:id";
 		$rs->dbh->prepare($query);
 		$rs->bindParam(':id', $tmp->getIdLot());
 		$rs->bindParam(':controle', $tmp->getControle());
@@ -94,6 +96,7 @@ class DaoArrivage
 		$rs->bindParam(':devise',$tmp->getdevise());
 		$rs->bindParam(':code_barre',$tmp->getCodeBarre());
 		$rs->bindParam(':etat',$tmp->getEtat());
+		$rs->bindParam(':taille',$tmp->getTaille());
 		
 		$rs->execute();
 	}

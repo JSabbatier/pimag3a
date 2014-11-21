@@ -1,6 +1,5 @@
 <?php 
-
-class Mesure
+class MesureA
 {
 	private $id;
 	private $id_arrivage;

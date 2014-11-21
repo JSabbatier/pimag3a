@@ -133,7 +133,7 @@
                     <h2 class="intro-text text-center">Générateur de test | <strong>panier</strong>
                     </h2>
                     <hr>
-
+                    <b>à faire:</b> tous les bouchons ne font pas tous les tests<br>
                     <input type="button" value="Simuler un panier" id="BtnTestPan" onclick="TestGenPan();"><br><br>
 
                     <div id="testGenPan"></div>
@@ -176,12 +176,12 @@ function TestGenArr()
 
     for (var i=0;i<16;i++){
         // liste des variables utilisées
-        longueur = (((Math.random()*102)/100)+43.49).toString().substring(0,5);
-        diam1 = (((Math.random()*102)/100)+23.49).toString().substring(0,5);
-        diam2 = (((Math.random()*102)/100)+23.49).toString().substring(0,5);
+        longueur = (((Math.random()*102)/100)+43.49).toFixed(2);
+        diam1 = (((Math.random()*102)/100)+23.49).toFixed(2);
+        diam2 = (((Math.random()*102)/100)+23.49).toFixed(2);
         ovali = Math.round(Math.random() * 71.19)/100;
-        humi = (((Math.random()*204)/100)+3.98).toString().substring(0,4);
-        diam_comp = (((Math.random()*1017)/100)+89.83).toString().substring(0,5);
+        humi = (((Math.random()*204)/100)+3.98).toFixed(2);
+        diam_comp = (((Math.random()*1017)/100)+89.83).toFixed(2);
         // ajout d'un bouchon dans le tableau
         $("#tabgenarr").append("<tr align='center'><td>"+(i+1)+"</td><td>"+longueur+"</td><td>"+diam1+"</td><td>"+diam2+"</td><td>"+ovali+"</td><td>"+humi+"</td><td>"+diam_comp+"</td></tr>");
         // ajout d'un bouchon dans le JSON
@@ -211,12 +211,12 @@ function TestGenPan()
     infos.push(Long[Math.round(Math.random() * 2)]);//longueur
     infos.push(Math.round(Math.random() * 1000000));//quantite
     infos.push(Math.round(Math.random() * 9000)+1000);//origine
-    infos.push(Math.round(Math.random()*2)/100);//tca
+    infos.push(Math.round(Math.random()*202)/100);//tca
     infos.push(gout[Math.round(Math.random())]);//gout
-    infos.push(Math.round(Math.random()*100)/100);//tca
+    infos.push(Math.round(Math.random()*100)/100);//capil
     infos.push(derog[Math.round(Math.random())]);//derogation
 
-    $("#testGenPan").append("<table id='tabgenpaninf' width='100%' border='1'><tr ><stron><td align='center'>Qualié</td><td align='center'>Longueur</td><td align='center'>Quantité</td><td align='center'>Origine</td><td align='center'>TCA I</td><td align='center'>Goût</td><td align='center'>Capilation</td><td align='center'>Dérogation</td></tr></table><br>");
+    $("#testGenPan").append("<table id='tabgenpaninf' width='100%' border='1'><tr ><stron><td align='center'>Qualié</td><td align='center'>Longueur</td><td align='center'>Quantité</td><td align='center'>Origine</td><td align='center'>TCA Interne</td><td align='center'>Goût</td><td align='center'>Capilation</td><td align='center'>Dérogation</td></tr></table><br>");
     $("#tabgenpaninf").append("<tr><td align='center'>"+infos[0]+"</td><td align='center'>"+infos[1]+"</td><td align='center'>"+infos[2]+"</td><td align='center'>"+infos[3]+"</td><td align='center'>"+infos[4]+"</td><td align='center'>"+infos[5]+"</td><td align='center'>"+infos[6]+"</td><td align='center'>"+infos[7]+"</td></tr>");
 
     $("#testGenPan").append("<table id='tabgenpan' width='100%' border='1'><tr><td align='center'>Numero</td><td align='center'>Longueur</td><td align='center'>Diamètre 1</td><td align='center'>Diamètre 2</td><td align='center'>Ovalisation</td><td align='center'>Humidité</td><td align='center'>Diamètre AC</td></tr></table>");
@@ -225,12 +225,12 @@ function TestGenPan()
 
     for (var i=0;i<8;i++){
         // liste des variables utilisées
-        longueur = (((Math.random()*102)/100)+infos[1]-0.51).toString().substring(0,5);
-        diam1 = (((Math.random()*102)/100)+23.49).toString().substring(0,5);
-        diam2 = (((Math.random()*102)/100)+23.49).toString().substring(0,5);
-        ovali = Math.round(Math.random() * 71.19)/100;
-        humi = (((Math.random()*204)/100)+3.98).toString().substring(0,4);
-        diam_comp = (((Math.random()*1017)/100)+89.83).toString().substring(0,5);
+        longueur = (((Math.random()*102)/100)+infos[1]-0.51).toFixed(2);
+        diam1 = (((Math.random()*102)/100)+23.49).toFixed(2);
+        diam2 = (((Math.random()*102)/100)+23.49).toFixed(2);
+        ovali = Math.abs(diam1-diam2).toFixed(2);
+        humi = (((Math.random()*204)/100)+3.98).toFixed(2);
+        diam_comp = (((Math.random()*1017)/100)+89.83).toFixed(2);
         
         // ajout d'un bouchon dans le tableau
         $("#tabgenpan").append("<tr align='center'><td>"+(i+1)+"</td><td>"+longueur+"</td><td>"+diam1+"</td><td>"+diam2+"</td><td>"+ovali+"</td><td>"+humi+"</td><td>"+diam_comp+"</td></tr>");

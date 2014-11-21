@@ -90,6 +90,7 @@ class DaoCommande
 		$rs->bindParam(':id_commercial',$tmp->getIdCommercial());
 		$rs->bindParam(':code_barre',$tmp->getCodeBarre());
 		$rs->execute();
+		return $this->dbh->lastInsertId();
 	}
 	
 	public function updateCommande($commande)
@@ -99,7 +100,7 @@ class DaoCommande
 		$tmp = new Commande;
 		$tmp= $commande;
 		 
-		$query = "UPDATE param SET id_commande=:idCommande, id_client=:idClient, dt_commande=:dtCommande, dt_livraison_souhaite=:dtLivraisonSouhaite, dt_livraison_reel=:dtLivraisonReel, delai_paiment=:delaiPaiment, id_commercial=:idCommercial, code_barre=:codeBarre";
+		$query = "UPDATE commande SET id_client=:idClient, dt_commande=:dtCommande, dt_livraison_souhaite=:dtLivraisonSouhaite, dt_livraison_reel=:dtLivraisonReel, delai_paiment=:delaiPaiment, id_commercial=:idCommercial, code_barre=:codeBarre where id_commande=:idCommande";
 		 
 		$queryPrepared = $this->dbh->prepare($query);
 		$queryPrepared->bindParam(':id_commande',$tmp->getIdCommande());

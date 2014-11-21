@@ -14,6 +14,7 @@ class Arrivage
 	private $codebarre;
 	private $etat;
 	private $controle;
+	private $taille;
 	
 	/**********************************************************
                        construtor    
@@ -75,6 +76,10 @@ class Arrivage
 	{
 		return $this->etat;
 	}
+	public function getTaille()
+	{
+		return $this->taille;
+	}
 	
 		
 	/***********************************************
@@ -127,6 +132,10 @@ class Arrivage
 	public function setControle($controle)
 	{
 		$this->controle=$controle;
+	}
+		public function setTaille($taille)
+	{
+		$this->taille=$taille;
 	}
 }
 ?>
