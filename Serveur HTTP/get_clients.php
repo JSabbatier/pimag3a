@@ -14,6 +14,6 @@ foreach($liste_client as $tmp)
 	$client = $tmp;
 	$retour[$client -> getIdClient()] = $client -> getNomClient();
 }
-
+header("HTTP/1.1 200 OK");
 echo json_encode($retour);
 ?>
