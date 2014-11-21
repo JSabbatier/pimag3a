@@ -14,6 +14,8 @@
         }
 	</style>
     
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    
 </head>
 
 <body>
@@ -30,11 +32,7 @@
            <th>longueur</th>
            <th>diametre1</th>
            <th>diametre2</th>
-           <th>diametre Compressé</th>
-           <th>humidité</th>
-           <th>TCA Interne</th>
-           <th>TCA Fournisseur</th>
-           <th>Gout</th>
+           <th>diametreCompressé</th>
        </tr>
    </thead>
 
@@ -51,17 +49,6 @@
            <td><input  type="number" id="diametre1" min="0"></td>
            <td><input  type="number" id="diametre2" min="0"></td>
            <td><input  type="number" id="diametre_compresse" min="0"></td>
-           <td><input  type="number" id="humidité" min="0" max="100" value="0"></td>
-           <td><input  type="number" id="tca_interne" min="0" value="0"><br></td>
-           <td><input  type="number" id="tca_fournisseur" min="0" value="0"><br></td>
-           <td><input list="goutl"  id="gout" min="0">
-              <datalist id="goutl">
-              <option value="Oui">
-              <option value="Non">
-              <option value="Inconnu">
-            </datalist></td>
-           
-       </tr>
        <tr>
            <td>Bouchon 2</td>
            <td><input list="longueur"  id="choix_longueur" min="0">
@@ -72,16 +59,7 @@
             </datalist></td>
            <td><input  type="number" id="diametre1" min="0"></td>
            <td><input  type="number" id="diametre2" min="0"></td>
-           <td><input  type="number" id="diametre_compresse" min="0"></td> 
-           <td><input  type="number" id="humidité" min="0" max="100" value="0"></td>
-           <td><input  type="number" id="tca_interne" min="0" value="0"><br></td>
-           <td><input  type="number" id="tca_fournisseur" min="0" value="0"><br></td>
-           <td><input list="goutl"  id="gout" min="0">
-              <datalist id="goutl">
-              <option value="Oui">
-              <option value="Non">
-              <option value="Inconnu">
-            </datalist></td>                
+           <td><input  type="number" id="diametre_compresse" min="0"></td>               
        </tr>
        <tr>
            <td>Bouchon 3</td>
@@ -94,15 +72,6 @@
            <td><input  type="number" id="diametre1" min="0"></td>
            <td><input  type="number" id="diametre2" min="0"></td>
            <td><input  type="number" id="diametre_compresse" min="0"></td>
-           <td><input  type="number" id="humidité" min="0" max="100" value="0"></td>
-           <td><input  type="number" id="tca_interne" min="0" value="0"><br></td>
-           <td><input  type="number" id="tca_fournisseur" min="0" value="0"><br></td>
-           <td><input list="goutl"  id="gout" min="0">
-              <datalist id="goutl">
-              <option value="Oui">
-              <option value="Non">
-              <option value="Inconnu">
-            </datalist></td>
        </tr>
        <tr>
            <td>Bouchon 4</td>
@@ -115,15 +84,6 @@
            <td><input  type="number" id="diametre1" min="0"></td>
            <td><input  type="number" id="diametre2" min="0"></td>
            <td><input  type="number" id="diametre_compresse" min="0"></td>
-           <td><input  type="number" id="humidité" min="0" max="100" value="0"></td>
-           <td><input  type="number" id="tca_interne" min="0" value="0"><br></td>
-           <td><input  type="number" id="tca_fournisseur" min="0" value="0"><br></td>
-           <td><input list="goutl"  id="gout" min="0">
-              <datalist id="goutl">
-              <option value="Oui">
-              <option value="Non">
-              <option value="Inconnu">
-            </datalist></td>
        </tr>
        <tr>
            <td>Bouchon 5</td>
@@ -136,15 +96,6 @@
            <td><input  type="number" id="diametre1" min="0"></td>
            <td><input  type="number" id="diametre2" min="0"></td>
            <td><input  type="number" id="diametre_compresse" min="0"></td>
-           <td><input  type="number" id="humidité" min="0" max="100" value="0"></td>
-           <td><input  type="number" id="tca_interne" min="0" value="0"><br></td>
-           <td><input  type="number" id="tca_fournisseur" min="0" value="0"><br></td>
-           <td><input list="goutl"  id="gout" min="0">
-              <datalist id="goutl">
-              <option value="Oui">
-              <option value="Non">
-              <option value="Inconnu">
-            </datalist></td>
        </tr>
        <tr>
            <td>Bouchon 6</td>
@@ -157,15 +108,6 @@
            <td><input  type="number" id="diametre1" min="0"></td>
            <td><input  type="number" id="diametre2" min="0"></td>
            <td><input  type="number" id="diametre_compresse" min="0"></td>
-           <td><input  type="number" id="humidité" min="0" max="100" value="0"></td>
-           <td><input  type="number" id="tca_interne" min="0" value="0"><br></td>
-           <td><input  type="number" id="tca_fournisseur" min="0" value="0"><br></td>
-           <td><input list="goutl"  id="gout" min="0">
-              <datalist id="goutl">
-              <option value="Oui">
-              <option value="Non">
-              <option value="Inconnu">
-            </datalist></td>
        </tr>
        <tr>
            <td>Bouchon 7</td>
@@ -178,15 +120,6 @@
            <td><input  type="number" id="diametre1" min="0"></td>
            <td><input  type="number" id="diametre2" min="0"></td>
            <td><input  type="number" id="diametre_compresse" min="0"></td>
-           <td><input  type="number" id="humidité" min="0" max="100" value="0"></td>
-           <td><input  type="number" id="tca_interne" min="0" value="0"><br></td>
-           <td><input  type="number" id="tca_fournisseur" min="0" value="0"><br></td>
-           <td><input list="goutl"  id="gout" min="0">
-              <datalist id="goutl">
-              <option value="Oui">
-              <option value="Non">
-              <option value="Inconnu">
-            </datalist></td>
        </tr>
        <tr>
            <td>Bouchon 8</td>
@@ -199,15 +132,6 @@
            <td><input  type="number" id="diametre1" min="0"></td>
            <td><input  type="number" id="diametre2" min="0"></td>
            <td><input  type="number" id="diametre_compresse" min="0"></td>
-           <td><input  type="number" id="humidité" min="0" max="100" value="0"></td>
-           <td><input  type="number" id="tca_interne" min="0" value="0"><br></td>
-           <td><input  type="number" id="tca_fournisseur" min="0" value="0"><br></td>
-           <td><input list="goutl"  id="gout" min="0">
-              <datalist id="goutl">
-              <option value="Oui">
-              <option value="Non">
-              <option value="Inconnu">
-            </datalist></td>
        </tr>
        <tr>
            <td>Bouchon 9</td>
@@ -220,15 +144,6 @@
            <td><input  type="number" id="diametre1" min="0"></td>
            <td><input  type="number" id="diametre2" min="0"></td>
            <td><input  type="number" id="diametre_compresse" min="0"></td>
-           <td><input  type="number" id="humidité" min="0" max="100" value="0"></td>
-           <td><input  type="number" id="tca_interne" min="0" value="0"><br></td>
-           <td><input  type="number" id="tca_fournisseur" min="0" value="0"><br></td>
-           <td><input list="goutl"  id="gout" min="0">
-              <datalist id="goutl">
-              <option value="Oui">
-              <option value="Non">
-              <option value="Inconnu">
-            </datalist></td>
        </tr>       
        <tr>
            <td>Bouchon 10</td>
@@ -241,15 +156,6 @@
            <td><input  type="number" id="diametre1" min="0"></td>
            <td><input  type="number" id="diametre2" min="0"></td>
            <td><input  type="number" id="diametre_compresse" min="0"></td>
-           <td><input  type="number" id="humidité" min="0" max="100" value="0"></td>
-           <td><input  type="number" id="tca_interne" min="0" value="0"><br></td>
-           <td><input  type="number" id="tca_fournisseur" min="0" value="0"><br></td>
-           <td><input list="goutl"  id="gout" min="0">
-              <datalist id="goutl">
-              <option value="Oui">
-              <option value="Non">
-              <option value="Inconnu">
-            </datalist></td>
        </tr>       
        <tr>
            <td>Bouchon 11</td>
@@ -262,15 +168,6 @@
            <td><input  type="number" id="diametre1" min="0"></td>
            <td><input  type="number" id="diametre2" min="0"></td>
            <td><input  type="number" id="diametre_compresse" min="0"></td>
-           <td><input  type="number" id="humidité" min="0" max="100" value="0"></td>
-           <td><input  type="number" id="tca_interne" min="0" value="0"><br></td>
-           <td><input  type="number" id="tca_fournisseur" min="0" value="0"><br></td>
-           <td><input list="goutl"  id="gout" min="0">
-              <datalist id="goutl">
-              <option value="Oui">
-              <option value="Non">
-              <option value="Inconnu">
-            </datalist></td>
        </tr>       
        <tr>
            <td>Bouchon 12</td>
@@ -283,15 +180,7 @@
            <td><input  type="number" id="diametre1" min="0"></td>
            <td><input  type="number" id="diametre2" min="0"></td>
            <td><input  type="number" id="diametre_compresse" min="0"></td>
-           <td><input  type="number" id="humidité" min="0" max="100" value="0"></td>
-           <td><input  type="number" id="tca_interne" min="0" value="0"><br></td>
-           <td><input  type="number" id="tca_fournisseur" min="0" value="0"><br></td>
-           <td><input list="goutl"  id="gout" min="0">
-              <datalist id="goutl">
-              <option value="Oui">
-              <option value="Non">
-              <option value="Inconnu">
-            </datalist></td>
+
         <tr>
            <td>Bouchon 13</td>
            <td><input list="longueur"  id="choix_longueur" min="0">
@@ -303,15 +192,6 @@
            <td><input  type="number" id="diametre1" min="0"></td>
            <td><input  type="number" id="diametre2" min="0"></td>
            <td><input  type="number" id="diametre_compresse" min="0"></td>
-           <td><input  type="number" id="humidité" min="0" max="100" value="0"></td>
-           <td><input  type="number" id="tca_interne" min="0" value="0"><br></td>
-           <td><input  type="number" id="tca_fournisseur" min="0" value="0"><br></td>
-           <td><input list="goutl"  id="gout" min="0">
-              <datalist id="goutl">
-              <option value="Oui">
-              <option value="Non">
-              <option value="Inconnu">
-            </datalist></td>
        </tr>          
         <tr>
            <td>Bouchon 14</td>
@@ -324,15 +204,6 @@
            <td><input  type="number" id="diametre1" min="0"></td>
            <td><input  type="number" id="diametre2" min="0"></td>
            <td><input  type="number" id="diametre_compresse" min="0"></td>
-           <td><input  type="number" id="humidité" min="0" max="100" value="0"></td>
-           <td><input  type="number" id="tca_interne" min="0" value="0"><br></td>
-           <td><input  type="number" id="tca_fournisseur" min="0" value="0"><br></td>
-           <td><input list="goutl"  id="gout" min="0">
-              <datalist id="goutl">
-              <option value="Oui">
-              <option value="Non">
-              <option value="Inconnu">
-            </datalist></td>
        </tr>          
        <tr>
            <td>Bouchon 15</td>
@@ -345,15 +216,6 @@
            <td><input  type="number" id="diametre1" min="0"></td>
            <td><input  type="number" id="diametre2" min="0"></td>
            <td><input  type="number" id="diametre_compresse" min="0"></td>
-           <td><input  type="number" id="humidité" min="0" max="100" value="0"></td>
-           <td><input  type="number" id="tca_interne" min="0" value="0"><br></td>
-           <td><input  type="number" id="tca_fournisseur" min="0" value="0"><br></td>
-           <td><input list="goutl"  id="gout" min="0">
-              <datalist id="goutl">
-              <option value="Oui">
-              <option value="Non">
-              <option value="Inconnu">
-            </datalist></td>
        </tr>           
        <tr>
            <td>Bouchon 16</td>
@@ -366,21 +228,7 @@
            <td><input  type="number" id="diametre1" min="0"></td>
            <td><input  type="number" id="diametre2" min="0"></td>
            <td><input  type="number" id="diametre_compresse" min="0"></td>
-           <td><input  type="number" id="humidité" min="0" max="100" value="0"></td>
-           <td><input  type="number" id="tca_interne" min="0" value="0"><br></td>
-           <td><input  type="number" id="tca_fournisseur" min="0" value="0"><br></td>
-           <td><input list="goutl"  id="gout" min="0">
-              <datalist id="goutl">
-              <option value="Oui">
-              <option value="Non">
-              <option value="Inconnu">
-            </datalist></td>
-       </tr>           
-           
-           
-           
-           
-           
+       </tr>                   
            
        </tr>      
    </tbody>
@@ -390,33 +238,12 @@
     
     
     
-    
-    
-    
-    
-		<label for="longueur">Indiquez la longueur:</label>
-        	<input list="longueur"  id="choix_longueur" min="0">
-              <datalist id="longueur">
-              <option value="39">
-              <option value="44">
-              <option value="49">
-            </datalist><br><br>
+ 
             
             
-		<label for="diametre1">Indiquez le diametre 1:</label>
-        	<input  type="number" id="diametre1" min="0"><br>
-            
-        <label for="diametre2">Indiquez le diametre 2:</label>
-        	<input  type="number" id="diametre2" min="0"><br>
-
-        <label for="humidité">Indiquez l'humidite:</label>
-        	<input  type="number" id="humidité" min="0" max="100" value="0"><br>
-            
-        <label for="tca">Indiquez le taux de TCA:</label>
-        	<input  type="number" id="tca_interne" min="0" value="0"><br>
 
     </section>  
-    <a href="index.html">Retour Accueil</a></li>
+    <a href="index3.html">Retour Accueil</a></li>
         
 </body>
 <footer>
