@@ -163,7 +163,7 @@
 </table>
 
    <table id="mesureAuto">
-   <h2>Procedez aux mesures </h2>
+   <h2>Processez aux mesures </h2>
 
    <thead> <!-- En-tête du tableau -->
        <tr>
@@ -177,6 +177,7 @@
        <tr>
            <td><input type="number"  name="bouchon[1].humi" id="humidite" min="0"></td>
            <td><input  type="number" name="bouchon[1].diam_comp" id="diamComp" min="0"></td>
+       </tr>
        <tr>
            <td><input type="number"  name="bouchon[2].humi" id="humidite" min="0"></td>
            <td><input  type="number" name="bouchon[2].diam_comp" id="diamComp" min="0"></td>             
@@ -212,6 +213,9 @@
 </table>
 <br>
 <input id="validate" type="submit" />
+<button id="envoyer" onclick="alert('Controle Envoyé')">
+Envoyer
+</button>
 
 </form>    
                

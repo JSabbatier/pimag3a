@@ -1,5 +1,4 @@
 // JavaScript Document
-
 var myjson;
 	function test()
 	{
@@ -16,15 +15,12 @@ var myjson;
 		myjson=JSON.stringify(formData, null, '\t');
 	}
 
- 	(function($){
-		 	function processForm( e ){
-			  $('#validate').ajax({
-				  url: 'http://perso.imerir.com/mdacosta/pima3a/controleArrivage.php',
-				  dataType: 'json',
-				  type: 'post', 
-				  data: myson,
-				  success: function( data, textStatus, jQxhr ){
-					   $('#response pre').html( data ); },
-				  error: function( jqXhr, textStatus, errorThrown ){
-					   console.log( errorThrown ); } });
-				 e.preventDefault(); } $('#validate').submit( processForm ); })(jQuery);
+	$("#envoyer").click(function (e)
+	{
+		e.preventDefault();
+		$.ajax({			  
+		  url: 'http://perso.imerir.com/mdacosta/pima3a/controleArrivage.php',
+		  dataType: 'json',
+		  type: 'POST', 
+		  data: myjson})	
+			 });

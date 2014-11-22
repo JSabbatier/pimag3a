@@ -3,18 +3,59 @@
 <head>
 <meta charset="utf-8">
 <title>Approvisionement</title>
+    <style>
+    table
+        {
+            border-collapse: collapse;
+        }
+    td, th /* Mettre une bordure sur les td ET les th */
+        {
+            border: 1px solid black;
+        }
+	</style>
 </head>
+<body>
 
    <h1> APPROVISIONEMENT</h1>
-<div="myTable"></div>
-<p></p>
 
-<input class="boutTable" type="button" value="Precedent" onclick="change_page('prev')"></input>
+            <table id="tableFournisseur">
+                 <tr>
+                   <th>Date</th>
+                   <th>Nom Fournisseur</th>
+                   <th>Qualité</th>
+                   <th>Quantité</th>
+                   <th>Validité</th>  
+                   <th>Prix d'Achat</th> 
+                   <th>Devise</th>   
+                   <th>Taille des Bouchons</th>
+                   <th>Selection</th>
+                   <th>Controle</th> 
+                   <th></th>                                                     
+                </tr>
+            </table>
+    
+    <input class="boutTable" type="button" value="Precedent" onclick="change_page('prev')"></input>
+    
+    <input class="boutTable" type="button" value="Suivant" onclick="change_page('next')"></input>
+    <br>
+    <input class="envoyer" type="button" value="Rafraichir" onclick="change_page('refresh')"></input>
+    
+   <h1> Commande Fournisseur</h1>
 
-<input class="boutTable" type="button" value="Suivant" onclick="change_page('next')"></input>
-<br>
-<input class="envoyer" type="button" value="Rafraichir" onclick="change_page('refresh')"></input>
-
-<body>
+        <table id="tableCommande">
+             <tr>
+               <th>Date</th>
+               <th>Nom Fournisseur</th>
+               <th>Qualité</th>
+               <th>Quantité</th>
+               <th>Prix d'Achat</th> 
+               <th>Devise</th>   
+               <th>Taille des Bouchons</th>
+               <th>Selection</th>                                                   
+            </tr>
+        </table>
+    <input class="boutTable" type="button" value="Ajouter une Commande" onclick="change_page('prev')"></input> 
+    <input class="boutTable" type="button" value="Suivant" onclick="change_page('next')"></input>
+Ajouter / Modifier / Masquer/ Editer
 </body>
 </html>
