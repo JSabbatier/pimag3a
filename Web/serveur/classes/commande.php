@@ -10,6 +10,7 @@ class Commande
 	private $delaiPaiment;
 	private $idCommercial;
 	private $codeBarre;
+	private $etat;
 	
 	/**********************************************************
                        construtor    
@@ -56,6 +57,10 @@ class Commande
 	{
 		return $this->codeBarre;
 	}
+	public function getEtat()
+	{
+		return $this->etat;
+	}
 	
 		
 	/***********************************************
@@ -92,6 +97,10 @@ class Commande
 	public function setCodeBare($codeBarre)
 	{
 		$this->codeBarre=$codeBarre;
-	}	
+	}
+	public function setEtat($etat)
+	{
+		$this->etat=$etat;
+	}
 }
 ?>

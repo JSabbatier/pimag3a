@@ -28,7 +28,7 @@ class DaoClient
 	{
 		$query="select * from client where id_client=:idClient";
 		$rs=$this->dbh->prepare($query);
-		$rs->bindParam(':idclient',$id);
+		$rs->bindValue(':idClient',$id);
 		
 		$rs->execute();
 		
@@ -37,30 +37,73 @@ class DaoClient
 		$client = new Client;
 		
 		$client->setNomClient($row['nom_client']);
-		$client->setNumeroTel($row['numeroTel']);
-		$client->setAdresseFacturation($row['adresse_facturation']);
-		$client->setadresseLivraison($row['adresse_livraison']);
-		$client->setEmail($row['email']);
-		$client->setContact($row['contact']);
-		$client->setType($row['type']);
+		$client->setNumeroTel($row['numero_tel']);
+		$client->setNomContact($row['nom_contact']);
+		$client->setEmailContact($row['email_contact']);
+		$client->setRaison($row['raison']);
+		$client->setIdCommercial($row['id_commercial']);
+		$client->setEtat($row['etat']);
+		$client->setFax($row['fax']);
+		$client->setIdClient($id);
 		
 		return $client;
 	}
 	
-	public function getListOfClientByid($id)
+	public function getListeClients()
 	{
-		$query="select id_client from client where id_client=:idClient";
+		$query="select * from client ";
 		$rs=$this->dbh->prepare($query);
 		
-		$rs->bindParam(':idcmd',$idcommande);
 		$rs->execute();
-		$panier = new Client;
+		$client= new Client;
 		while( $row= $rs->fetch())
 		{
-			$panier = $this->getListOfClientrByid($row['id_client']);
+			$client = $this->getClientById($row['id_client']);
 			$list[]= $client;
 		}
+		return $list;
+	}
+	
+	public function ajoutClient($client)
+	{
+		$query="insert into client (nom_client,numero_tel,nom_contact,email_contact,raison,id_commercial,etat,fax) values (:nomClient,:numeroTel,:nomContact,:emailContact,:raison,:idComm,:etat,:fax)";
 		
+		$tmp = new Client;
+		$tmp = $client;
+		
+		$rs=$this->dbh->prepare($query);
+		$rs->bindValue(':nomClient',$tmp->getNomClient());
+		$rs->bindValue(':numeroTel',$tmp->getNumeroTel());
+		$rs->bindValue(':nomContact',$tmp->getNomContact());
+		$rs->bindValue(':emailContact',$tmp->getEmailContact());
+		$rs->bindValue(':raison',$tmp->getRaison());
+		$rs->bindValue(':idComm',$tmp->getIdCommercial());
+		$rs->bindValue(':etat',$tmp->getEtat());
+		$rs->bindValue(':fax',$tmp->getFax());
+		
+		$rs->execute();
+		
+		return $this->dbh->lastInsertId();
+		
+	}
+	
+	public function updateClient($client)
+	{
+		$query="update client set (nom_client=:nomClient,numeroTel=:numeroTel,nom_contact=:nomContact,email_contact=:emailContact,raison=:raison,id_commercial=:idComm,etat=:etat,fax=:=fax) where id_client=id";
+		$tmp = new Client;
+		$tmp=$client;
+		
+		$rs->bindValue(':id',$tmp->getIdClient());
+		$rs->bindValue(':nomClient',$tmp->getNomClient());
+		$rs->bindValue(':numeroTel',$tmp->getNumeroTel());
+		$rs->bindValue(':nomContact',$tmp->getNomContact());
+		$rs->bindValue(':emailContact',$tmp->getEmailContact());
+		$rs->bindValue(':raison',$tmp->getRaison());
+		$rs->bindValue(':idComm',$tmp->getIdCommercial());
+		$rs->bindValue(':etat',$tmp->getEtat());
+		$rs->bindValue(':fax',$tmp->getFax());
+		
+		$rs->execute();
 	}
 	
 }

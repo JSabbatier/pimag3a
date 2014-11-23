@@ -29,7 +29,7 @@ class DaoMesureD
 	{
 		$query="select * from mesure_d where id=:id";
 		$rs=$this->dbh->prepare($query);
-		$rs->bindParam(':id',$id);
+		$rs->bindValue(':id',$id);
 		
 		$rs->execute();
 		
@@ -45,7 +45,7 @@ class DaoMesureD
 		return $mesure;
 	}
 	
-	public function ajoutmesure($mesure)
+	public function ajoutMesureD($mesure)
 	{
 		$tmp = new mesureD;
 		$tmp = $mesure;
@@ -53,11 +53,11 @@ class DaoMesureD
 		$query="insert into mesure_d (id_panier, tca_interne,capilarite, gout) values (:id,:id_panier,:tca_interne,:gout)";
 		$rs=$this->dbh->prepare($query);	
 		
-		$rs->bindParam(':id',$tmp->getId());
-		$rs->bindParam(':id_panier',$tmp->getIdarrivage());
-		$rs->bindParam(':capilarite',$tmp->getCapilarite());
-		$rs->bindParam(':tca_interne',$tmp->getTCAInterne());
-		$rs->bindParam(':gout',$tmp->getGout());
+		$rs->bindValue(':id',$tmp->getId());
+		$rs->bindValue(':id_panier',$tmp->getIdarrivage());
+		$rs->bindValue(':capilarite',$tmp->getCapilarite());
+		$rs->bindValue(':tca_interne',$tmp->getTCAInterne());
+		$rs->bindValue(':gout',$tmp->getGout());
 		$rs->execute();
 		return $this->dbh->lastInsertId();
 	}
@@ -72,11 +72,11 @@ class DaoMesureD
 		$query = "UPDATE mesure_D SET id_arrivage=:id_arrivage, capilarite=:capi, tca_interne=:tca_interne, gout=:gout where id=:id";
 		 
 		$queryPrepared = $this->dbh->prepare($query);
-		$queryPrepared->bindParam(':id',$tmp->getId());
-		$queryPrepared->bindParam(':id_arrivage',$tmp->getIdArrivage());
-		$queryPrepared->bindParam(':capi',$tmp->getCapilarite());
-		$queryPrepared->bindParam(':tca_interne',$tmp->getTCAInterne());
-		$queryPrepared->bindParam(':gout',$tmp->getGout());
+		$queryPrepared->bindValue(':id',$tmp->getId());
+		$queryPrepared->bindValue(':id_arrivage',$tmp->getIdArrivage());
+		$queryPrepared->bindValue(':capi',$tmp->getCapilarite());
+		$queryPrepared->bindValue(':tca_interne',$tmp->getTCAInterne());
+		$queryPrepared->bindValue(':gout',$tmp->getGout());
 		 
 		return $queryPrepared->execute();
 			

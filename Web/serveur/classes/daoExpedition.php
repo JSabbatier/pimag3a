@@ -30,7 +30,7 @@ class DaoExpedition
 	{
 		$query="select * from expedition where id=:idExpe";
 		$rs=$this->dbh->prepare($query);
-		$rs->bindParam(':idExpe',$id);
+		$rs->bindValue(':idExpe',$id);
 		
 		$rs->execute();
 		
@@ -48,7 +48,7 @@ class DaoExpedition
 	{
 		$query="select * from expedition where id=:idExpe";
 		$rs=$this->dbh->prepare($query);
-		$rs->bindParam(':idExpe',$id);
+		$rs->bindValue(':idExpe',$id);
 		
 		$rs->execute();
 		$list=array();
@@ -66,7 +66,7 @@ class DaoExpedition
 	{
 		$query="select * from expedition where id=:idLot";
 		$rs=$this->dbh->prepare($query);
-		$rs->bindParam(':idExpe',$id);
+		$rs->bindValue(':idExpe',$id);
 		
 		$rs->execute();
 		$list=array();
@@ -87,9 +87,9 @@ class DaoExpedition
 		$tmp = $expedition;
 		$query="insert into expedition (id_commande,id_lot,quantite) values (:idCmd,:idLot,:qte)";
 		$rs=$this->dbh->prepare($query);
-		$rs->bindParam(':idCmd',$tmp->getIdCommande());
-		$rs->bindParam(':idLot',$tmp->getIdLot());
-		$rs->bindParam(':qte',$tmp->getQuantite());
+		$rs->bindValue(':idCmd',$tmp->getIdCommande());
+		$rs->bindValue(':idLot',$tmp->getIdLot());
+		$rs->bindValue(':qte',$tmp->getQuantite());
 		
 		$rs->execute();
 		return $this->dbh->lastInsertId();
@@ -102,10 +102,10 @@ class DaoExpedition
              
 		$query="update expedition set (id_commande=:idCmd,id_lot=:idLot,quantite=:qte) where id = :idExpe";
 		$rs=$this->dbh->prepare($query);
-		$rs->bindParam(':idExpe',$tmp->getIdExpedition());
-		$rs->bindParam(':idCmd',$tmp->getIdCommande());
-		$rs->bindParam(':idLot',$tmp->getIdLot());
-		$rs->bindParam(':qte',$tmp->getQuantite());
+		$rs->bindValue(':idExpe',$tmp->getIdExpedition());
+		$rs->bindValue(':idCmd',$tmp->getIdCommande());
+		$rs->bindValue(':idLot',$tmp->getIdLot());
+		$rs->bindValue(':qte',$tmp->getQuantite());
 		
 		$rs->execute();
 		

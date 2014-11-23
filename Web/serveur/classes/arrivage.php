@@ -3,7 +3,7 @@
 class Arrivage
 {
 	private $idLot;
-	private $date;
+	private $ladate;
 	private $idFournisseur;
 	private $qualite;
 	private $quantite;
@@ -14,6 +14,7 @@ class Arrivage
 	private $codebarre;
 	private $etat;
 	private $controle;
+	private $taille;
 	
 	/**********************************************************
                        construtor    
@@ -33,7 +34,7 @@ class Arrivage
 	}
 	public function getDate()
 	{
-		return $this->date;
+		return $this->ladate;
 	}
 	public function getIdFournisseur()
 	{
@@ -41,7 +42,7 @@ class Arrivage
 	}
 	public function getQualite()
 	{
-		return $this->dtQualite;
+		return $this->qualite;
 	}
 	public function getQuantite()
 	{
@@ -75,6 +76,10 @@ class Arrivage
 	{
 		return $this->etat;
 	}
+	public function getTaille()
+	{
+		return $this->taille;
+	}
 	
 		
 	/***********************************************
@@ -84,9 +89,9 @@ class Arrivage
 	{
 		$this->idLot=$idLot;
 	}
-	public function setDate($date)
+	public function setDate($ladate)
 	{
-		$this->date=$date;
+		$this->ladate=$ladate;
 	}
 	public function setIdFournisseur($idFournisseur)
 	{
@@ -127,6 +132,10 @@ class Arrivage
 	public function setControle($controle)
 	{
 		$this->controle=$controle;
+	}
+		public function setTaille($taille)
+	{
+		$this->taille=$taille;
 	}
 }
 ?>

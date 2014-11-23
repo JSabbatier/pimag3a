@@ -14,25 +14,14 @@
         }
 	</style>
 </head>
-<body>
+<body onload="jsonTable()">
 
    <h1> APPROVISIONEMENT</h1>
 
-            <table id="tableFournisseur">
-                 <tr>
-                   <th>Date</th>
-                   <th>Nom Fournisseur</th>
-                   <th>Qualité</th>
-                   <th>Quantité</th>
-                   <th>Validité</th>  
-                   <th>Prix d'Achat</th> 
-                   <th>Devise</th>   
-                   <th>Taille des Bouchons</th>
-                   <th>Selection</th>
-                   <th>Controle</th> 
-                   <th></th>                                                     
-                </tr>
-            </table>
+				<div id="jsonTest"></div>
+                
+
+  <br>
     
     <input class="boutTable" type="button" value="Precedent" onclick="change_page('prev')"></input>
     
@@ -57,5 +46,10 @@
     <input class="boutTable" type="button" value="Ajouter une Commande" onclick="change_page('prev')"></input> 
     <input class="boutTable" type="button" value="Suivant" onclick="change_page('next')"></input>
 Ajouter / Modifier / Masquer/ Editer
+
+
+<script type="text/javascript" src="js/myArrivageJs.js"></script>
+<script type="text/javascript" src="js/jquery.js"></script>
+
 </body>
 </html>

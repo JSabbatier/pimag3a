@@ -3,4 +3,5 @@
 <file name="bootstrap.js" server="ssh.imerir.com/www/np/" local="130607799422872724" remote="130610322630000000" Dst="1" />
 <file name="bootstrap.min.js" server="ssh.imerir.com/www/np/" local="130607799423102938" remote="130610322630000000" Dst="1" />
 <file name="jquery.js" server="ssh.imerir.com/www/np/" local="130607799423513164" remote="130610322630000000" Dst="1" />
+<file name="myArrivageJs.js" server="ssh.imerir.com/www/np/" local="130612553532086450" remote="130612553530000000" Dst="1" />
 </dwsync>

@@ -2,8 +2,8 @@
 
 class Adresse
 {
-	private $id_adresse_adresse;
-	private $id_adresse_client;
+	private $id_adresse;
+	private $id_client;
 	private $adresse;
 	private $nom;
 	
@@ -23,9 +23,9 @@ class Adresse
 	{
 		return $this->id_adresse;
 	}
-	public function getIdAdresseClient()
+	public function getIdClient()
 	{
-		return $this->id_adresse_client;
+		return $this->id_client;
 	}
 	public function getAdresse()
 	{
@@ -43,9 +43,9 @@ class Adresse
 	{
 		$this->id_adresse=$id_adresse;
 	}
-	public function setIdAdresseClient($id_adresseArrivage)
+	public function setIdClient($id_CLient)
 	{
-		$this->id_adresseArrivage=$id_adresseArrivage;
+		$this->id_client=$id_CLient;
 	}
 	public function setAdresse($adresse)
 	{

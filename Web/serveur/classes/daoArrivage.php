@@ -27,18 +27,19 @@ class DaoArrivage
 	
 	public function getArrivageById($id)
 	{
-		$query="select * from arrivage where id_lot=:id";
-		$rs->dbh->prepare($query);
-		$rs->bindParam(':id',$id);
+		$query="select * from arrivage where id_lot=:idLot";
+		$rs=$this->dbh->prepare($query);
+		$rs->bindValue(':idLot',$id);
 		
 		$rs->execute();
 		
 		$row= $rs->fetch();
 		$arrivage = new Arrivage;
-		
+
+		$arrivage->setIdLot($row['id_lot']);		
 		$arrivage->setCodeBarre($row['code_barre']);
 		$arrivage->setControle($row['controle']);
-		$arrivage->setDate($row['date']);
+		$arrivage->setDate($row['date_arrivage']);
 		$arrivage->setDevise($row['devise']);
 		$arrivage->setEtat($row['etat']);
 		$arrivage->setIdFournisseur($row['id_fournisseur']);
@@ -47,6 +48,7 @@ class DaoArrivage
 		$arrivage->setQualite($row['qualite']);
 		$arrivage->setQuantite($row['quantite']);
 		$arrivage->setValidite($row['validite']);
+		$arrivage->setTaille($row['taille']);
 		
 		return $arrivage;
 		
@@ -56,44 +58,60 @@ class DaoArrivage
 	{
 		$tmp = new Arrivage;
 		$tmp = $arrivage;
-		$query="insert into arrivage (date,id_fournisseur,qualite,quantite,numero_tracabilite,validite,prix_achat,devise,code_barre,etat,controle) values(:date,:id_fournisseur,:qualite,:quantite,:numero_tracabilite,:validite,:prix_achat,:devise,:code_barre,:etat,:controle)";
+		$query="insert into arrivage (date_arrivage,id_fournisseur,qualite,quantite,numero_tracabilite,validite,prix_achat,devise,code_barre,etat,controle,taille) values(:ladate,:id_fournisseur,:qualite,:quantite,:numero_tracabilite,:validite,:prix_achat,:devise,:code_barre,:etat,:controle,:taille)";
 		$rs->dbh->prepare($query);
 		
-		$rs->bindParam(':controle', $tmp->getControle());
-		$rs->bindParam(':date',$tmp->getDate());
-		$rs->bindParam(':id_fournisseur',$tmp->getIdFournisseur());
-		$rs->bindParam(':qualite',$tmp->getQualite());
-		$rs->bindParam(':quantite',$tmp->getQuantite());
-		$rs->bindParam(':numero_tracabilite',$tmp->getNumerotracabilite());
-		$rs->bindParam(':validite',$tmp->getValidite());
-		$rs->bindParam(':prix_achat',$tmp->getPrixAchat());
-		$rs->bindParam(':devise',$tmp->getdevise());
-		$rs->bindParam(':code_barre',$tmp->getCodeBarre());
-		$rs->bindParam(':etat',$tmp->getEtat());
-		
+		$rs->bindValue(':controle', $tmp->getControle());
+		$rs->bindValue(':ladate',$tmp->getDate());
+		$rs->bindValue(':id_fournisseur',$tmp->getIdFournisseur());
+		$rs->bindValue(':qualite',$tmp->getQualite());
+		$rs->bindValue(':quantite',$tmp->getQuantite());
+		$rs->bindValue(':numero_tracabilite',$tmp->getNumerotracabilite());
+		$rs->bindValue(':validite',$tmp->getValidite());
+		$rs->bindValue(':prix_achat',$tmp->getPrixAchat());
+		$rs->bindValue(':devise',$tmp->getdevise());
+		$rs->bindValue(':code_barre',$tmp->getCodeBarre());
+		$rs->bindValue(':etat',$tmp->getEtat());
+		$rs->bindValue(':taille',$tmp->getTaille());	
 		
 		$rs->execute();
 		return $this->dbh->lastInsertId();
+	}
+	
+	public function getListeArrivage()
+	{
+		$query="select * from arrivage ";
+		$rs=$this->dbh->prepare($query);
+		
+		$rs->execute();
+		$arrivage= new Arrivage;
+		while( $row= $rs->fetch())
+		{
+			$arrivage = $this->getArrivageById($row['id_lot']);
+			$list[]= $arrivage;
+		}
+		return $list;
 	}
 	
 	public function updateArrivage($arrivage)
 	{
 		$tmp = new Arrivage;
 		$tmp = $arrivage;
-		$query="update arrivage SET (date=:date,id_fournisseur=:id_fournisseur,qualite=:qualite,quantite=:quantite,numero_tracabilite=:numero_tracabilite,validite=:validite,prix_achat=:prix_achat,devise=:devise,code_barre=:code_barre,etat=:etat,controle=:controle) where id_lot=:id";
+		$query="update arrivage SET (date_arrivage=:ladate,id_fournisseur=:id_fournisseur,qualite=:qualite,quantite=:quantite,numero_tracabilite=:numero_tracabilite,validite=:validite,prix_achat=:prix_achat,devise=:devise,code_barre=:code_barre,etat=:etat,controle=:controle, taille=:taille) where id_lot=:id";
 		$rs->dbh->prepare($query);
-		$rs->bindParam(':id', $tmp->getIdLot());
-		$rs->bindParam(':controle', $tmp->getControle());
-		$rs->bindParam(':date',$tmp->getDate());
-		$rs->bindParam(':id_fournisseur',$tmp->getIdFournisseur());
-		$rs->bindParam(':qualite',$tmp->getQualite());
-		$rs->bindParam(':quantite',$tmp->getQuantite());
-		$rs->bindParam(':numero_tracabilite',$tmp->getNumerotracabilite());
-		$rs->bindParam(':validite',$tmp->getValidite());
-		$rs->bindParam(':prix_achat',$tmp->getPrixAchat());
-		$rs->bindParam(':devise',$tmp->getdevise());
-		$rs->bindParam(':code_barre',$tmp->getCodeBarre());
-		$rs->bindParam(':etat',$tmp->getEtat());
+		$rs->bindValue(':idLot', $tmp->getIdLot());
+		$rs->bindValue(':controle', $tmp->getControle());
+		$rs->bindValue(':ladate',$tmp->getDate());
+		$rs->bindValue(':id_fournisseur',$tmp->getIdFournisseur());
+		$rs->bindValue(':qualite',$tmp->getQualite());
+		$rs->bindValue(':quantite',$tmp->getQuantite());
+		$rs->bindValue(':numero_tracabilite',$tmp->getNumerotracabilite());
+		$rs->bindValue(':validite',$tmp->getValidite());
+		$rs->bindValue(':prix_achat',$tmp->getPrixAchat());
+		$rs->bindValue(':devise',$tmp->getdevise());
+		$rs->bindValue(':code_barre',$tmp->getCodeBarre());
+		$rs->bindValue(':etat',$tmp->getEtat());
+		$rs->bindValue(':taille',$tmp->getTaille());
 		
 		$rs->execute();
 	}

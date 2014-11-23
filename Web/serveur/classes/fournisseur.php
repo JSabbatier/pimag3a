@@ -9,6 +9,7 @@ class Fournisseur
 	private $contact;
 	private $raison;
 	private $emailContact;
+	private $etat;
 	
 	/**********************************************************
                        construtor    
@@ -42,7 +43,7 @@ class Fournisseur
 	{
 		return $this->fax;
 	}
-	public function getContacteFournisseur()
+	public function getContactFournisseur()
 	{
 		return $this->contact;
 	}
@@ -53,6 +54,10 @@ class Fournisseur
 	public function getEmailContactFournisseur()
 	{
 		return $this->emailContact;
+	}
+	public function getEtatFournisseur()
+	{
+		return $this->etat;
 	}
 	
 	/***********************************************
@@ -90,6 +95,9 @@ class Fournisseur
 	{
 		$this->emailContact=$email;
 	}
-	
+	public function setEtatFournisseur($etat)
+	{
+		$this->etat=$etat;
+	}
 }
 ?>

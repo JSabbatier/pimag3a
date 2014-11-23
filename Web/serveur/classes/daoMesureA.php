@@ -29,7 +29,7 @@ class DaoMesureA
 	{
 		$query="select * from mesure where id=:id";
 		$rs=$this->dbh->prepare($query);
-		$rs->bindParam(':id',$id);
+		$rs->bindValue(':id',$id);
 		
 		$rs->execute();
 		
@@ -48,17 +48,17 @@ class DaoMesureA
 	
 	public function ajoutmesureA($mesure)
 	{
-		$tmp = new Mesure;
+		$tmp = new MesureA;
 		$tmp = $mesure;
 		
-		$query="insert into mesure (id, id_arrivage, tca_fournisseur, tca_interne,gout) values (:id,:id_arrivage,:tca_fournisseur,:tca_interne,:gout)";
+		$query="insert into mesure_A (id_arrivage, tca_fournisseur, tca_interne,gout) values (:id_arrivage,:tca_fournisseur,:tca_interne,:gout)";
 		$rs=$this->dbh->prepare($query);	
 		
-		$rs->bindParam(':id',$tmp->getId());
-		$rs->bindParam(':id_arrivage',$tmp->getIdarrivage());
-		$rs->bindParam(':tca_fournisseur',$tmp->getTCAFournisseur());
-		$rs->bindParam(':tca_interne',$tmp->getTCAInterne());
-		$rs->bindParam(':gout',$tmp->getGout());
+		
+		$rs->bindValue(':id_arrivage',$tmp->getIdarrivage());
+		$rs->bindValue(':tca_fournisseur',$tmp->getTCAFournisseur());
+		$rs->bindValue(':tca_interne',$tmp->getTCAInterne());
+		$rs->bindValue(':gout',$tmp->getGout());
 		$rs->execute();
 		return $this->dbh->lastInsertId();
 	}
@@ -70,14 +70,14 @@ class DaoMesureA
 		$tmp = new MesureA;
 		$tmp= $mesureA;
 		 
-		$query = "UPDATE mesureA SET id=:id, id_arrivage=:id_arrivage, tca_fournisseur=:tca_fournisseur, tca_interne=:tca_interne, gout=:gout";
+		$query = "UPDATE mesure_A SET id_arrivage=:id_arrivage, tca_fournisseur=:tca_fournisseur, tca_interne=:tca_interne, gout=:gout where id=:id";
 		 
 		$queryPrepared = $this->dbh->prepare($query);
-		$queryPrepared->bindParam(':id',$tmp->getId());
-		$queryPrepared->bindParam(':id_arrivage',$tmp->getIdArrivage());
-		$queryPrepared->bindParam(':tca_fournisseur',$tmp->getTCAFournisseur());
-		$queryPrepared->bindParam(':tca_interne',$tmp->getTCAInterne());
-		$queryPrepared->bindParam(':gout',$tmp->getGout());
+		$queryPrepared->bindValue(':id',$tmp->getId());
+		$queryPrepared->bindValue(':id_arrivage',$tmp->getIdArrivage());
+		$queryPrepared->bindValue(':tca_fournisseur',$tmp->getTCAFournisseur());
+		$queryPrepared->bindValue(':tca_interne',$tmp->getTCAInterne());
+		$queryPrepared->bindValue(':gout',$tmp->getGout());
 		 
 		return $queryPrepared->execute();
 			

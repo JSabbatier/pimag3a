@@ -31,7 +31,7 @@ class DaoCommande
 	{
 		$query="select * from commande where id_commande=:idCommande";
 		$rs=$this->dbh->prepare($query);
-		$rs->bindParam(':id_commande',$idCommande);
+		$rs->bindValue(':id_commande',$idCommande);
 		
 		$rs->execute();
 		
@@ -54,7 +54,7 @@ class DaoCommande
 	{
 		$query="select * from commande where code_barre=:codeBarre";
 		$rs=$this->dbh->prepare($query);
-		$rs->bindParam(':code_barre',$codeBarre);
+		$rs->bindValue(':code_barre',$codeBarre);
 		
 		$rs->execute();
 		
@@ -81,15 +81,16 @@ class DaoCommande
 		$query="insert into commande (id_arrivage,tca_fournisseur,tca_interne,gout) values (:idcmd,:tca_fournisseur,:tca_interne,:gout)";
 		$rs=$this->dbh->prepare($query);	
 		
-		$rs->bindParam(':id_commande',$tmp->getIdCommande());
-		$rs->bindParam(':id_client',$tmp->getIdClient());
-		$rs->bindParam(':dt_commande',$tmp->getCommande());
-		$rs->bindParam(':dt_livraison_souhaite',$tmp->getDtLivraisonSouhaite());
-		$rs->bindParam(':dt_livraison_reel',$tmp->getDtLivraisonReel());
-		$rs->bindParam(':delai_paiment',$tmp->getDelaiPaiment());
-		$rs->bindParam(':id_commercial',$tmp->getIdCommercial());
-		$rs->bindParam(':code_barre',$tmp->getCodeBarre());
+		$rs->bindValue(':id_commande',$tmp->getIdCommande());
+		$rs->bindValue(':id_client',$tmp->getIdClient());
+		$rs->bindValue(':dt_commande',$tmp->getCommande());
+		$rs->bindValue(':dt_livraison_souhaite',$tmp->getDtLivraisonSouhaite());
+		$rs->bindValue(':dt_livraison_reel',$tmp->getDtLivraisonReel());
+		$rs->bindValue(':delai_paiment',$tmp->getDelaiPaiment());
+		$rs->bindValue(':id_commercial',$tmp->getIdCommercial());
+		$rs->bindValue(':code_barre',$tmp->getCodeBarre());
 		$rs->execute();
+		return $this->dbh->lastInsertId();
 	}
 	
 	public function updateCommande($commande)
@@ -99,17 +100,17 @@ class DaoCommande
 		$tmp = new Commande;
 		$tmp= $commande;
 		 
-		$query = "UPDATE param SET id_commande=:idCommande, id_client=:idClient, dt_commande=:dtCommande, dt_livraison_souhaite=:dtLivraisonSouhaite, dt_livraison_reel=:dtLivraisonReel, delai_paiment=:delaiPaiment, id_commercial=:idCommercial, code_barre=:codeBarre";
+		$query = "UPDATE commande SET id_client=:idClient, dt_commande=:dtCommande, dt_livraison_souhaite=:dtLivraisonSouhaite, dt_livraison_reel=:dtLivraisonReel, delai_paiment=:delaiPaiment, id_commercial=:idCommercial, code_barre=:codeBarre where id_commande=:idCommande";
 		 
 		$queryPrepared = $this->dbh->prepare($query);
-		$queryPrepared->bindParam(':id_commande',$tmp->getIdCommande());
-		$queryPrepared->bindParam(':id_client',$tmp->getIdClient());
-		$queryPrepared->bindParam(':dt_commande',$tmp->getDtCommande());
-		$queryPrepared->bindParam(':dt_livraison_souhaite',$tmp->getDtLivraisonSouhaite());
-		$queryPrepared->bindParam(':dt_livraison_reel',$tmp->getDtLivraisonReel());
-		$queryPrepared->bindParam(':delai_paiment',$tmp->getDelaiPaiment());
-		$queryPrepared->bindParam(':id_commercial',$tmp->getIdCommercial());
-		$queryPrepared->bindParam(':code_barre',$tmp->getCodeBarre());
+		$queryPrepared->bindValue(':id_commande',$tmp->getIdCommande());
+		$queryPrepared->bindValue(':id_client',$tmp->getIdClient());
+		$queryPrepared->bindValue(':dt_commande',$tmp->getDtCommande());
+		$queryPrepared->bindValue(':dt_livraison_souhaite',$tmp->getDtLivraisonSouhaite());
+		$queryPrepared->bindValue(':dt_livraison_reel',$tmp->getDtLivraisonReel());
+		$queryPrepared->bindValue(':delai_paiment',$tmp->getDelaiPaiment());
+		$queryPrepared->bindValue(':id_commercial',$tmp->getIdCommercial());
+		$queryPrepared->bindValue(':code_barre',$tmp->getCodeBarre());
 		 
 		return $queryPrepared->execute();
 			

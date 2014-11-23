@@ -29,7 +29,7 @@ class DaoBouchon
 	{
 		$query="select * from bouchon_D where id=:id";
 		$rs=$this->dbh->prepare($query);
-		$rs->bindParam(':id',$id);
+		$rs->bindValue(':id',$id);
 		$rs->execute();
 		
 		$row= $rs->fetch();
@@ -51,7 +51,7 @@ class DaoBouchon
 	{
 		$query="select * from bouchon_D where id_panier=:id";
 		$rs=$this->dbh->prepare($query);
-		$rs->bindParam(':id',$idPanier);
+		$rs->bindValue(':id',$idPanier);
 		$rs->execute();
 		
 		
@@ -71,13 +71,13 @@ class DaoBouchon
 		$tmp = new BouchonD;
 		$tmp = $bouchon;
 		$rs=$this->dbh->prepare($query);
-		$rs->bindParam(':idPanier',$tmp->getIdDrrivageBouchonD());
-		$rs->bindParam(':numTrac',$tmp->getNumTracabiliteBouchonD());
-		$rs->bindParam(':long',$tmp->getLongueurBouchonD());
-		$rs->bindParam(':dia1',$tmp->getDiametre1BouchonD());
-		$rs->bindParam(':dia2',$tmp->getDiametre2BouchonD());
-		$rs->bindParam(':diaComp',$tmp->getDiametreCompresseBouchonD());
-		$rs->bindParam(':humi',$tmp->getHumiditeBouchonD());
+		$rs->bindValue(':idPanier',$tmp->getIdDrrivageBouchonD());
+		$rs->bindValue(':numTrac',$tmp->getNumTracabiliteBouchonD());
+		$rs->bindValue(':long',$tmp->getLongueurBouchonD());
+		$rs->bindValue(':dia1',$tmp->getDiametre1BouchonD());
+		$rs->bindValue(':dia2',$tmp->getDiametre2BouchonD());
+		$rs->bindValue(':diaComp',$tmp->getDiametreCompresseBouchonD());
+		$rs->bindValue(':humi',$tmp->getHumiditeBouchonD());
 		
 		$rs->execute();
 		return $this->dbh->lastInsertId();
@@ -87,14 +87,14 @@ class DaoBouchon
 		$tmp = new BouchonD;
 		$tmp = $bouchon;
 		$query= "update bouchon_D set (id_arrivage=:idArrivage,longueur=:long,diametre1=:dia1,diametre2=:dia2,diametre_compresse=:diaComp,humidite=:humi) where id=:id";
-		$rs->bindParam(':id',$tmp->getIdBouchonD());
-		$rs->bindParam(':idPanier',$tmp->getIdDrrivageBouchonD());
-		$rs->bindParam(':numTrac',$tmp->getNumTracabiliteBouchonD());
-		$rs->bindParam(':long',$tmp->getLongueurBouchonD());
-		$rs->bindParam(':dia1',$tmp->getDiametre1BouchonD());
-		$rs->bindParam(':dia2',$tmp->getDiametre2BouchonD());
-		$rs->bindParam(':diaComp',$tmp->getDiametreCompresseBouchonD());
-		$rs->bindParam(':humi',$tmp->getHumiditeBouchonD());;
+		$rs->bindValue(':id',$tmp->getIdBouchonD());
+		$rs->bindValue(':idPanier',$tmp->getIdDrrivageBouchonD());
+		$rs->bindValue(':numTrac',$tmp->getNumTracabiliteBouchonD());
+		$rs->bindValue(':long',$tmp->getLongueurBouchonD());
+		$rs->bindValue(':dia1',$tmp->getDiametre1BouchonD());
+		$rs->bindValue(':dia2',$tmp->getDiametre2BouchonD());
+		$rs->bindValue(':diaComp',$tmp->getDiametreCompresseBouchonD());
+		$rs->bindValue(':humi',$tmp->getHumiditeBouchonD());;
 		
 		return $rs->execute();
 	}

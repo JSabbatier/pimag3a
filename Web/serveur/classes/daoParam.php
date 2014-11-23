@@ -87,18 +87,18 @@ public function updateParam ($param)
             $query = "UPDATE param SET nom=:nom,type_param=:typeParam, val_char=:valChar, val_char3= :valChar3, val_char2=:valChar2, val_int= :valInt, val_int2=:valInt2, val_float= :valfloat, val_float2= :valfloat2, val_float3= :valfloat3, val_int3=:valInt3 WHERE id= :id";
              
             $queryPrepared = $this->dbh->prepare($query);
-            $queryPrepared->bindParam(':id',$tmp->getId());
-			$queryPrepared->bindParam(':nom',$tmp->getNom());
-            $queryPrepared->bindParam(':typeParam',$tmp->getTypeParam());
-			$queryPrepared->bindParam(':valInt',$tmp->getValInt());
-            $queryPrepared->bindParam(':valInt2',$tmp->getValInt2());
-            $queryPrepared->bindParam(':valInt3',$tmp->getValInt3());
-            $queryPrepared->bindParam(':valChar',$tmp->getvalChar());
-            $queryPrepared->bindParam(':valChar2',$tmp->getvalChar2());
-			$queryPrepared->bindParam(':valChar3',$tmp->getvalChar3());
-			$queryPrepared->bindParam(':valFloat',$tmp->getvalFloat());
-			$queryPrepared->bindParam(':valFloat2',$tmp->getvalFloat2());
-			$queryPrepared->bindParam(':valFloat3',$tmp->getvalFloat3());
+            $queryPrepared->bindValue(':id',$tmp->getId());
+			$queryPrepared->bindValue(':nom',$tmp->getNom());
+            $queryPrepared->bindValue(':typeParam',$tmp->getTypeParam());
+			$queryPrepared->bindValue(':valInt',$tmp->getValInt());
+            $queryPrepared->bindValue(':valInt2',$tmp->getValInt2());
+            $queryPrepared->bindValue(':valInt3',$tmp->getValInt3());
+            $queryPrepared->bindValue(':valChar',$tmp->getvalChar());
+            $queryPrepared->bindValue(':valChar2',$tmp->getvalChar2());
+			$queryPrepared->bindValue(':valChar3',$tmp->getvalChar3());
+			$queryPrepared->bindValue(':valFloat',$tmp->getvalFloat());
+			$queryPrepared->bindValue(':valFloat2',$tmp->getvalFloat2());
+			$queryPrepared->bindValue(':valFloat3',$tmp->getvalFloat3());
 
              
             return $queryPrepared->execute();

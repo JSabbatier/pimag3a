@@ -22,32 +22,59 @@ class daoAdresse
         {
             die( "Erreur ! : " . $e->getMessage() );
         }
-    }	
-	
-	
-	public function getListeAdressebyIdClient()
+    }
+
+		
+	public function getAdresseByIdClient($id)
 	{
-		$query="select * from adresse ";
+		$query= "select * from adresse where id_adresse=:id";
 		$rs=$this->dbh->prepare($query);
+		$rs->bindValue(':id',$id);
+		
+		$adresse = new Adresse;
+		$rs->execute();
+		
+		$row = $rs->fetch();
+		
+		$adresse->setAdresse($row['adresse']);
+		$adresse->setIdAdresse($row['id_adresse']);
+		$adresse->setIdClient($row['id_client']);
+		$adresse->setNom($row['nom']);
+		
+		
+		
+		return $adresse;
+		
+	}
+	
+	public function getListeAdressebyIdClient($idClient)
+	{
+		$query="select * from adresse where id_client=:id ";
+		$rs=$this->dbh->prepare($query);
+		$rs->bindValue(':id',$idClient);
 		
 		$rs->execute();
 		$list = array();
-		$fourni = new Adresse;
+		$adresse = new Adresse;
 		while($row = $rs->fetch())
 		{
-			$fourni= $this->getAdresseByIdClient($row['id_adresse']);
+			$adresse= $this->getAdresseByIdClient($row['id_adresse']);
 			$list[]=$adresse;
 		}
+		return $list;
 		
 	}
 	public function ajoutAdresse($adresse)
 	{
+		$tmp = new Adresse;
+		$tmp = $adresse;
+		
 		$query="insert into adresse (id_adresse,id_client,adresse,nom) values (:id_adresse,:id_client,:adresse,:nom)";
 		$rs=$this->dbh->prepare($query);
-		$rs->bindParam(':id_adresse',$id_adresse);
-		$rs->bindParam(':id_client',$id_client);
-		$rs->bindParam(':adresse',$adresse);
-		$rs->bindParam(':nom',$nom);
+		$rs->bindValue(':id_adresse',$tmp->getIdAdresse());
+		$rs->bindValue(':id_client',$tmp->getidClient());
+		$rs->bindValue(':adresse',$tmp->getAdresse());
+		$rs->bindValue(':nom',$tmp->getNom());
 		
 		$rs->execute();
 		return $this->dbh->lastInsertId();
@@ -60,11 +87,10 @@ class daoAdresse
 		$tmp = $adresse;
              
 		$query="update adresse set (id_adresse=:id_adresse,id_client=:id_client,adresse=:adresse,nom=:nom";
-		$rs=$this->dbh->prepare($query);
-		$rs->bindParam(':id_adresse',$id_adresse);
-		$rs->bindParam(':id_client',$id_client);
-		$rs->bindParam(':adresse',$adresse);
-		$rs->bindParam(':nom',$nom);
+		$rs->bindValue(':id_adresse',$tmp->getIdAdresse());
+		$rs->bindValue(':id_client',$tmp->getidClient());
+		$rs->bindValue(':adresse',$tmp->getAdresse());
+		$rs->bindValue(':nom',$tmp->getNom());
 		
 		$rs->execute();
 	}

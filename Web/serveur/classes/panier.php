@@ -12,6 +12,7 @@ class Panier
 	private $devise;
 	private $controle;
 	private $idFournisseurCmd;
+	private $taille;
 	
 	/**********************************************************
                        construtor    
@@ -65,6 +66,10 @@ class Panier
 	{
 		return $this->longueur;
 	}
+	public function getTaille()
+	{
+		return $this->taille;
+	}
 		
 	/***********************************************
 						setters
@@ -109,6 +114,11 @@ class Panier
 	{
 		$this->longueur=$long;	
 	}
+	public function setTaille($taille)
+	{
+		$this->taille=$taille;
+	}
+	
 	
 }
 ?>

@@ -1,5 +1,6 @@
 // JavaScript Document
 var myjson;
+
 	function test()
 	{
 		var formData = form2object('testForm', '.', true,
