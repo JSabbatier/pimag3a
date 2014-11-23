@@ -4,40 +4,44 @@ require_once("../../../../mdacosta/www/pima3a/classes/daoAdresse.php");
 require_once("../../../../mdacosta/www/pima3a/connect.php");
 
 $objClient = new DaoClient();
-$client = new Client();
+//$client = new Client();
 $liste_client = Array();
 
 $objAdresse = new DaoAdresse();
-$adresse = new Adresse();
-$liste_adresse = Array();
+//$adresse = new Adresse();
+//$liste_adresse = Array();
 
 $liste_client = $objClient -> getListeClients();
 $retour = Array();
 
-foreach($liste_client as $tmp)
+foreach($liste_client as $client)
 {
-	$client = $tmp;
-	$retour[$client -> getIdClient()] = Array(	Array("nom" => $client -> getNomClient()),
-												Array("numero" => $client -> getNumeroTel()),
-												Array("contact" => $client -> getNomContact()),
-												Array("mail" => $client -> getEmailContact()),
-												Array("raison" => $client -> getRaison()),
-												Array("commercial" => $client -> getIdCommercial()),
-												Array("etat" => $client -> getEtat()));
-	$adresse = new Adresse();		
-	$liste_adresse = $objAdresse -> getAdresseByIdClient($client -> getIdClient());
+	$liste_adresse = $objAdresse -> getListeAdresseByIdClient($client -> getIdClient());
+	$retour[$client -> getIdClient()] = Array(	"nom" => $client -> getNomClient(),
+												"numero" => $client -> getNumeroTel(),
+												"fax" => $client -> getFax(),
+												"contact" => $client -> getNomContact(),
+												"mail" => $client -> getEmailContact(),
+												"raison" => $client -> getRaison(),
+												"commercial" => $client -> getIdCommercial(),
+												"adresse_f" => "adresse facturation",
+												"adresse_l" => Array()
+												);	
+
 	foreach($liste_adresse as $adresse)
 	{
-		if ($adresse["nom"] == "facturation")
+		($adresse);
+		if ($adresse->getNom() == "facturation")
 		{
-			$retour[$client -> getIdClient()]["adresse_f"] = $adresse["adresse"];
+			$retour[$client -> getIdClient()]["adresse_f"] = $adresse->getAdresse();
 		}
-		else if
+		else //if (strstr($adresse->getNom(), "livraison"))
 		{
-			$retour[$client -> getIdClient()]["adresse_l"] = $adresse["adresse"];
+			//echo $adresse->getNom();
+			$retour[$client -> getIdClient()]["adresse_l"][$adresse->getNom()] = $adresse->getAdresse();
 		}
 	}
 }
-header("HTTP/1.1 200 OK");
+header("HTTP/1.1 200 OK")
 echo json_encode($retour);
 ?>
