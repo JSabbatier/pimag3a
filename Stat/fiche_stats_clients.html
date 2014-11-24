@@ -1,0 +1,54 @@
+
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<!DOCTYPE html>
+<html>
+	<head>
+		  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	        <title>amCharts examples</title>
+	        <link rel="stylesheet" href="style.css" type="text/css">
+	        <script src="./amcharts/amcharts.js" type="text/javascript"></script>
+	        <script src="./amcharts/pie.js" type="text/javascript"></script> 
+	        <script src="./amcharts/serial.js" type="text/javascript"></script>
+	        <script src="jquery-2.1.1.min.js" type="text/javascript"></script> 
+	        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+	        <script src="stats_client_functions.js" type="text/javascript"></script> 
+
+	</head>
+
+	<body>
+
+		<H1> FICHE DE STATISTIQUES CLIENT</H1>
+		
+		<form id="client_info_form" method="post" >
+			<label> CHOIX DU CLIENT*</label> 
+            <select id="client" name="client" placeholder="-- CLIENT --">
+             </select>
+            <br><br>
+			<label> ADRESSE </label> 	<div id="adresse" name="adresse"> </div><br>
+			<label> TELEPHONE </label> 	<div id="telephone" name="telephone"> </div><br>
+			<label> FAX </label> 		<div id="fax" name="fax"> </div><br>
+			<label> MAIL </label> 		<div id="mail" name="mail"> </div><br>
+			<br>
+
+			<label> DATE DU* </label> 	<input type="date" id="dateDebut" name="dateDebut" placeholder="JJ/MM/AAAA" required>
+			<label> AU </label>			<input type="date" id="dateFin" name="dateFin" placeholder="JJ/MM/AAAA" required>
+			<input id="submitBtn" type="button" value="Submit">
+		</form>
+		
+		<table id="dataTable" name="dateTable" style="display:none;">
+			 <tr>
+		       <th >Date</th>
+		       <th >Lot</th>
+		       <th >Validité</th>
+   			</tr>
+   		</table>	
+
+		<div id="chartdiv" style="width: 60%; height: 200px; "></div>
+
+		<div id="barGraph" 	style="width: 50%; height: 400px; float:left;"></div>
+		<div id="legenddiv" style="width: 50%; height: 400px;"></div>
+	
+	</body>
+
+</html>

@@ -16,11 +16,13 @@ foreach($liste_fournisseur as $tmp)
 															Array("adresse" => $fournisseur -> getAdresseFournisseur()),
 															Array("telephone" => $fournisseur -> getTelephoneFournisseur()),
 															Array("fax" => $fournisseur -> getFaxFournisseur()),
-															Array("contact" => $fournisseur -> getContactFournisseur()),
+															// Array("contact" => $fournisseur -> getContactFournisseur()),
 															Array("mail" => $fournisseur -> getEmailContactFournisseur()),
 															Array("raison" => $fournisseur -> getRaisonFournisseur()),
 															Array("etat" => $fournisseur -> getEtatFournisseur()));
 }
 header("HTTP/1.1 200 OK");
+header('Content-type: application/json');
+header('Access-Control-Allow-Origin: *');
 echo json_encode($retour);
 ?>
