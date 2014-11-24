@@ -1,6 +1,6 @@
 //Declaration des url 
 //var urldata ='http://localhost/Stat/data_test.php';
-var urlClient ='http://perso.imerir.com/jloeve/pimag3a/service/get_clients.php';
+var urlClient ='http://perso.imerir.com/jloeve/pimag3a/service/get_nom_clients.php';
 var urlDetailsClient =   'http://perso.imerir.com/jloeve/pimag3a/service/get_detail_client.php';
 var urlGetEnvois ='http://perso.imerir.com/jloeve/pimag3a/service/get_arrivages';           
 //Declaration des graphes
@@ -114,7 +114,7 @@ function CheckDate(d) {
       return ok;
    };
 
-//REQUETE CHOIX FOURNISSEUR ET CHANGEMENT DES DONNEES
+//REQUETE CHOIX CLIENT ET CHANGEMENT DES DONNEES
 $(document).ready( function() 
 {
 	var $client =$('#client');
@@ -130,7 +130,7 @@ $(document).ready( function()
             $.each(json, function(index, value) 
             { // pour chaque noeud JSON
                 // on ajoute l option dans la liste
-                $fournisseur.append('<option value="'+ index +'">'+ value +'</option>');
+                $client.append('<option value="'+ index +'">'+ value +'</option>');
             });
         }
     });
@@ -138,7 +138,7 @@ $(document).ready( function()
 
 	$client.on ('change', function() 
 	{
-	    var val = $(this).val(); // on récupère la valeur du fournisseur
+	    var val = $(this).val(); // on récupère la valeur du client
 		var adresse = $('#adresse');
 		var telephone =$('#telephone');
 		var fax = $('#fax ');
@@ -147,17 +147,17 @@ $(document).ready( function()
 	    { 
 	        $.ajax(
 	        {
-	            url: urlDetailFournisseur,//+"?id_fournisseur="+val,
+	            url: urlDetailsClient,
 	            type:'POST',
 	            data:'id_client='+val, // on envoie $_GET['id_region']
 	        
 	            dataType: 'json',
 	            success: function(json) 
 	            {
-	                    adresse.html(json["adresse"]);
+	                    adresse.html(json["adresse_f"]);
 	                    telephone.html(json["numero"]);
 	                    fax.html(json["fax"]);  
-	                    mail.html(json["email"]); 
+	                    mail.html(json["mail"]); 
 	        	}
 	   	 	});
 	   	}
@@ -172,9 +172,9 @@ $(document).ready( function()
 	{
 		var dateDebut = $('#dateDebut').val();
 		var dateFin = $('#dateFin').val();
-		var val= $(fournisseur).val();
+		var val= $(client).val();
 
-		if (fournisseur == '' || dateDebut == '' || dateFin == '') 
+		if (client == '' || dateDebut == '' || dateFin == '') 
 		{
 			alert("Please Fill All Fields");
 		}
@@ -182,8 +182,8 @@ $(document).ready( function()
 		{
 			$.ajax
 			({
-				url:  urlgetarrivage,
-				data: { 'id_fournisseur':val, 'dateDebut':dateDebut , 'dateFin':dateFin},
+				url:  urlGetEnvois,
+				data: { 'id_client':val, 'dateDebut':dateDebut , 'dateFin':dateFin},
 				type:'POST',
 				dataType: 'json',
 				success: function(json) 
