@@ -24,13 +24,13 @@ foreach($liste_client as $client)
 												"mail" => $client -> getEmailContact(),
 												"raison" => $client -> getRaison(),
 												"commercial" => $client -> getIdCommercial(),
+												"etat" => $client -> getEtat(),
 												"adresse_f" => "adresse facturation",
 												"adresse_l" => Array()
 												);	
 
 	foreach($liste_adresse as $adresse)
 	{
-		($adresse);
 		if ($adresse->getNom() == "facturation")
 		{
 			$retour[$client -> getIdClient()]["adresse_f"] = $adresse->getAdresse();
@@ -38,10 +38,14 @@ foreach($liste_client as $client)
 		else //if (strstr($adresse->getNom(), "livraison"))
 		{
 			//echo $adresse->getNom();
-			$retour[$client -> getIdClient()]["adresse_l"][$adresse->getNom()] = $adresse->getAdresse();
+			$retour[$client -> getIdClient()]["adresse_l"][] = Array("id" => $adresse->getIdAdresse(),
+																	"nom" => $adresse->getNom(),
+																	"adresse" => $adresse->getAdresse()
+																	);
 		}
 	}
 }
-header("HTTP/1.1 200 OK")
+header("HTTP/1.1 200 OK");
+//header('Content-type: application/json');
 echo json_encode($retour);
 ?>

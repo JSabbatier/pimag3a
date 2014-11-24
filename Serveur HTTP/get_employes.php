@@ -2,7 +2,7 @@
 require_once("../../../../mdacosta/www/pima3a/classes/daoEmploye.php");
 require_once("../../../../mdacosta/www/pima3a/connect.php");
 
-$objEmploye = new DaoEmploye();
+$objEmploye = new DaoEmployes();
 $employe = new Employe();
 $liste_employe = Array();
 
@@ -15,5 +15,7 @@ foreach($liste_employe as $tmp)
 	$retour[$employe -> getIdEmploye()] = $employe -> getNomEmploye();
 }
 
+header("HTTP/1.1 200 OK");
+header('Content-type: application/json');
 echo json_encode($retour);
 ?>
