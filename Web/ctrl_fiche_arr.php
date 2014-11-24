@@ -2,12 +2,20 @@
 /*	require_once("classes/daoArrivage.php");
 	require_once("connect.php");
 
-	$objArrivage = new DaoArrivage();
-	$arrivage = new Arrivage();
+	
 	$detail_Arrivage = new Array();
-*/
+*//*
+$arrivage = new Arrivage();
+$objArrivage = new DaoArrivage();
 
-require_once("pdf_gen.php");
+$arrivage = $objArrivage-> getArrivageById($id);
+// les controles :)
+$arrivage -> setControle("ok");
+$objArrivage-> updateArrivage($Arrivage);
+
+
+*/
+require_once("pdf_gen_arr.php");
 $etat = $_GET["etat"];
 
 if ($etat == "checked"){
@@ -57,10 +65,10 @@ if ($etat == "checked"){
 		$bouchon["humi"] = 5;
 		$bouchon["diam_comp"] = 95;
 		
-	$retour ["bouchon"][] = $bouchon;
+		$retour ["bouchon"][] = $bouchon;
 		
 	}
-
+	//echo json_encode($retour);
 	pdf_gen(json_encode($retour));
 }else{
 	echo "Commande non contrôlée";
