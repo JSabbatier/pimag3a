@@ -21,6 +21,14 @@ function afficherCommandesF(){
 	  type: 'POST'}).done(function(msgF){jsonTableF(msgF);});
 }
 
+function receptionner(idcmd){
+
+	$.ajax({			  
+	  url: 'http://perso.imerir.com/jloeve/pimag3a/service/receive_commande.php?id_commande='+idcmd,
+	  type: 'POST'}).done(function(msg){alert('commande reçue');});
+}
+
+
 /**************************Tableau ******************************/
 
 function jsonTableA(msg)		
@@ -50,7 +58,7 @@ function jsonTableA(msg)
 					}
 				else
 				{
-					row.append('<td>' + '<a href="ControleArr.html?idLot='+data.lots[tok].id_lot+'">Effectuer controle</a></li>'+'</td>');				 
+					row.append('<td>' + '<a href="ControleArr.html?idLot='+data.lots[tok].id_lot+'">Effectuer controle</a>'+'</td></tr>');				 
 				}									  														  
 				$("#jsonTestA>table").append(row);
 			}
@@ -59,35 +67,49 @@ function jsonTableA(msg)
 function jsonTableF(msgF)		
 		{ 		
 		dataF = msgF;
-        $("#jsonTestCF").html('<table><tr><td>Date Commande</td><td>Date Livraison</td><td>Etat</td></tr></table>');
+        $("#jsonTestCF").html('<table><tr><td>Numéro de commande</td><td>Date Commande</td><td>Date Livraison</td><td>Etat</td>><td>Valider la réception</td></tr></table>');
 		
 			for(var tok in dataF.commandes)
 			{
 				var row = $('<tr>');
 	
+				row.append('<td>' + dataF.commandes[tok].id_commande  + '</td>');
 				row.append('<td>' + dataF.commandes[tok].date_commande  + '</td>');
 				row.append('<td>' + dataF.commandes[tok].date_livraison + '</td>');
-				row.append('<td>' + dataF.commandes[tok].etat + '</td>');	
-																					  
-				$("#jsonTestCF>table").append(row);
+				row.append('<td>' + dataF.commandes[tok].etat + '</td></tr>');
+				 if(	(dataF.commandes[tok].etat) == "recu") 
+					{
+						row.append('<td>' +'Déja validée'+'</td>');
+					}
+				else{
+				row.append('<td>' + '<button id="reception" onClick="receptionner('+dataF.commandes[tok].id_commande+')">Recevoir</button>'+'</td></tr>');	}	
 				
+				$("#jsonTestCF>table").append(row);																	  	
 			}
 			
-		$("#jsonTestP").html('<table><tr><td>longueur</td><td>qualite</td><td>quantite</td><td>marquage</td><td>prix</td><td>devise</td><td>controle</td></tr></table>');
-			for(var yaya in dataF.commandes[tok].paniers)
+			
+		$("#jsonTestP").html('<table><tr><td>Commande associée</td><td>longueur</td><td>qualite</td><td>quantite</td><td>marquage</td><td>prix</td><td>devise</td></tr></table>');
+		
+			for(var tik in dataF.commandes)
+			{
+			for(var yaya in dataF.commandes[tik].paniers)
 				{
-					row.append('<td>' + dataF.commandes[tok].paniers[yaya].longueur  + '</td>');
-					row.append('<td>' + dataF.commandes[tok].paniers[yaya].qualite  + '</td>');
-					row.append('<td>' + dataF.commandes[tok].paniers[yaya].quantite  + '</td>');
-					row.append('<td>' + dataF.commandes[tok].paniers[yaya].marquage  + '</td>');
-					row.append('<td>' + dataF.commandes[tok].paniers[yaya].prix  + '</td>');
-					row.append('<td>' + dataF.commandes[tok].paniers[yaya].devise  + '</td>');
-					row.append('<td>' + dataF.commandes[tok].paniers[yaya].controle  + '</td>');
+					var row2 = $('<tr>');
+					
+					row2.append('<td>' + dataF.commandes[tik].paniers[yaya].id_commande_fournisseur  + '</td>');
+					row2.append('<td>' + dataF.commandes[tik].paniers[yaya].longueur  + '</td>');
+					row2.append('<td>' + dataF.commandes[tik].paniers[yaya].qualite  + '</td>');
+					row2.append('<td>' + dataF.commandes[tik].paniers[yaya].quantite  + '</td>');
+					row2.append('<td>' + dataF.commandes[tik].paniers[yaya].marquage  + '</td>');
+					row2.append('<td>' + dataF.commandes[tik].paniers[yaya].prix  + '</td>');
+					row2.append('<td>' + dataF.commandes[tik].paniers[yaya].devise  + '</td>');
+					
+					$("#jsonTestP>table").append(row2);
 				}
-				
-				$("#jsonTestP>table").append(row);
-				
-}
+			}
+		}
+		
+	
 
 
 
