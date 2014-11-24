@@ -85,8 +85,9 @@ class daoAdresse
 	{
 		$tmp = new Adresse;
 		$tmp = $adresse;
-             
-		$query="update adresse set (id_adresse=:id_adresse,id_client=:id_client,adresse=:adresse,nom=:nom";
+         
+		$query="update adresse set id_client=:id_client,adresse=:adresse,nom=:nom where id_adresse=:id_adresse ";
+		$rs = $this->dbh->prepare($query);
 		$rs->bindValue(':id_adresse',$tmp->getIdAdresse());
 		$rs->bindValue(':id_client',$tmp->getidClient());
 		$rs->bindValue(':adresse',$tmp->getAdresse());

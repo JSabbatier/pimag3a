@@ -97,7 +97,7 @@ class DaoArrivage
 	{
 		$tmp = new Arrivage;
 		$tmp = $arrivage;
-		$query="update arrivage SET (date_arrivage=:ladate,id_fournisseur=:id_fournisseur,qualite=:qualite,quantite=:quantite,numero_tracabilite=:numero_tracabilite,validite=:validite,prix_achat=:prix_achat,devise=:devise,code_barre=:code_barre,etat=:etat,controle=:controle, taille=:taille) where id_lot=:id";
+		$query="update arrivage SET date_arrivage=:ladate,id_fournisseur=:id_fournisseur,qualite=:qualite,quantite=:quantite,numero_tracabilite=:numero_tracabilite,validite=:validite,prix_achat=:prix_achat,devise=:devise,code_barre=:code_barre,etat=:etat,controle=:controle, taille=:taille where id_lot=:id";
 		$rs->dbh->prepare($query);
 		$rs->bindValue(':idLot', $tmp->getIdLot());
 		$rs->bindValue(':controle', $tmp->getControle());

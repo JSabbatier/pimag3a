@@ -20,7 +20,7 @@ var myjson;
 	{
 		e.preventDefault();
 		$.ajax({			  
-		  url: 'http://perso.imerir.com/mdacosta/pima3a/controleArrivage.php',
+		  url: 'http://perso.imerir.com/jloeve/pimag3a/service/controle_arrivage.php',
 		  dataType: 'json',
 		  type: 'POST', 
 		  data: myjson})	

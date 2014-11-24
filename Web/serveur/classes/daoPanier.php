@@ -96,7 +96,7 @@ class DaoPanier
 	{
 		$tmp = new Panier;
 		$tmp = $panier;
-		$query="update panier set(id_commande=:idcmd,qualite=:qualite,quantite=:quantite,longeur=:longueur,marquage=:marquage,prix_negocie=:prixNegocie,devise=:devise,controle=:controle,id_commande_fournisseur=:idCmdF,taille=:taille) where id_panier=:id";
+		$query="update panier set id_commande=:idcmd,qualite=:qualite,quantite=:quantite,longeur=:longueur,marquage=:marquage,prix_negocie=:prixNegocie,devise=:devise,controle=:controle,id_commande_fournisseur=:idCmdF,taille=:taille where id_panier=:id";
 		
 		$rs=$this->dbh->prepare($query);
 		

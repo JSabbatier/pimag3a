@@ -66,7 +66,7 @@ class DaoClient
 	
 	public function ajoutClient($client)
 	{
-		$query="insert into client (nom_client,numero_tel,nom_contact,email_contact,raison,id_commercial,etat,fax) values (:nomClient,:numeroTel,:nomContact,:emailContact,:raison,:idComm,:etat,:fax)";
+		$query="insert into client (nom_client,numero_tel,nom_contact,email_contact,raison,id_commercial,etat,fax) values (:nomClient,:numeroTel,:nomContact,:emailContact,:raison,:idCommercial,:etat,:fax)";
 		
 		$tmp = new Client;
 		$tmp = $client;
@@ -77,7 +77,7 @@ class DaoClient
 		$rs->bindValue(':nomContact',$tmp->getNomContact());
 		$rs->bindValue(':emailContact',$tmp->getEmailContact());
 		$rs->bindValue(':raison',$tmp->getRaison());
-		$rs->bindValue(':idComm',$tmp->getIdCommercial());
+		$rs->bindValue(':idCommercial',$tmp->getIdCommercial());
 		$rs->bindValue(':etat',$tmp->getEtat());
 		$rs->bindValue(':fax',$tmp->getFax());
 		
@@ -89,21 +89,25 @@ class DaoClient
 	
 	public function updateClient($client)
 	{
-		$query="update client set (nom_client=:nomClient,numeroTel=:numeroTel,nom_contact=:nomContact,email_contact=:emailContact,raison=:raison,id_commercial=:idComm,etat=:etat,fax=:=fax) where id_client=id";
 		$tmp = new Client;
 		$tmp=$client;
-		
-		$rs->bindValue(':id',$tmp->getIdClient());
+		$query="UPDATE client SET nom_client=:nomClient,numero_tel=:numeroTel,nom_contact=:nomContact,email_contact=:emailContact,raison=:raison,id_commercial=:idCommercial,etat=:etat,fax=:fax WHERE id_client=:idClient";
+
+		$rs = $this->dbh->prepare($query);
+		$rs->bindValue(':idClient',$tmp->getIdClient());
+		$rs->bindValue(':nomClient',$tmp->getNomClient());
 		$rs->bindValue(':nomClient',$tmp->getNomClient());
 		$rs->bindValue(':numeroTel',$tmp->getNumeroTel());
 		$rs->bindValue(':nomContact',$tmp->getNomContact());
 		$rs->bindValue(':emailContact',$tmp->getEmailContact());
 		$rs->bindValue(':raison',$tmp->getRaison());
-		$rs->bindValue(':idComm',$tmp->getIdCommercial());
+		$rs->bindValue(':idCommercial',$tmp->getIdCommercial());
 		$rs->bindValue(':etat',$tmp->getEtat());
 		$rs->bindValue(':fax',$tmp->getFax());
 		
-		$rs->execute();
+		echo "id client : ".$tmp->getIdClient();
+		
+		return $rs->execute();
 	}
 	
 }

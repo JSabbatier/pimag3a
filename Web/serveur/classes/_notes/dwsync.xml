@@ -2,12 +2,12 @@
 <dwsync>
 <file name="daoExpedition.php" server="ssh.imerir.com/www/pima3a/" local="130610503120000000" remote="130610503120000000" Dst="1" />
 <file name="daoFournisseur.php" server="ssh.imerir.com/www/pima3a/" local="130612429091399229" remote="130612429130000000" Dst="1" />
-<file name="daoPanier.php" server="ssh.imerir.com/www/pima3a/" local="130612418306804799" remote="130612418330000000" Dst="1" />
+<file name="daoPanier.php" server="ssh.imerir.com/www/pima3a/" local="130612592565084102" remote="130612592590000000" Dst="1" />
 <file name="expedition.php" server="ssh.imerir.com/www/pima3a/" local="130608856030000000" remote="130608856030000000" Dst="1" />
 <file name="fournisseur.php" server="ssh.imerir.com/www/pima3a/" local="130610622170000000" remote="130610622170000000" Dst="1" />
 <file name="panier.php" server="ssh.imerir.com/www/pima3a/" local="130610442010000000" remote="130610442010000000" Dst="1" />
 <file name="client.php" server="ssh.imerir.com/www/pima3a/" local="130610489460000000" remote="130610489460000000" Dst="1" />
-<file name="daoClient.php" server="ssh.imerir.com/www/pima3a/" local="130610601620000000" remote="130610601620000000" Dst="1" />
+<file name="daoClient.php" server="ssh.imerir.com/www/pima3a/" local="130612579610127836" remote="130612579630000000" Dst="1" />
 <file name="adresse.php" server="ssh.imerir.com/www/pima3a/" local="130610542780000000" remote="130610542780000000" Dst="1" />
 <file name="commande.php" server="ssh.imerir.com/www/pima3a/" local="130610441990000000" remote="130610441990000000" Dst="1" />
 <file name="employe.php" server="ssh.imerir.com/www/pima3a/" local="130608806650000000" remote="130608806650000000" Dst="1" />
@@ -21,13 +21,13 @@
 <file name="arrivage.php" server="ssh.imerir.com/www/pima3a/" local="130612401913735823" remote="130612401940000000" Dst="1" />
 <file name="daoBonchonA.php" server="ssh.imerir.com/www/pima3a/" local="130609763550000000" remote="130609763550000000" Dst="1" />
 <file name="bouchonD.php" server="ssh.imerir.com/www/pima3a/" local="130609763550000000" remote="130609763550000000" Dst="1" />
-<file name="daoArrivage.php" server="ssh.imerir.com/www/pima3a/" local="130612405861153128" remote="130612405880000000" Dst="1" />
+<file name="daoArrivage.php" server="ssh.imerir.com/www/pima3a/" local="130612591757963658" remote="130612591800000000" Dst="1" />
 <file name="daoMesure.php" server="ssh.imerir.com/www/pima3a/" local="130610300910000000" remote="130610300910000000" Dst="1" />
 <file name="mesureD.php" server="ssh.imerir.com/www/pima3a/" local="130609763550000000" remote="130609763550000000" Dst="1" />
 <file name="daoBouchonD.php" server="ssh.imerir.com/www/pima3a/" local="130610503110000000" remote="130610503110000000" Dst="1" />
 <file name="mesure.php" server="ssh.imerir.com/www/pima3a/" local="130608645520000000" remote="130608645520000000" Dst="1" />
 <file name="daoMesureD.php" server="ssh.imerir.com/www/pima3a/" local="130610503120000000" remote="130610503120000000" Dst="1" />
-<file name="daoAdresse.php" server="ssh.imerir.com/www/pima3a/" local="130612551804760962" remote="130612551830000000" Dst="1" />
+<file name="daoAdresse.php" server="ssh.imerir.com/www/pima3a/" local="130612626632666805" remote="130612626660000000" Dst="1" />
 <file name="daoBouchonA.php" server="ssh.imerir.com/www/pima3a/" local="130610509360000000" remote="130610509360000000" Dst="1" />
 <file name="MesureA.php" server="ssh.imerir.com/www/pima3a/" local="130610503130000000" remote="130610503130000000" Dst="1" />
 </dwsync>

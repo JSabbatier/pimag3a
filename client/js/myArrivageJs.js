@@ -1,27 +1,26 @@
 // JavaScript Document
 
-var json;
+var data;
 
-json={ "arrivage": [ { "id": "4", "date": "26", "fournisseur": "66", "qualite": "2", "quantité": "5000", "validite": "oui", "prixAchat": "400", "devise": "£", "tailleB": 44, "Controle": "oui" }, { "id": "1", "date": "26", "fournisseur": "66", "qualite": "2", "quantité": "5000", "validite": "oui", "prixAchat": "400", "devise": "£", "tailleB": 44, "Controle": "oui" } ] };
+data={ "arrivage": [ { "id": "4", "date": "26", "fournisseur": "66", "qualite": "2", "quantité": "5000", "validite": "oui", "prixAchat": "400", "devise": "£", "tailleB": 44, "Controle": "oui" }, { "id": "1", "date": "26", "fournisseur": "66", "qualite": "2", "quantité": "5000", "validite": "oui", "prixAchat": "400", "devise": "£", "tailleB": 44, "Controle": "oui" } ] };
 
 
-function jsonTable(data)		
+function jsonTable()		
 		{ 		
         $("#jsonTest").html('<table><tr><td>Date</td><td>Nom Fournisseur</td><td>Qualité</td><td>Validité</td><td>Prix Achat</td><td>Devise</td><td>Taille des Bouchons</td><td>Selection</td><td>Controle</td></tr></table>');
 		
-			for(var tok in json.arrivage)
+			for(var tok in data.arrivage)
 			{
 					var row = $('<tr>');
 	
-				row.append('<td>' + tok.date  + '</td>');
-				row.append('<td>' + tok.fournisseur + '</td>');
-				row.append('<td>' + tok.qualité + '</td>');
-				row.append('<td>' + tok.validite + '</td>');
-				row.append('<td>' + tok.prixAchat + '</td>');				
-				row.append('<td>' + tok.devise + '</td>');
-				row.append('<td>' + tok.tailleB + '</td>');				
-				row.append('<td>' + tok.selection + '</td>');	
-				row.append('<td>' + tok.controle + '</td>');
+				row.append('<td>' + data.arrivage[tok].date  + '</td>');
+				row.append('<td>' + data.arrivage[tok].fournisseur + '</td>');
+				row.append('<td>' + data.arrivage[tok].qualite + '</td>');
+				row.append('<td>' + data.arrivage[tok].validite + '</td>');
+				row.append('<td>' + data.arrivage[tok].prixAchat + '</td>');				
+				row.append('<td>' + data.arrivage[tok].devise + '</td>');
+				row.append('<td>' + data.arrivage[tok].tailleB + '</td>');				
+
 																		  
 				$("#jsonTest>table").append(row);
 			}
