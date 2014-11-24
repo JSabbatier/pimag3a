@@ -84,13 +84,13 @@ class DaoFournisseur
 		$tmp = new Fournisseur;
 		$tmp = $fournisseur;
              
-		$query="update fournisseur set (nom_fournisseur=:nomFournisseur,numero_tel=:num,adresse=:adr,fax=:fax,contact=:ctc,email_contact=:email,raison=:raison,etat=:etat) where id_fournisseur = :id";
+		$query="update fournisseur set nom_fournisseur=:nomFournisseur,numero_tel=:num,adresse=:adr,fax=:fax,contact=:ctc,email_contact=:email,raison=:raison,etat=:etat where id_fournisseur = :id";
 		$rs=$this->dbh->prepare($query);
 		$rs->bindValue(':nomFournisseur',$tmp->getNomFournisseur());
 		$rs->bindValue(':num',$tmp->getNomFournisseur());
 		$rs->bindValue(':adr',$tmp->getAdresseFournisseur());
 		$rs->bindValue(':fax',$tmp->getFaxFournisseur());
-		$rs->bindValue(':ctc',$tmp->getContacteFournisseur());
+		$rs->bindValue(':ctc',$tmp->getContactFournisseur());
 		$rs->bindValue(':email',$tmp->getEmailContactFournisseur());
 		$rs->bindValue(':raison',$tmp->getRaisonFournisseur());
 		$rs->bindValue(':id',$tmp->getIdFournisseur());

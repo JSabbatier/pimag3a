@@ -86,7 +86,7 @@ class daoCommandeFournisseur
 	
 	public function getListOfCommandeFournisseurByIdFournisseur($idFournisseur)
 	{
-		$query="select id_fournisseur from commandeFournisseur where id_cmd_fournisseur=:idCmdFournisseur";
+		$query="select * from commandeFournisseur where id_cmd_fournisseur=:idCmdFournisseur";
 		$rs=$this->dbh->prepare($query);
 		
 		$rs->bindParam(':idCmdFournisseur',$idCmdFournisseur);
@@ -97,7 +97,23 @@ class daoCommandeFournisseur
 			$commandeFournisseur = $this->getCommandeFournisseurByIdFournisseur($row['id_fournisseur']);
 			$list[]= $commandeFournisseur;
 		}
+		return $list;
 		
+	}
+	
+	public function getListeCommandesFournisseur()
+	{
+		$query="select * from commandeFournisseur";
+		$rs=$this->dbh->prepare($query);
+		
+		$rs->execute();
+		$commandeFournisseur = new CommandeFournisseur;
+		while( $row= $rs->fetch())
+		{
+			$commandeFournisseur = $this->getCommandeFournisseurByIdCmdFournisseur($row['id_cmd_fournisseur']);
+			$list[]= $commandeFournisseur;
+		}
+		return $list;
 	}
 	
 }
