@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Controle d'entrée</title>
+    <title>Controle Sortie</title>
     <style>
     table
         {
@@ -26,7 +26,7 @@
 <form id="testForm" action="javascript:test()">  
   
 
-   <h1> CONTROLE DEPART</h1>
+   <h1> CONTROLE ENTREE</h1>
    
    <table class="table table-bordered" id="test">
     
@@ -36,18 +36,18 @@
        <tr>
 			<th></th>
             <th>Numéro du Lot</th>
-           <th>TCA Fournisseur</th>
            <th>TCA Interne</th>
+           <th>Capilarité</th>
            <th>GOUT</th>
        </tr>
 	</thead>
        <tbody> <!-- Corps du tableau -->
            <tr>
                <td>Stock Actuel</td>
-               <td><input class="form-control" name="arrivage.idArrivage" id="idArrivage" disabled="true"> </td>
-               <td><input type="number"  name="arrivage.tcaf" id="tcaf" min="0" value="0"></td>
-               <td><input  type="number" name="arrivage.tcai" id="tcai" min="0" value="0"></td>
-               <td><input type="checkbox" name="arrivage.gout" value="oui" checked/>Oui</label></td>
+               <td><input class="form-control" name="mesure.panier" id="panier" value="0" disabled="true"> </td>
+               <td><input type="number"  name="mesure.tcaI" id="tcaI" min="0" value="0"></td>
+               <td><input  type="number" name="mesure.capi" id="capi" min="0" value="0"></td>
+               <td><input type="checkbox" name="mesure.gout" value="oui" checked/>Oui</label></td>
            </tr>    
        </tbody>   
      </table> 
@@ -111,56 +111,7 @@
            <td><input type="number"  name="bouchon[8].long" id="choix_longueur" min="0" value="0"></td>
            <td><input  type="number" name="bouchon[8].diam1" id="diametre1" min="0" value="0"></td>
            <td><input  type="number" name="bouchon[8].diam2" min="0" value="0"></td>
-       </tr>
-       <tr>
-           <td>Bouchon 9</td>
-           <td><input type="number"  name="bouchon[9].long" id="choix_longueur" min="0" value="0"></td>
-           <td><input  type="number" name="bouchon[9].diam1" id="diametre1" min="0" value="0"></td>
-           <td><input  type="number" name="bouchon[9].diam2" min="0" value="0"></td>
-       </tr>       
-       <tr>
-           <td>Bouchon 10</td>
-           <td><input type="number"  name="bouchon[10].long" id="choix_longueur" min="0" value="0"></td>
-           <td><input  type="number" name="bouchon[10].diam1" id="diametre1" min="0" value="0"></td>
-           <td><input  type="number" name="bouchon[10].diam2" min="0" value="0"></td>
-       </tr>       
-       <tr>
-           <td>Bouchon 11</td>
-           <td><input type="number"  name="bouchon[11].long" id="choix_longueur" min="0" value="0"></td>
-           <td><input  type="number" name="bouchon[11].diam1" id="diametre1" min="0" value="0"></td>
-           <td><input  type="number" name="bouchon[11].diam2" min="0" value="0"></td>
-       </tr>       
-       <tr>
-           <td>Bouchon 12</td>
-           <td><input type="number"  name="bouchon[12].long" id="choix_longueur" min="0" value="0"></td>
-           <td><input  type="number" name="bouchon[12].diam1" id="diametre1" min="0" value="0"></td>
-           <td><input  type="number" name="bouchon[12].diam2" min="0" value="0"></td>
-        <tr>
-           <td>Bouchon 13</td>
-           <td><input type="number"  name="bouchon[13].long" id="choix_longueur" min="0" value="0"></td>
-           <td><input  type="number" name="bouchon[13].diam1" id="diametre1" min="0" value="0"></td>
-           <td><input  type="number" name="bouchon[13].diam2" min="0" value="0"></td>
-       </tr>          
-        <tr>
-           <td>Bouchon 14</td>
-           <td><input type="number"  name="bouchon[14].long" id="choix_longueur" min="0" value="0"></td>
-           <td><input  type="number" name="bouchon[14].diam1" id="diametre1" min="0" value="0"></td>
-           <td><input  type="number" name="bouchon[14].diam2" min="0" value="0"></td>
-       </tr>          
-       <tr>
-           <td>Bouchon 15</td>
-           <td><input type="number"  name="bouchon[15].long" id="choix_longueur" min="0" value="0"></td>
-           <td><input  type="number" name="bouchon[15].diam1" id="diametre1" min="0" value="0"></td>
-           <td><input  type="number" name="bouchon[15].diam2" min="0" value="0"></td>
-       </tr>           
-       <tr>
-           <td>Bouchon 16</td>
-           <td><input type="number"  name="bouchon[16].long" id="choix_longueur" min="0" value="0"></td>
-           <td><input  type="number" name="bouchon[16].diam1" id="diametre1" min="0" value="0"></td>
-           <td><input  type="number" name="bouchon[16].diam2" min="0" value="0"></td>
-       </tr>                   
-           
-       </tr>      
+       </tr>                        
    </tbody>
 </table>
 
@@ -195,21 +146,6 @@
        <tr>
            <td><input type="number"  name="bouchon[5].humi" id="humidite" min="0" value="0"></td>
            <td><input  type="number" name="bouchon[5].diam_comp" id="diamComp" min="0" value="0"></td>
-       </tr>
-       <tr>
-           <td><input type="number"  name="bouchon[6].humi" id="humidite" min="0" value="0"></td>
-       </tr>
-       <tr>
-           <td><input type="number"  name="bouchon[7].humi" id="humidite" min="0" value="0"></td>
-       </tr>
-       <tr>
-           <td><input type="number"  name="bouchon[8].humi" id="humidite" min="0" value="0"></td>
-       </tr>
-       <tr>
-           <td><input type="number"  name="bouchon[9].humi" id="humidite" min="0" value="0"></td>
-       </tr>       
-       <tr>
-           <td><input type="number"  name="bouchon[10].humi" id="humidite" min="0" value="0"></td>
        </tr>             
    </tbody>
 </table>
