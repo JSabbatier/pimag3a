@@ -64,6 +64,9 @@ class CommandeFournisseur
 	{
 		$this->etat=$etat;
 	}
-	
+	public function setIdFournisseur($idCmdFournisseur)
+	{
+		$this->id_adresse_client=$idCmdFournisseur;
+	}
 }
 ?>
