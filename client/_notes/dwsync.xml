@@ -7,4 +7,7 @@
 <file name="index3.html" server="ssh.imerir.com/www/np/" local="130610325812782449" remote="130610325850000000" Dst="1" />
 <file name="ArrivagesFin.html" server="ssh.imerir.com/www/np/" local="130613194194375606" remote="130613221030000000" Dst="1" />
 <file name="ControleSor.html" server="ssh.imerir.com/www/np/" local="130613404276376225" remote="130613404340000000" Dst="1" />
+<file name="header.php" server="ssh.imerir.com/www/np/" local="130610509573390142" remote="130613803970000000" Dst="1" />
+<file name="footer.php" server="ssh.imerir.com/www/np/" local="130610509573360123" remote="130613803970000000" Dst="1" />
+<file name="approvisionnement.php" server="ssh.imerir.com/www/np/" local="130613820700222706" remote="130613820700000000" Dst="1" />
 </dwsync>
