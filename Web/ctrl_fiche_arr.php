@@ -48,7 +48,7 @@ if ($etat == "checked"){
 	$seuil["diam2"]["max"] = 24.5;
 	$seuil["ovali"] = 0.7;
 	$seuil["humi"]["min"] = 4;
-	$seuil["humi"]["max"] = 6;
+	$seuil["humi"]["max"] = 8;
 	$seuil["diam_comp"] = 90;
 	$seuil["tcaf"] = 2;
 	$seuil["tcai"] = 2;
