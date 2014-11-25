@@ -82,5 +82,22 @@ class DaoMesureA
 		return $queryPrepared->execute();
 			
 	}
+	public function getMesureAbyIdArrivage($idArrivage)
+	{
+		$query="Select * from mesure_A where id_Arrivage=:id";
+		$rs = $this->dbh->prepare($query);
+		$rs->bindValue(':id',$idArrivage);
+		
+		$rs->execute();
+		$row= $rs->fetch();
+		$mesure = new MesureA;
+		$mesure->setId($idArrivage);
+		$mesure->setIdArrivage($row['id_arrivage']);
+		$mesure->setTCAFournisseur($row['tca_fournisseur']);
+		$mesure->setTCAInterne($row['tca_interne']);
+		$mesure->setGout($row['gout']);
+		
+		return $mesure;
+	}
 	
 }

@@ -10,6 +10,7 @@ class Employe
 	private $adresse;
 	private $fax;
 	private $email;
+	private $etat;
 	
 	/**********************************************************
                        construtor    
@@ -55,6 +56,10 @@ class Employe
 	{
 		return $this->email;
 	}
+	public function getEtat()
+	{
+		return $this->etat;
+	}
 	
 		
 	/***********************************************
@@ -91,6 +96,10 @@ class Employe
 	public function setEmail($email)
 	{
 		$this->email=$email;
-	}		
+	}
+	public function setEtat($etat)
+	{
+		$this->etat=$etat;
+	}
 }
 ?>

@@ -70,9 +70,9 @@ class Commande
 	{
 		$this->idCommande=$idpanier;
 	}
-	public function setIdClient($idCommande)
+	public function setIdClient($idClient)
 	{
-		$this->idClient=$idCommande;
+		$this->idClient=$idClient;
 	}
 	public function setDtCommande($dtCommande)
 	{
@@ -88,13 +88,13 @@ class Commande
 	}
 	public function setDelaiPaiment($delaiPaiment)
 	{
-		$this->delaiPaiment=$prixNegocier;
+		$this->delaiPaiment=$delaiPaiment;
 	}
 	public function setIdCommercial($idCommercial)
 	{
 		$this->idCommercial=$idCommercial;
 	}
-	public function setCodeBare($codeBarre)
+	public function setCodeBarre($codeBarre)
 	{
 		$this->codeBarre=$codeBarre;
 	}

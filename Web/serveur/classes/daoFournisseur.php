@@ -66,14 +66,16 @@ class DaoFournisseur
 	{
 		$query="insert into fournisseur (adresse,contact,email_contact,fax,nom_fournisseur,raison,numero_tel,etat) values (:adr,:contact,:email,:fax,:nom,:raison,:numTel,:etat)";
 		$rs=$this->dbh->prepare($query);
-		$rs->bindValue(':adr',$adr);
-		$rs->bindValue(':contact',$contact);
-		$rs->bindValue(':email',$email);
-		$rs->bindValue(':fax',$fax);
-		$rs->bindValue(':nom',$nom);
-		$rs->bindValue(':raison',$raison);
-		$rs->bindValue(':numTel',$numTel);
-		$rs->bindValue(':etat',$etat);
+		$tmp= new Fournisseur;
+		$tmp = $fournisseur;
+		$rs->bindValue(':adr',$tmp->getAdresseFournisseur());
+		$rs->bindValue(':contact',$tmp->getContactFournisseur());
+		$rs->bindValue(':email',$tmp->getEmailContactFournisseur());
+		$rs->bindValue(':fax',$tmp->getFaxFournisseur());
+		$rs->bindValue(':nom',$tmp->getNomFournisseur());
+		$rs->bindValue(':raison',$tmp->getRaisonFournisseur());
+		$rs->bindValue(':numTel',$tmp->getTelephoneFournisseur());
+		$rs->bindValue(':etat',$tmp->getEtatFournisseur());
 		
 		$rs->execute();
 		return $this->dbh->lastInsertId();
@@ -87,7 +89,7 @@ class DaoFournisseur
 		$query="update fournisseur set nom_fournisseur=:nomFournisseur,numero_tel=:num,adresse=:adr,fax=:fax,contact=:ctc,email_contact=:email,raison=:raison,etat=:etat where id_fournisseur = :id";
 		$rs=$this->dbh->prepare($query);
 		$rs->bindValue(':nomFournisseur',$tmp->getNomFournisseur());
-		$rs->bindValue(':num',$tmp->getNomFournisseur());
+		$rs->bindValue(':num',$tmp->getTelephoneFournisseur());
 		$rs->bindValue(':adr',$tmp->getAdresseFournisseur());
 		$rs->bindValue(':fax',$tmp->getFaxFournisseur());
 		$rs->bindValue(':ctc',$tmp->getContactFournisseur());

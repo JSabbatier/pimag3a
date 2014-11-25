@@ -26,7 +26,7 @@ class DaoEmploye
 	
 	public function getEmployeById($id)
 	{
-		$query="select * from employe where id_employe=:idEmploye";
+		$query="select * from employes where id_employe=:idEmploye";
 		$rs=$this->dbh->prepare($query);
 		$rs->bindValue(':idEmploye',$id);
 		
@@ -37,20 +37,24 @@ class DaoEmploye
 		
 		$employe = new Employe;
 		
+		$employe->setIdEmploye($id);
 		$employe->setNom($row['nom']);
-		$employe->setTel($row['tel']);
 		$employe->setPrenom($row['prenom']);
-		$employe->setEmail($row['email']);
+		$employe->setTel($row['tel']);
 		$employe->setRole($row['role']);
 		$employe->setAdresse($row['adresse']);
 		$employe->setFax($row['fax']);
+		$employe->setEmail($row['mail']);
+		$employe->setEtat($row['etat']);
+		
+		
 		
 		return $employe;
 	}
 	
 	public function getListeEmployes()
 	{
-		$query="select * from employe ";
+		$query="select * from employes";
 		$rs=$this->dbh->prepare($query);
 		
 		$rs->execute();
@@ -66,7 +70,7 @@ class DaoEmploye
 	
 	public function ajoutEmploye($employe)
 	{
-		$query="insert into employe (nom,tel,prenom,email,role,id_employe,adresse,fax) values (:nom,:tel,:nom,:email,:role,:idEmploye,:adresse,:fax)";
+		$query="insert into employes (nom,tel,prenom,mail,role,adresse,fax,etat) values (:nom,:tel,:prenom,:email,:role,:adresse,:fax,:etat)";
 		
 		$tmp = new Employe;
 		$tmp = $employe;
@@ -77,9 +81,10 @@ class DaoEmploye
 		$rs->bindValue(':prenom',$tmp->getPrenom());
 		$rs->bindValue(':email',$tmp->getEmail());
 		$rs->bindValue(':role',$tmp->getRole());
-		$rs->bindValue(':idEmploye',$tmp->getIdEmploye());
+
 		$rs->bindValue(':adresse',$tmp->getAdresse());
 		$rs->bindValue(':fax',$tmp->getFax());
+		$rs->bindValue(':etat',$tmp->getEtat());
 		
 		$rs->execute();
 		
@@ -91,7 +96,7 @@ class DaoEmploye
 	{
 		$tmp = new Employe;
 		$tmp=$employe;
-		$query="UPDATE employe SET nom=:nom,tel=:tel,prenom=:prenom,email=:email,role=:role,adresse=:adresse,fax=:fax WHERE id_employe=:idEmploye";
+		$query="UPDATE employes SET nom=:nom,tel=:tel,prenom=:prenom,mail=:email,role=:role,adresse=:adresse,fax=:fax, etat=:etat WHERE id_employe=:idEmploye";
 
 		$rs = $this->dbh->prepare($query);
 		$rs->bindValue(':nom',$tmp->getNom());
@@ -101,6 +106,8 @@ class DaoEmploye
 		$rs->bindValue(':role',$tmp->getRole());
 		$rs->bindValue(':adresse',$tmp->getAdresse());
 		$rs->bindValue(':fax',$tmp->getFax());
+		$rs->bindValue(':etat',$tmp->getEtat());
+		$rs->bindValue(':idEmploye',$tmp->getIdEmploye());
 		
 		return $rs->execute();
 	}

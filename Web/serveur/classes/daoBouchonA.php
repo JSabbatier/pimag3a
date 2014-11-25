@@ -84,7 +84,7 @@ class DaoBouchonA
 	{
 		$tmp = new BouchonA;
 		$tmp = $bouchon;
-		$query= "update bouchon_A set (id_arrivage=:idArrivage,longueur=:long,diametre1=:dia1,diametre2=:dia2,diametre_compresse=:diaComp,humidite=:humi) where id=:id";
+		$query= "update bouchon_A set id_arrivage=:idArrivage,longueur=:long,diametre1=:dia1,diametre2=:dia2,diametre_compresse=:diaComp,humidite=:humi where id=:id";
 		$rs->bindValue(':id',$tmp->getIdBouchonA());
 		$rs->bindValue(':idArrivage',$tmp->getIdArrivageBouchonA());
 		$rs->bindValue(':long',$tmp->getLongueurBouchonA());

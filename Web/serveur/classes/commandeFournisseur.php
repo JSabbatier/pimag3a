@@ -3,7 +3,7 @@
 class CommandeFournisseur
 {
 	private $id_cmd_fournisseur;
-	private $id_adresse_client;
+	private $idFournisseur;
 	private $dt_commande;
 	private $dt_livraison;
 	private $etat;
@@ -24,9 +24,9 @@ class CommandeFournisseur
 	{
 		return $this->id_cmd_fournisseur;
 	}
-	public function getAdresseClient()
+	public function getIdFournisseur()
 	{
-		return $this->id_adresse_client;
+		return $this->idFournisseur;
 	}
 	public function getDtCommande()
 	{
@@ -48,9 +48,9 @@ class CommandeFournisseur
 	{
 		$this->id_cmd_fournisseur=$id_cmd_fournisseur;
 	}
-	public function setIdAdresseClient($id_adresse_client)
+	public function setIdFournisseur($idFournisseur)
 	{
-		$this->id_adresse_client=$id_adresse_client;
+		$this->idFournisseur=$idFournisseur;
 	}
 	public function setDtCommande($dt_commande)
 	{
@@ -64,9 +64,6 @@ class CommandeFournisseur
 	{
 		$this->etat=$etat;
 	}
-	public function setIdFournisseur($idCmdFournisseur)
-	{
-		$this->id_adresse_client=$idCmdFournisseur;
-	}
+
 }
 ?>

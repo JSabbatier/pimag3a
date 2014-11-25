@@ -12,7 +12,7 @@ class Panier
 	private $devise;
 	private $controle;
 	private $idFournisseurCmd;
-	private $taille;
+
 	
 	/**********************************************************
                        construtor    
@@ -46,7 +46,7 @@ class Panier
 	{
 		return $this->marquage;
 	}
-	public function getPrixNegocier()
+	public function getPrixNegocie()
 	{
 		return $this->prixNegoce;
 	}
@@ -66,10 +66,7 @@ class Panier
 	{
 		return $this->longueur;
 	}
-	public function getTaille()
-	{
-		return $this->taille;
-	}
+
 		
 	/***********************************************
 						setters
@@ -94,9 +91,9 @@ class Panier
 	{
 		$this->marquage=$marquage;
 	}
-	public function setPrixNegocier($prixNegocier)
+	public function setPrixNegocie($prixNegocie)
 	{
-		$this->prixNegoce=$prixNegocier;
+		$this->prixNegoce=$prixNegocie;
 	}
 		public function setDevise($devise)
 	{
@@ -113,10 +110,6 @@ class Panier
 	public function setLongueur($long)
 	{
 		$this->longueur=$long;	
-	}
-	public function setTaille($taille)
-	{
-		$this->taille=$taille;
 	}
 	
 	
