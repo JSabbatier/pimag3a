@@ -3,7 +3,7 @@ class MesureD
 {
 	private $id;
 	private $idPanier;
-	private $tcaInt;
+	private $tca_interne;
 	private $capilarite;
 	private $gout;
 	
@@ -35,7 +35,7 @@ class MesureD
 	}
 	public function getTCAInterne()
 	{
-		return $this->tcaInt;
+		return $this->tca_interne;
 	}
 	public function getGout()
 	{
@@ -59,7 +59,7 @@ class MesureD
 	}
 	public function setTCAInterne($tca_interne)
 	{
-		$this->tcaInt=$tca_interne;
+		$this->tca_interne=$tca_interne;
 	}
 	public function setGout($gout)
 	{

@@ -1,6 +1,6 @@
 <?php
 require_once("bouchonD.php");
-class DaoBouchon
+class DaoBouchonD
 {
 	public function __construct()
 	{
@@ -71,13 +71,13 @@ class DaoBouchon
 		$tmp = new BouchonD;
 		$tmp = $bouchon;
 		$rs=$this->dbh->prepare($query);
-		$rs->bindValue(':idPanier',$tmp->getIdDrrivageBouchonD());
+		$rs->bindValue(':idPanier',$tmp->getIdPanierBouchonD());
 		$rs->bindValue(':numTrac',$tmp->getNumTracabiliteBouchonD());
 		$rs->bindValue(':long',$tmp->getLongueurBouchonD());
 		$rs->bindValue(':dia1',$tmp->getDiametre1BouchonD());
 		$rs->bindValue(':dia2',$tmp->getDiametre2BouchonD());
-		$rs->bindValue(':diaComp',$tmp->getDiametreCompresseBouchonD());
-		$rs->bindValue(':humi',$tmp->getHumiditeBouchonD());
+		$rs->bindValue(':diaComp',$tmp->getDiametreCompresse());
+		$rs->bindValue(':humi',$tmp->getHumidite());
 		
 		$rs->execute();
 		return $this->dbh->lastInsertId();
@@ -86,15 +86,15 @@ class DaoBouchon
 	{
 		$tmp = new BouchonD;
 		$tmp = $bouchon;
-		$query= "update bouchon_D set (id_arrivage=:idArrivage,longueur=:long,diametre1=:dia1,diametre2=:dia2,diametre_compresse=:diaComp,humidite=:humi) where id=:id";
+		$query= "update bouchon_D set id_arrivage=:idArrivage,longueur=:long,diametre1=:dia1,diametre2=:dia2,diametre_compresse=:diaComp,humidite=:humi where id=:id";
 		$rs->bindValue(':id',$tmp->getIdBouchonD());
 		$rs->bindValue(':idPanier',$tmp->getIdDrrivageBouchonD());
 		$rs->bindValue(':numTrac',$tmp->getNumTracabiliteBouchonD());
 		$rs->bindValue(':long',$tmp->getLongueurBouchonD());
 		$rs->bindValue(':dia1',$tmp->getDiametre1BouchonD());
 		$rs->bindValue(':dia2',$tmp->getDiametre2BouchonD());
-		$rs->bindValue(':diaComp',$tmp->getDiametreCompresseBouchonD());
-		$rs->bindValue(':humi',$tmp->getHumiditeBouchonD());;
+		$rs->bindValue(':diaComp',$tmp->getDiametreCompresse());
+		$rs->bindValue(':humi',$tmp->getHumidite());;
 		
 		return $rs->execute();
 	}
