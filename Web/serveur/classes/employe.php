@@ -10,6 +10,7 @@ class Employe
 	private $adresse;
 	private $fax;
 	private $email;
+	private $etat;
 	
 	/**********************************************************
                        construtor    
@@ -51,23 +52,26 @@ class Employe
 	{
 		return $this->fax;
 	}
-	
 	public function getEmail()
 	{
 		return $this->email;
+	}
+	public function getEtat()
+	{
+		return $this->etat;
 	}
 	
 		
 	/***********************************************
 						setters
 	************************************************/
-	public function setIdEmploye($idpanier)
+	public function setIdEmploye($idEmploye)
 	{
-		$this->idEmploye=$idpanier;
+		$this->idEmploye=$idEmploye;
 	}
-	public function setNom($idEmploye)
+	public function setNom($nom)
 	{
-		$this->nom=$idEmploye;
+		$this->nom=$nom;
 	}
 	public function setPrenom($prenom)
 	{
@@ -83,7 +87,7 @@ class Employe
 	}
 	public function setAdresse($adresse)
 	{
-		$this->adresse=$prixNegocier;
+		$this->adresse=$adresse;
 	}
 	public function setFax($fax)
 	{
@@ -92,6 +96,10 @@ class Employe
 	public function setEmail($email)
 	{
 		$this->email=$email;
-	}	
+	}
+	public function setEtat($etat)
+	{
+		$this->etat=$etat;
+	}
 }
 ?>

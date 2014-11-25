@@ -15,6 +15,7 @@ class Arrivage
 	private $etat;
 	private $controle;
 	private $taille;
+	private $stock;
 	
 	/**********************************************************
                        construtor    
@@ -80,6 +81,10 @@ class Arrivage
 	{
 		return $this->taille;
 	}
+	public function getStock()
+	{
+		return $this->stock;
+	}
 	
 		
 	/***********************************************
@@ -136,6 +141,10 @@ class Arrivage
 		public function setTaille($taille)
 	{
 		$this->taille=$taille;
+	}
+	public function setStock($stock)
+	{
+		$this->stock=$stock;
 	}
 }
 ?>

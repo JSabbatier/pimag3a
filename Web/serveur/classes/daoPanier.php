@@ -40,13 +40,13 @@ class DaoPanier
 		$panier->setIdCommande($row['id_commande']);
 		$panier->setIdPanier($row['id_panier']);
 		$panier->setMarquage($row['marquage']);
-		$panier->setPrixNegocier($row['prix_negocie']);
+		$panier->setPrixNegocie($row['prix_negocie']);
 		$panier->setQualite($row['qualite']);
 		$panier->setQuantite($row['quantite']);
 		$panier->setControle($row['controle']);
-		$panier->setLongueur($row['longueur']);
+		$panier->setLongueur($row['longeur']);
 		$panier->setIdCmommandeFournisseur($row['id_commande_fournisseur']);
-		$panier->setTaille($row['taille']);
+
 		
 		return $panier;
 	}
@@ -56,17 +56,17 @@ class DaoPanier
 		$tmp = new Panier;
 		$tmp = $panier;
 		
-		$query="insert into panier (id_commande,qualite,quantite,longeur,marquage,prix_negocie,devise,controle,id_commande_fournisseur,taille) values (:idcmd,:qualite,:quantite,:longueur,:marquage,:prixNegocie,:devise,:controle,:idCmdF,:taille)";
+		$query="insert into panier (id_commande,qualite,quantite,longeur,marquage,prix_negocie,devise,controle,id_commande_fournisseur) values (:idcmd,:qualite,:quantite,:longueur,:marquage,:prixNegocie,:devise,:controle,:idCmdF)";
 		$rs=$this->dbh->prepare($query);
 		
 		
-		$rs->bindValue(':taille',$tmp->getTaille());
+		
 		$rs->bindValue(':idcmd',$tmp->getIdCommande());
 		$rs->bindValue(':qualite',$tmp->getQualite());
 		$rs->bindValue(':longueur',$tmp->getLongueur());
 		$rs->bindValue(':quantite',$tmp->getQuantite());
 		$rs->bindValue(':marquage',$tmp->getMarquage());
-		$rs->bindValue(':prixNegocie',$tmp->getPrixNegocier());
+		$rs->bindValue(':prixNegocie',$tmp->getPrixNegocie());
 		$rs->bindValue(':devise',$tmp->getDevise());
 		$rs->bindValue(':controle',$tmp->getControle());
 		$rs->bindValue(':idCmF',$tmp->getIdCommandeFournisseur());
@@ -84,6 +84,24 @@ class DaoPanier
 		$rs->bindValue(':idcmd',$idcommande);
 		$rs->execute();
 		$panier = new Panier;
+		$list = array();
+		while( $row= $rs->fetch())
+		{
+			$panier = $this->getPanierById($row['id_panier']);
+			$list[]= $panier;
+		}
+		return $list;
+		
+	}
+		public function getListeOfPanierByCommandeFournisseur($idcommandeFournisseur)
+	{
+		$query="select * from panier where id_commande_fournisseur=:idcmd";
+		$rs=$this->dbh->prepare($query);
+		
+		$rs->bindValue(':idcmd',$idcommandeFournisseur);
+		$rs->execute();
+		$panier = new Panier;
+		$list = array();
 		while( $row= $rs->fetch())
 		{
 			$panier = $this->getPanierById($row['id_panier']);
@@ -96,18 +114,18 @@ class DaoPanier
 	{
 		$tmp = new Panier;
 		$tmp = $panier;
-		$query="update panier set id_commande=:idcmd,qualite=:qualite,quantite=:quantite,longeur=:longueur,marquage=:marquage,prix_negocie=:prixNegocie,devise=:devise,controle=:controle,id_commande_fournisseur=:idCmdF,taille=:taille where id_panier=:id";
+		$query="update panier set id_commande=:idcmd,qualite=:qualite,quantite=:quantite,longeur=:longueur,marquage=:marquage,prix_negocie=:prixNegocie,devise=:devise,controle=:controle,id_commande_fournisseur=:idCmdF where id_panier=:id";
 		
 		$rs=$this->dbh->prepare($query);
 		
 		
-		$rs->bindValue(':taille',$tmp->getTaille());
+
 		$rs->bindValue(':idcmd',$tmp->getIdCommande());
 		$rs->bindValue(':qualite',$tmp->getQualite());
 		$rs->bindValue(':longueur',$tmp->getLongueur());
 		$rs->bindValue(':quantite',$tmp->getQuantite());
 		$rs->bindValue(':marquage',$tmp->getMarquage());
-		$rs->bindValue(':prixNegocie',$tmp->getPrixNegocier());
+		$rs->bindValue(':prixNegocie',$tmp->getPrixNegocie());
 		$rs->bindValue(':devise',$tmp->getDevise());
 		$rs->bindValue(':controle',$tmp->getControle());
 		$rs->bindValue(':idCmF',$tmp->getIdCommandeFournisseur());

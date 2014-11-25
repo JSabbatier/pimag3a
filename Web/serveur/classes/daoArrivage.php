@@ -49,6 +49,7 @@ class DaoArrivage
 		$arrivage->setQuantite($row['quantite']);
 		$arrivage->setValidite($row['validite']);
 		$arrivage->setTaille($row['taille']);
+		$arrivage->setStock($row['stock']);
 		
 		return $arrivage;
 		
@@ -58,8 +59,9 @@ class DaoArrivage
 	{
 		$tmp = new Arrivage;
 		$tmp = $arrivage;
-		$query="insert into arrivage (date_arrivage,id_fournisseur,qualite,quantite,numero_tracabilite,validite,prix_achat,devise,code_barre,etat,controle,taille) values(:ladate,:id_fournisseur,:qualite,:quantite,:numero_tracabilite,:validite,:prix_achat,:devise,:code_barre,:etat,:controle,:taille)";
-		$rs->dbh->prepare($query);
+		$query="insert into arrivage (date_arrivage,id_fournisseur,qualite,quantite,numero_tracabilite,validite,prix_achat,devise,code_barre,etat,controle,taille,stock) values(:ladate,:id_fournisseur,:qualite,:quantite,:numero_tracabilite,:validite,:prix_achat,:devise,:code_barre,:etat,:controle,:taille,:stock)";
+		
+		$rs=$this->dbh->prepare($query);
 		
 		$rs->bindValue(':controle', $tmp->getControle());
 		$rs->bindValue(':ladate',$tmp->getDate());
@@ -73,7 +75,7 @@ class DaoArrivage
 		$rs->bindValue(':code_barre',$tmp->getCodeBarre());
 		$rs->bindValue(':etat',$tmp->getEtat());
 		$rs->bindValue(':taille',$tmp->getTaille());	
-		
+		$rs->bindValue(':stock',$tmp->getQuantite());
 		$rs->execute();
 		return $this->dbh->lastInsertId();
 	}
@@ -97,9 +99,10 @@ class DaoArrivage
 	{
 		$tmp = new Arrivage;
 		$tmp = $arrivage;
-		$query="update arrivage SET date_arrivage=:ladate,id_fournisseur=:id_fournisseur,qualite=:qualite,quantite=:quantite,numero_tracabilite=:numero_tracabilite,validite=:validite,prix_achat=:prix_achat,devise=:devise,code_barre=:code_barre,etat=:etat,controle=:controle, taille=:taille where id_lot=:id";
-		$rs->dbh->prepare($query);
-		$rs->bindValue(':idLot', $tmp->getIdLot());
+		$query="update arrivage SET date_arrivage=:ladate,id_fournisseur=:id_fournisseur,qualite=:qualite,quantite=:quantite,numero_tracabilite=:numero_tracabilite,validite=:validite,prix_achat=:prix_achat,devise=:devise,code_barre=:code_barre,etat=:etat,controle=:controle, taille=:taille,stock=:stock where id_lot=:id";
+		
+		$rs=$this->dbh->prepare($query);
+		$rs->bindValue(':id', $tmp->getIdLot());
 		$rs->bindValue(':controle', $tmp->getControle());
 		$rs->bindValue(':ladate',$tmp->getDate());
 		$rs->bindValue(':id_fournisseur',$tmp->getIdFournisseur());
@@ -112,8 +115,51 @@ class DaoArrivage
 		$rs->bindValue(':code_barre',$tmp->getCodeBarre());
 		$rs->bindValue(':etat',$tmp->getEtat());
 		$rs->bindValue(':taille',$tmp->getTaille());
+		$rs->bindValue(':stock',$tmp->getStock());
 		
 		$rs->execute();
+	}
+	
+	public function decreaseStock($qte,$idLot)
+	{
+		$arrivage = new Arrivage;
+		$arrivage = $this->getArrivageById($idLot);
+		
+		$query="update arrivage SET stock=:stock where id_lot=:id";
+		
+		$rs=$this->dbh->prepare($query);
+		$nouvelleQté= $tmp->getControle() - $qte;
+		$rs->bindValue(':id', $idLot);
+		$rs->bindValue(':stock', $nouvelleQté);
+		$rs->execute();
+	}
+	
+	public function getListeArrivagesByTailleAndQuality($taille,$qualite)
+	{
+		$query="select * from arrivage where qualite=:qual and taille=:taille";
+		$rs=$this->dbh->prepare($query);
+		$rs->bindValue(':qual', $qualite);
+		$rs->bindValue(':taille', $taille);
+		$rs->execute();
+		$list = array();
+		$arrivage= new Arrivage;
+		while( $row=$rs->fetch())
+		{
+			$arrivage= $this->getArrivageById($row['id_lot']);
+			$list[]=$arrivage;
+		}
+		return $list;
+	}
+	
+	public function getStockByTailleAndQualite($qualite,$taille)
+	{
+		$query="select sum(stock) as stock from arrivage where qualite=:qual and taille=:taille group by qualite,taille";
+		$rs=$this->dbh->prepare($query);
+		$rs->bindValue(':qual', $qualite);
+		$rs->bindValue(':taille', $taille);
+		$rs->execute();
+		return $row['stock'];
+		
 	}
 	
 }

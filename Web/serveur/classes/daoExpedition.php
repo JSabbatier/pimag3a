@@ -100,7 +100,7 @@ class DaoExpedition
 		$tmp = new Expedition;
 		$tmp = $expe;
              
-		$query="update expedition set (id_commande=:idCmd,id_lot=:idLot,quantite=:qte) where id = :idExpe";
+		$query="update expedition set id_commande=:idCmd,id_lot=:idLot,quantite=:qte where id = :idExpe";
 		$rs=$this->dbh->prepare($query);
 		$rs->bindValue(':idExpe',$tmp->getIdExpedition());
 		$rs->bindValue(':idCmd',$tmp->getIdCommande());

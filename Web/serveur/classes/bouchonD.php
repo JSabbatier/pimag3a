@@ -8,6 +8,7 @@ class BouchonD
 	private $dia1;
 	private $dia2;
 	private $diaComp;
+	private $humi;
 
 	
 	
@@ -28,9 +29,9 @@ class BouchonD
 	{
 		return $this->id;
 	}
-	public function getIdLotBouchonD()
+	public function getIdPanierBouchonD()
 	{
-		return $this->id_lot;
+		return $this->id_panier;
 	}
 	public function getNumTracabiliteBouchonD()
 	{
@@ -52,6 +53,10 @@ class BouchonD
 	{
 		return $this->diaComp;
 	}
+	public function getHumidite()
+	{
+		return $this->humi;
+	}
 	/***********************************************
 						setters
 	************************************************/
@@ -60,9 +65,9 @@ class BouchonD
 	{
 		$this->id=$id;
 	}
-	public function setIdLotBouchonD($idLot)
+	public function setIdPanierBouchonD($idpanier)
 	{
-		$this->id_lot=$idLot;
+		$this->id_panier=$idpanier;
 	}
 	public function setNumTracabiliteBouchonD($numTrac)
 	{
@@ -83,6 +88,10 @@ class BouchonD
 	public function setDiametreCompresse($diametre)
 	{
 		$this->diaComp=$diametre;	
+	}
+	public function setHumidite($humidite)
+	{
+		$this->humi=$humidite;
 	}
 	
 }

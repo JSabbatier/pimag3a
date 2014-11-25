@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <dwsync>
 <file name="connect.php" server="ssh.imerir.com/www/pima3a/" local="130608629060000000" remote="130608629060000000" Dst="1" />
-<file name="controleArrivage.php" server="ssh.imerir.com/www/pima3a/" local="130610549150000000" remote="130610549150000000" Dst="1" />
+<file name="controleArrivage.php" server="ssh.imerir.com/www/pima3a/" local="130612939340000000" remote="130612939340000000" Dst="1" />
+<file name="controle_depart.php" server="ssh.imerir.com/www/pima3a/" local="130613404750000000" remote="130613404750000000" Dst="1" />
+<file name="receive_commande.php" server="ssh.imerir.com/www/pima3a/" local="130613214280000000" remote="130613214280000000" Dst="1" />
 </dwsync>

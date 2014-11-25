@@ -1,8 +1,8 @@
 //Declaration des url 
 //var urldata ='http://localhost/Stat/data_test.php';
-var urlClient ='http://perso.imerir.com/jloeve/pimag3a/service/get_clients.php';
+var urlClient ='http://perso.imerir.com/jloeve/pimag3a/service/get_nom_clients.php';
 var urlDetailsClient =   'http://perso.imerir.com/jloeve/pimag3a/service/get_detail_client.php';
-var urlGetEnvois ='http://perso.imerir.com/jloeve/pimag3a/service/get_arrivages';           
+var urlGetCommandes ='http://perso.imerir.com/jloeve/pimag3a/service/get_commandes_clients.php';           
 //Declaration des graphes
 var chart; // chart Pie
 var dataTab; // Tableau de type de lot 
@@ -28,7 +28,7 @@ colorTab[2]="#D8E0BD";
 colorTab[3]="#B3DBD4";
 colorTab[4]="#69A55C";
 colorTab[5]="#B5B8D3";
-colorTab[6]="#F4E23B";
+colorTab[6]="#C72C95";
 colorTab[7]="#A4E33B";
 colorTab[8]="#F4E73C";
 
@@ -80,14 +80,28 @@ AmCharts.ready(function ()
 function CheckDate(d) {
       // Cette fonction vérifie le format JJ/MM/AAAA saisi et la validité de la date.
       // Le séparateur est défini dans la variable separateur
+      
       var amin=1950; // année mini
       var currentDate = new Date()
-      var amax=currentDate.getFullYear(); // année maxi
-      var separateur="/"; // separateur entre jour/mois/annee
-      var j=(d.substring(0,2));
-      var m=(d.substring(3,5));
-      var a=(d.substring(6));
       var ok=1;
+
+      if ( d.substring(4,5)=="-")
+      {
+      	var amax=currentDate.getFullYear(); // année maxi
+      	var separateur="-"; // separateur entre jour/mois/annee
+      	var j=(d.substring(8,10));
+      	var m=(d.substring(5,7));
+      	var a=(d.substring(0,4));
+      }
+      else
+      {
+      	var amax=currentDate.getFullYear(); // année maxi
+      	var separateur="/"; // separateur entre jour/mois/annee
+      	var j=(d.substring(0,2));
+      	var m=(d.substring(3,5));
+      	var a=(d.substring(6));   
+      }
+
       if ( ((isNaN(j))||(j<1)||(j>31)) && (ok==1) ) {
          alert("Le jour n'est pas correct."); ok=0;
       }
@@ -97,9 +111,20 @@ function CheckDate(d) {
       if ( ((isNaN(a))||(a<amin)||(a>amax)) && (ok==1) ) {
          alert("L'année n'est pas correcte."); ok=0;
       }
-      if ( ((d.substring(2,3)!=separateur)||(d.substring(5,6)!=separateur)) && (ok==1) ) {
-         alert("Les séparateurs doivent être des "+separateur); ok=0;
+
+       if ( d.substring(4,5)=="-")
+      {
+      	if ( ((d.substring(4,5)!=separateur)||(d.substring(7,8)!=separateur)) && (ok==1) ) {
+         		alert("Les séparateurs doivent être des "+ separateur); ok=0;
+      		}
       }
+      else
+      	{
+      		if ( ((d.substring(2,3)!=separateur)||(d.substring(5,6)!=separateur)) && (ok==1) ) {
+         		alert("Les séparateurs doivent être des "+ separateur); ok=0;
+      		}
+  		}
+
       if (ok==1) {
          var d2=new Date(a,m-1,j);
          j2=d2.getDate();
@@ -114,12 +139,35 @@ function CheckDate(d) {
       return ok;
    };
 
-//REQUETE CHOIX FOURNISSEUR ET CHANGEMENT DES DONNEES
+
+function formateDate(d){
+	var formatedDate;
+
+	if ( d.substring(4,5)=="-")
+      {
+      	var j=(d.substring(8,10));
+      	var m=(d.substring(5,7));
+      	var a=(d.substring(0,4));
+      }
+      else
+      {
+      	var j=(d.substring(0,2));
+      	var m=(d.substring(3,5));
+      	var a=(d.substring(6));   
+      }
+
+      formatedDate = new Date(a,m,j);
+      
+      return formatedDate;
+}
+
+//REQUETE CHOIX CLIENT ET CHANGEMENT DES DONNEES
 $(document).ready( function() 
 {
 	var $client =$('#client');
 	var $submitBtn 	 =$('#submitBtn');
 	var $dataTable = $('#dataTable');
+	var nomClient = "";
  // chargement des régions
     $.ajax(
     {
@@ -130,7 +178,7 @@ $(document).ready( function()
             $.each(json, function(index, value) 
             { // pour chaque noeud JSON
                 // on ajoute l option dans la liste
-                $fournisseur.append('<option value="'+ index +'">'+ value +'</option>');
+                $client.append('<option value="'+ index +'">'+ value +'</option>');
             });
         }
     });
@@ -138,26 +186,30 @@ $(document).ready( function()
 
 	$client.on ('change', function() 
 	{
-	    var val = $(this).val(); // on récupère la valeur du fournisseur
+	    var val = $(this).val(); // on récupère la valeur du client
 		var adresse = $('#adresse');
 		var telephone =$('#telephone');
 		var fax = $('#fax ');
 		var mail =$('#mail');
+		var nbrPanier = 0;
+
+
 		if(val != '')
 	    { 
 	        $.ajax(
 	        {
-	            url: urlDetailFournisseur,//+"?id_fournisseur="+val,
+	            url: urlDetailsClient,
 	            type:'POST',
 	            data:'id_client='+val, // on envoie $_GET['id_region']
 	        
 	            dataType: 'json',
 	            success: function(json) 
 	            {
-	                    adresse.html(json["adresse"]);
+	            		nomClient = (json["nom"]);
+	                    adresse.html(json["adresse_f"]);
 	                    telephone.html(json["numero"]);
 	                    fax.html(json["fax"]);  
-	                    mail.html(json["email"]); 
+	                    mail.html(json["mail"]); 
 	        	}
 	   	 	});
 	   	}
@@ -172,18 +224,21 @@ $(document).ready( function()
 	{
 		var dateDebut = $('#dateDebut').val();
 		var dateFin = $('#dateFin').val();
-		var val= $(fournisseur).val();
+		var val= $(client).val();
+		var nbrPanier=0;
 
-		if (fournisseur == '' || dateDebut == '' || dateFin == '') 
+		if (client == '' || dateDebut == '' || dateFin == '') 
 		{
 			alert("Please Fill All Fields");
 		}
 		else if ( CheckDate(dateDebut)==1 && CheckDate(dateFin)==1)
 		{
+			dateDebut =formateDate(dateDebut);
+			dateFin= formateDate(dateFin);
 			$.ajax
 			({
-				url:  urlgetarrivage,
-				data: { 'id_fournisseur':val, 'dateDebut':dateDebut , 'dateFin':dateFin},
+				url:  urlGetCommandes,
+				data: { 'id_client':val, 'dateDebut':dateDebut , 'dateFin':dateFin},
 				type:'POST',
 				dataType: 'json',
 				success: function(json) 
@@ -191,63 +246,72 @@ $(document).ready( function()
 					var dataTab =[];
 					dataTab["nbrTotalValide"] = 0;
 					dataTab["nbrTotalNoValide"] = 0;
-					nbrLot=0;
+					
 
-						dataTab[38]=[];
-		              	dataTab[44]=[];
-		              	dataTab[49]=[];
-		              	for (i=1 ; i <= 8 ; i++)
-		              	{
-		              		dataTab[38][i]=[];
-		      				dataTab[38][i]["nbrValide"]= 0;
-		      				dataTab[38][i]["nbrNoValide"]=0;
-		      				
+					dataTab[38]=[];
+		            dataTab[44]=[];
+		            dataTab[49]=[];
 
-		              		dataTab[44][i]=[];
-		              		dataTab[44][i]["nbrValide"]=[];
-		              		dataTab[44][i]["nbrNoValide"]=[];
-
-							
-							dataTab[49][i]=[];
-							dataTab[49][i]["nbrValide"]=[];
-							dataTab[49][i]["nbrNoValide"]=[];
-							
-		              	}
-
-		            $.each(json["lots"], function(index, value) 
+		            for (i=1 ; i <= 8 ; i++)
 		            {
-		             	
-		              	$dataTable.append("<tr><td>"+value["date"] +"</td><td>" + value["id_lot"]+"</td><td>"+ value["controle"] +"</td></tr>");
+		            	dataTab[38][i]=[];
+		      			dataTab[38][i]["nbrValide"]= 0;
+		      			dataTab[38][i]["nbrNoValide"]=0;
+		      			
+		            	dataTab[44][i]=[];
+		            	dataTab[44][i]["nbrValide"]=[];
+		            	dataTab[44][i]["nbrNoValide"]=[];
 
-		              	nbrLot = nbrLot + 1;
-
-	              		//Definition du tableau de données des lots
-	              		if (dataTab[value['taille']] == undefined)   
-	              			dataTab[value['taille']] = [];   
-	              		if (dataTab[value['taille']][value['qualite']] == undefined)   
-	              			dataTab[value['taille']][value['qualite']] = [];  
-		              	
-		              	//Incrementation du tableau de lot
-		              	if ( (value['controle']== "OK") || (value['controle']== "OKD"))
-		              	{ 
-		              		if (dataTab[value['taille']][value['qualite']]["nbrValide"] == undefined)
-		              			dataTab[value['taille']][value['qualite']]["nbrValide"] = 0;
-		               	
-		               		dataTab[value['taille']][value['qualite']]["nbrValide"] ++;
-		               		dataTab["nbrTotalValide"] =dataTab["nbrTotalValide"]+1;
-		              	}
-		              	else
-		              	{
-		              		if (dataTab[value['taille']][value['qualite']]["nbrNoValide"] == undefined)
-		              			dataTab[value['taille']][value['qualite']]["nbrNoValide"] = 0;
-		               	
-		               		dataTab[value['taille']][value['qualite']]["nbrNoValide"] ++;
-		               		dataTab["nbrTotalNoValide"] =dataTab["nbrTotalNoValide"] +1;
+						dataTab[49][i]=[];
+						dataTab[49][i]["nbrValide"]=[];
+						dataTab[49][i]["nbrNoValide"]=[];
+						
 		              	}
 
-		         	});
-
-		          
+		            if (json !="")
+		    		{
+		            	$.each(json["commandes"], function(index, value) 
+		            	{
+		            		var datecommande = formateDate(value["date_commande"]);
+		            		
+		            	  	//$dataTable.append("<tr><td>"+value["date"] +"</td><td>" + value["id_lot"]+"</td><td>"+ value["controle"] +"</td></tr>");
+							if (  (datecommande>=dateDebut) && (datecommande<=dateFin) )
+							{
+								
+								$.each(value["paniers"],function(index,value)
+								{
+			            	  		nbrPanier = nbrPanier + 1;
+			
+		              				//Definition du tableau de données des lots
+		              				if (dataTab[value['longueur']] == undefined)   
+		              					dataTab[value['longueur']] = [];   
+		              				if (dataTab[value['longueur']][value['qualite']] == undefined)   
+		              					dataTab[value['longueur']][value['qualite']] = [];  
+			 
+			            	  		//Incrementation du tableau de lot
+			            	  		if ( (value['controle']== "OK") || (value['controle']== "OKD"))
+			            	  		{ 
+			            	  			if (dataTab[value['longueur']][value['qualite']]["nbrValide"] == undefined)
+			            	  				dataTab[value['longueur']][value['qualite']]["nbrValide"] = 0;
+			            	   		
+			            	   			dataTab[value['longueur']][value['qualite']]["nbrValide"] ++;
+			            	   			dataTab["nbrTotalValide"] =dataTab["nbrTotalValide"]+1;
+			            	  		}
+			            	  		else
+			            	  		{
+			            	  			if (dataTab[value['longueur']][value['qualite']]["nbrNoValide"] == undefined)
+			            	  				dataTab[value['longueur']][value['qualite']]["nbrNoValide"] = 0;
+			            	   		
+			            	   			dataTab[value['longueur']][value['qualite']]["nbrNoValide"] ++;
+			            	   			dataTab["nbrTotalNoValide"] =dataTab["nbrTotalNoValide"] +1;
+			            	  		}
+			            	  	
+			            	  });
+							}
+	
+		         		});
+					}
+					
 
 					chartPieData = [
      					{
@@ -260,6 +324,9 @@ $(document).ready( function()
 						}  
 					];
 					chart.dataProvider = chartPieData;
+					chart.titles = [];
+					chart.validateNow() ;
+					chart.addTitle("CONFORMITE EN % DES PANIERS DU CLIENT "+'"'+nomClient.toUpperCase()+'"', 16);
 					chart.validateData();
 
 
@@ -343,6 +410,9 @@ $(document).ready( function()
 					
 						barGraph = new AmCharts.AmSerialChart();
 	                	barGraph.dataProvider = barGraphData;
+	                	barGraph.titles = [];
+						barGraph.validateNow() ;
+						barGraph.addTitle("DETAILS DE LA CONFORMITE: TAILLES ET QUALITES DES PANIERS", 16);
 	                	barGraph.categoryField = "Taille";
 	                	barGraph.labelOffset = 5;
 	 
@@ -407,18 +477,20 @@ $(document).ready( function()
 						    graph.balloonText = "<span style='color:#555555;'>[[category]]</span><br><span style='font-size:14px'>[[title]]:<b>[[value]]</b></span>";
 						    barGraph.addGraph(graph);
 						}
-						// LEGEND
-		                var legend = new AmCharts.AmLegend();
+						var legend = new AmCharts.AmLegend();
+
+		                legend.reversedOrder = false;
 		                legend.borderAlpha = 0.2;
-		                legend.horizontalGap = 10;
+		                legend.horizontalGap = 1;
+		                legend.position= 'right';
 		                legend.align = 'right';
 		                barGraph.addLegend(legend,"legenddiv");
 
 						barGraph.depth3D = 25;
                     	barGraph.angle = 30;
 
-                    	 barGraph.write("barGraph");
-
+                    	barGraph.write("barGraph");
+                    	barGraph.validateData();
 					
 
 					

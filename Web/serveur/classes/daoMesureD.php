@@ -37,7 +37,7 @@ class DaoMesureD
 		
 		$mesure = new MesureD;
 		$mesure->setId($id);
-		$mesure->setIdPanier($row['id_arrivage']);
+		$mesure->setIdPanier($row['id_panier']);
 		$mesure->setCapilarite($row['capilarite']);
 		$mesure->setTCAInterne($row['tca_interne']);
 		$mesure->setGout($row['gout']);
@@ -50,11 +50,11 @@ class DaoMesureD
 		$tmp = new mesureD;
 		$tmp = $mesure;
 
-		$query="insert into mesure_d (id_panier, tca_interne,capilarite, gout) values (:id,:id_panier,:tca_interne,:gout)";
+		$query="insert into mesure_D (id_panier, tca_interne,capilarite, gout) values (:id_panier,:tca_interne,:capilarite,:gout)";
 		$rs=$this->dbh->prepare($query);	
 		
-		$rs->bindValue(':id',$tmp->getId());
-		$rs->bindValue(':id_panier',$tmp->getIdarrivage());
+
+		$rs->bindValue(':id_panier',$tmp->getIdpanier());
 		$rs->bindValue(':capilarite',$tmp->getCapilarite());
 		$rs->bindValue(':tca_interne',$tmp->getTCAInterne());
 		$rs->bindValue(':gout',$tmp->getGout());
@@ -69,12 +69,12 @@ class DaoMesureD
 		$tmp = new MesureD;
 		$tmp = $mesure;
 		 
-		$query = "UPDATE mesure_D SET id_arrivage=:id_arrivage, capilarite=:capi, tca_interne=:tca_interne, gout=:gout where id=:id";
+		$query = "UPDATE mesure_D SET id_panier=:id_panier, capilarite=:capilarite, tca_interne=:tca_interne, gout=:gout where id=:id";
 		 
 		$queryPrepared = $this->dbh->prepare($query);
 		$queryPrepared->bindValue(':id',$tmp->getId());
-		$queryPrepared->bindValue(':id_arrivage',$tmp->getIdArrivage());
-		$queryPrepared->bindValue(':capi',$tmp->getCapilarite());
+		$queryPrepared->bindValue(':id_panier',$tmp->getIdPanier());
+		$queryPrepared->bindValue(':capilarite',$tmp->getCapilarite());
 		$queryPrepared->bindValue(':tca_interne',$tmp->getTCAInterne());
 		$queryPrepared->bindValue(':gout',$tmp->getGout());
 		 

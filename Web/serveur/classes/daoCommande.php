@@ -31,23 +31,46 @@ class DaoCommande
 	{
 		$query="select * from commande where id_commande=:idCommande";
 		$rs=$this->dbh->prepare($query);
-		$rs->bindValue(':id_commande',$idCommande);
+		$rs->bindValue(':idCommande',$idCommande);
 		
 		$rs->execute();
 		
 		$row= $rs->fetch();
 		
-		$client = new Commande;
+		$commande = new Commande;
 		
-		$client->setIdClient($row['id_commande']);
-		$client->setDtCommande($row['dt_commande']);
-		$client->setDtLivraisonSouhaite($row['dt_livraison_souhaite']);
-		$client->setDtLivraisonReel($row['dt_livraison_reel']);
-		$client->setDelaiPaiment($row['delai_paiment']);
-		$client->setIdCommercial($row['id_commercial']);
-		$client->setCodeBarre($row['code_barre']);
+		$commande->setIdCommande($row['id_commande']);
+		$commande->setDtCommande($row['dt_commande']);
+		$commande->setDtLivraisonSouhaite($row['dt_livraison_souhaite']);
+		$commande->setDtLivraisonReel($row['dt_livraison_reel']);
+		$commande->setDelaiPaiment($row['delai_paiement']);
+		$commande->setIdCommercial($row['id_commercial']);
+		$commande->setCodeBarre($row['code_barre']);
+		
+		
+		$commande->setEtat($row['etat']);
+		$commande->setIdClient($row['id_client']);
 		
 		return $commande;
+	}
+	
+	public function getListeCommandes()
+	{
+		$query="select * from commande";
+		$rs=$this->dbh->prepare($query);
+		
+		$rs->execute();
+		$list = array();
+		$commande = new Commande;
+		
+		while( $row = $rs->fetch() )
+		{
+			
+			$commande = $this->getCommandeById($row['id_commande']);
+			$list[] = $commande;
+		}
+		return $list;
+		
 	}
 
 	public function getCommandeByCodeBarre($codeBarre)

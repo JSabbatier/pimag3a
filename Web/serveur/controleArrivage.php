@@ -6,7 +6,7 @@ require_once("classes/mesureA.php");
 require_once("classes/daoBouchonA.php");
 require_once("classes/bouchonA.php");
 
-$debug=false;
+$debug=true;
 
 
 
@@ -14,7 +14,7 @@ if(isset($dedug) && $debug==false)
 {
 	//obtain the request method
 	$methodUsed=$_SERVER["REQUEST_METHOD"];
-	//test if it isn't a POST method
+	//test if it isn't a POST method)
 	if($methodUsed != "POST")
 	{
 		//send the header with the code 405 which is a bad method request
@@ -25,7 +25,111 @@ if(isset($dedug) && $debug==false)
 	$headers=apache_request_headers();
 }
 else
-	$jsonTest="{\"arrivage\":{\"id\":4,\"tcaf\":83,\"tcai\":11,\"gout\":\"oui\"},\"bouchon\":[{\"id\":1,\"long\":59.71,\"diam1\":23.85,\"diam2\":24.6,\"humi\":4.76,\"diam_comp\":91.15},{\"id\":2,\"long\":55.63,\"diam1\":23.5,\"diam2\":24.54,\"humi\":5.03,\"diam_comp\":95.83},{\"id\":3,\"long\":56.33,\"diam1\":23.48,\"diam2\":24.4,\"humi\":5.22,\"diam_comp\":97.32},{\"id\":4,\"long\":28.89,\"diam1\":23.76,\"diam2\":23.84,\"humi\":5.14,\"diam_comp\":89.74},{\"id\":5,\"long\":13.93,\"diam1\":24.45,\"diam2\":23.53,\"humi\":5.79,\"diam_comp\":92.91},{\"id\":6,\"long\":93.8,\"diam1\":24.6,\"diam2\":24.46,\"humi\":5.6,\"diam_comp\":99.55},{\"id\":7,\"long\":0.1,\"diam1\":23.62,\"diam2\":24.54,\"humi\":6,\"diam_comp\":92.08},{\"id\":8,\"long\":37.16,\"diam1\":23.94,\"diam2\":23.86,\"humi\":4.6,\"diam_comp\":90.89},{\"id\":9,\"long\":18.2,\"diam1\":24.4,\"diam2\":24.32,\"humi\":4.59,\"diam_comp\":89.89},{\"id\":10,\"long\":63.6,\"diam1\":24.58,\"diam2\":24.56,\"humi\":5.78,\"diam_comp\":88.33},{\"id\":11,\"long\":57.98,\"diam1\":24.54,\"diam2\":23.79,\"humi\":4.64,\"diam_comp\":97.46},{\"id\":12,\"long\":96.89,\"diam1\":23.58,\"diam2\":24.34,\"humi\":4.2,\"diam_comp\":91.02},{\"id\":13,\"long\":18.52,\"diam1\":23.56,\"diam2\":24.54,\"humi\":4.19,\"diam_comp\":93.41},{\"id\":14,\"long\":67.39,\"diam1\":24.16,\"diam2\":23.42,\"humi\":4.52,\"diam_comp\":90.51},{\"id\":15,\"long\":23.72,\"diam1\":24.13,\"diam2\":23.86,\"humi\":4.24,\"diam_comp\":89.74},{\"id\":16,\"long\":2,\"diam1\":23.58,\"diam2\":24.32,\"humi\":4,\"diam_comp\":97.47}]}";
+	$jsonTest="{
+	\"arrivage\": {
+		\"idArrivage\": \"89\",
+		\"tcaf\": \"98\",
+		\"tcai\": \"498\",
+		\"gout\": \"oui\"
+	},
+	\"bouchon\": [
+		{
+			\"long\": \"6816\",
+			\"diam1\": \"1\",
+			\"diam2\": \"61\",
+			\"humi\": \"0\",
+			\"diam_comp\": \"0\"
+		},
+		{
+			\"long\": \"156\",
+			\"diam1\": \"1\",
+			\"diam2\": \"351\",
+			\"humi\": \"0\",
+			\"diam_comp\": \"0\"
+		},
+		{
+			\"long\": \"351\",
+			\"diam1\": \"351\",
+			\"diam2\": \"35\",
+			\"humi\": \"0\",
+			\"diam_comp\": \"0\"
+		},
+		{
+			\"long\": \"135\",
+			\"diam1\": \"135\",
+			\"diam2\": \"1\",
+			\"humi\": \"0\",
+			\"diam_comp\": \"0\"
+		},
+		{
+			\"long\": \"351\",
+			\"diam1\": \"351\",
+			\"diam2\": \"35123\",
+			\"humi\": \"0\",
+			\"diam_comp\": \"0\"
+		},
+		{
+			\"long\": \"0\",
+			\"diam1\": \"0\",
+			\"diam2\": \"0\",
+			\"humi\": \"0\"
+		},
+		{
+			\"long\": \"0\",
+			\"diam1\": \"0\",
+			\"diam2\": \"0\",
+			\"humi\": \"0\"
+		},
+		{
+			\"long\": \"0\",
+			\"diam1\": \"0\",
+			\"diam2\": \"0\",
+			\"humi\": \"0\"
+		},
+		{
+			\"long\": \"0\",
+			\"diam1\": \"0\",
+			\"diam2\": \"0\",
+			\"humi\": \"0\"
+		},
+		{
+			\"long\": \"0\",
+			\"diam1\": \"0\",
+			\"diam2\": \"0\",
+			\"humi\": \"0\"
+		},
+		{
+			\"long\": \"0\",
+			\"diam1\": \"0\",
+			\"diam2\": \"0\"
+		},
+		{
+			\"long\": \"0\",
+			\"diam1\": \"0\",
+			\"diam2\": \"0\"
+		},
+		{
+			\"long\": \"0\",
+			\"diam1\": \"0\",
+			\"diam2\": \"0\"
+		},
+		{
+			\"long\": \"0\",
+			\"diam1\": \"0\",
+			\"diam2\": \"0\"
+		},
+		{
+			\"long\": \"0\",
+			\"diam1\": \"0\",
+			\"diam2\": \"0\"
+		},
+		{
+			\"long\": \"0\",
+			\"diam1\": \"0\",
+			\"diam2\": \"0\"
+		}
+	]
+}";
 	
 if((isset($headers['Content-Type']) && $headers['Content-Type']=="application/json") or $debug==true)
 {
@@ -45,13 +149,15 @@ if((isset($headers['Content-Type']) && $headers['Content-Type']=="application/js
 		$req=json_decode($serverRequest);
 	}
 	else
+	{
 		$req=json_decode($jsonTest);
-	echo "json decode effectué<br><pre>";
-	echo "la valeur de id".$req->arrivage->id."<br>";
-	//print_r($req);
-	echo "</pre>";
+		echo "json decode effectué<br><pre>";
+		echo "la valeur de id".$req->arrivage->idArrivage."<br>";
+		//print_r($req);
+		echo "</pre>";
+	}
 	
-	$mesureA->setIdArrivage($req->arrivage->id);
+	$mesureA->setIdArrivage($req->arrivage->idArrivage);
 	$mesureA->setGout($req->arrivage->gout);
 	$mesureA->setTCAFournisseur($req->arrivage->tcaf);
 	$mesureA->setTCAInterne($req->arrivage->tcai);
@@ -64,20 +170,25 @@ if((isset($headers['Content-Type']) && $headers['Content-Type']=="application/js
 		
 			$bouchon->setDiametre1BouchonA($tmp->diam1);
 			$bouchon->setDiametre2BouchonA($tmp->diam2);
-			$bouchon->setDiametreCompresseBouchonA($tmp->diam_comp);
-			$bouchon->setHumiditeBouchonA($tmp->humi);
+			
+			isset($tmp->diam_comp)?$bouchon->setDiametreCompresseBouchonA($tmp->diam_comp) :$bouchon->setDiametreCompresseBouchonA(0) ;
+			isset($tmp->humi)? $bouchon->setHumiditeBouchonA($tmp->humi):$bouchon->setHumiditeBouchonA(0);
+			
+			
 			$bouchon->setLongueurBouchonA($tmp->long);
 			$bouchon->setIdArrivageBouchonA($idMesure);
 			
-			/*if(isset($debug) && $debug==true)
+			if(isset($debug) && $debug==true)
 			{
-				echo"<br><pre><h1> bouchon numero $i<br>";
+				echo"<br><pre><h1> bouchon numero $i</h1><br>";
 				$i++;
 				print_r($bouchon);
 				echo "</pre><br>";
 			}
-			else*/
+			else
 				$objBouchonA->ajoutBouchonA($bouchon);
+				
+				
 	}
 	 header("HTTP/1.1 200 OK");
 	 
