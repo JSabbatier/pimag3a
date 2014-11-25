@@ -43,7 +43,8 @@ foreach($liste_arrivage as $arrivage)
 									"devise" => $arrivage -> getDevise(),
 									"taille" => $arrivage -> getTaille(),
 									"qualite" => $arrivage -> getQualite(),
-									"quantite" => $arrivage -> getQuantite()
+									"quantite" => $arrivage -> getQuantite(),									
+									"etat" => $arrivage -> getEtat()
 									);
 	}
 }

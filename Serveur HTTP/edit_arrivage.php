@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set('Europe/Berlin');
 require_once("../../../../mdacosta/www/pima3a/classes/daoArrivage.php");
 require_once("../../../../mdacosta/www/pima3a/connect.php");
 
@@ -70,17 +71,18 @@ if ($error == "no")
 	if ($operation == "ajouter")
 	{
 		// Ajout arrivage
-		$arrivage -> setDate($_POST["date"]);
+		$arrivage -> setDate(date('Y/m/d h:i:s', time()));
 		$arrivage -> setIdFournisseur($_POST["id_fournisseur"]);
 		$arrivage -> setTaille($_POST["taille"]);
 		$arrivage -> setQualite($_POST["qualite"]);
 		$arrivage -> setQuantite($_POST["quantite"]);
 		$arrivage -> setPrixAchat($_POST["prix"]);
 		$arrivage -> setDevise($_POST["devise"]);
-		$arrivage -> setControle($_POST["controle"]);
+		$arrivage -> setControle("");
 		$arrivage -> setValidite($_POST["validite"]);
+		$arrivage -> setEtat("actif");
 		$id_arrivage = $objArrivage -> ajoutArrivage($arrivage);
-		$arrivage -> setIdLot($id_arrivage);
+		$arrivage ->  $objArrivage->getArrivageById($id_arrivage);
 		
 		$codebarre =  str_pad($_POST["id_fournisseur"], 4, "0", STR_PAD_LEFT);
 		$codebarre .=  str_pad($id_arrivage, 6, "0", STR_PAD_LEFT);
@@ -115,7 +117,7 @@ if ($error == "no")
 		
 		
 		$codebarre =  str_pad($arrivage->getIdFournisseur(), 4, "0", STR_PAD_LEFT);
-		$codebarre .=  str_pad($arrivage->getIdArrivage(), 6, "0", STR_PAD_LEFT);
+		$codebarre .=  str_pad($arrivage->getIdLot(), 6, "0", STR_PAD_LEFT);
 		$codebarre = ean13_put_digit($codebarre."0");
 		$arrivage -> setCodeBarre($codebarre);
 		$objArrivage -> updateArrivage($arrivage);

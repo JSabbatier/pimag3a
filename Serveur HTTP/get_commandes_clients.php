@@ -50,25 +50,30 @@ foreach($liste_commande as $commande)
 		&& ((isset($datefin) && $timecour <= $timefin) || !isset($_POST["datefin"]) ))
 	{
 		$liste_paniers = $objPanier -> getListeOfPanierByCommande($commande -> getIdCommande());
-									
+		$panier = Array();							
 		foreach($liste_paniers as $panier_cour)
 		{
-			$panier[] = Array(	"id_panier" => $panier_cour->getIdPanier(),
-					"id_commande_fournisseur" =>  $panier_cour->getIdCommande(),
-					"qualite" =>  $panier_cour->getQualite(),
-					"quantite" =>  $panier_cour->getQuantite(),
-					"longueur" =>  $panier_cour->getLongueur(),
-					"marquage" =>  $panier_cour->getMarquage(),
-					"prix" =>  $panier_cour->getPrixNegocie(),
-					"devise" =>  $panier_cour->getDevise(),
-					"controle" =>  $panier_cour->getControle()
-				);
+			if ($panier_cour->getIdCommande() == $commande -> getIdCommande())
+			{
+				$panier[] = Array(	"id_panier" => $panier_cour->getIdPanier(),
+						"id_commande_fournisseur" =>  $panier_cour->getIdCommande(),
+						"qualite" =>  $panier_cour->getQualite(),
+						"quantite" =>  $panier_cour->getQuantite(),
+						"longueur" =>  $panier_cour->getLongueur(),
+						"marquage" =>  $panier_cour->getMarquage(),
+						"prix" =>  $panier_cour->getPrixNegocie(),
+						"devise" =>  $panier_cour->getDevise(),
+						"controle" =>  $panier_cour->getControle()
+					);
+			}
 		}
 		$retour["commandes"][] = Array(	"id_commande" => $commande -> getIdCommande(),
 										"id_client" => $commande -> getIdClient(),
+										"id_commercial" => $commande -> getIdCommercial(),
 										"date_commande" => $commande -> getDtCommande(),
 										"date_livraison_souhaite" => $commande -> getDtLivraisonSouhaite(),
 										"date_livraison_reel" => $commande -> getDtLivraisonReel(),
+										"delais" => $commande -> getDelaiPaiment(),
 										"etat" => $commande -> getEtat(),
 										"paniers" => $panier
 									);

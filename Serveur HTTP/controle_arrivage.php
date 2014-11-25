@@ -155,13 +155,14 @@ if (true)//((isset($headers['Content-Type']) && $headers['Content-Type']=="appli
 		echo "</pre>";
 	}
 	
+		echo($serverRequest);
 	$mesureA->setIdArrivage($req->arrivage->idArrivage);
 	$mesureA->setGout($req->arrivage->gout);
 	$mesureA->setTCAFournisseur($req->arrivage->tcaf);
 	$mesureA->setTCAInterne($req->arrivage->tcai);
 	
 	$idMesure= $objMesureA->ajoutmesureA($mesureA);
-	echo "l'idMesure: $idMesure";
+	echo "l'idMesure: $idMesure <br>";
 	$i=0;
 	foreach($req->bouchon as $tmp)
 	{
@@ -169,12 +170,12 @@ if (true)//((isset($headers['Content-Type']) && $headers['Content-Type']=="appli
 			$bouchon->setDiametre1BouchonA($tmp->diam1);
 			$bouchon->setDiametre2BouchonA($tmp->diam2);
 			
-			isset($tmp->diam_comp)?$bouchon->setDiametreCompresseBouchonA($tmp->diam_comp) :$bouchon->setDiametreCompresseBouchonA(0) ;
-			isset($tmp->humi)? $bouchon->setHumiditeBouchonA($tmp->humi):$bouchon->setHumiditeBouchonA(0);
+			isset($tmp->diam_comp)?$bouchon->setDiametreCompresseBouchonA($tmp->diam_comp) :$bouchon->setDiametreCompresseBouchonA(null) ;
+			isset($tmp->humi)? $bouchon->setHumiditeBouchonA($tmp->humi):$bouchon->setHumiditeBouchonA(null);
 			
 			
 			$bouchon->setLongueurBouchonA($tmp->long);
-			$bouchon->setIdArrivageBouchonA($idMesure);
+			$bouchon->setIdArrivageBouchonA($req->arrivage->idArrivage);
 			
 			if(isset($debug) && $debug==true)
 			{
@@ -184,11 +185,16 @@ if (true)//((isset($headers['Content-Type']) && $headers['Content-Type']=="appli
 				echo "</pre><br>";
 			}
 			else
-				$objBouchonA->ajoutBouchonA($bouchon);
+			{
+				$id_bouchon = $objBouchonA->ajoutBouchonA($bouchon);
+				echo "id_bouchon : $id_bouchon <br>";
+			}
 				
 				
 	}
 	 header("HTTP/1.1 200 OK");
+	 echo "send get";
+	 echo(file_get_contents("http://perso.imerir.com/cpy/ProjetInt/pimag3a/ctrl_fiche_arr.php?id_arrivage=".$req->arrivage->idArrivage));
 	 
 }
 else

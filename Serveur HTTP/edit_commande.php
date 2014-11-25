@@ -1,12 +1,14 @@
 <?php
 require_once("../../../../mdacosta/www/pima3a/classes/daoCommande.php");
 require_once("../../../../mdacosta/www/pima3a/classes/daoAdresse.php");
+require_once("../../../../mdacosta/www/pima3a/classes/daoClient.php");
 require_once("../../../../mdacosta/www/pima3a/connect.php");
 
 $objCommande = new DaoCommande();
 $commande = new Commande();
 
 $objAdresse = new DaoAdresse();
+$objClient = new DaoClient();
 $adresse = new Adresse();
 $listeAdresse = Array();
 
@@ -62,6 +64,8 @@ else
 		$error = "yes";
 }
 
+$client = $objClient -> getClientById($_POST["client"]);
+
 if ($error == "no")	
 {
 	if ($operation == "ajouter")
@@ -70,17 +74,21 @@ if ($error == "no")
 		$commande -> setIdClient($_POST["client"]);
 		$commande -> setDtCommande($_POST["date_commande"]);
 		$commande -> setDtLivraisonSouhaite($_POST["date_livraison_souhaite"]);
-		$commande -> setDelaiPaiement($_POST["delai_paiement"]);
-		$commande -> setIdCommercial($_POST["id_commercial"]);
+		$commande -> setDtLivraisonReel($_POST["date_livraison_reel"]);
+		$commande -> setDelaiPaiment($_POST["delais"]);
+		if (isset($_POST["id_commercial"]))
+			$commande -> setIdCommercial($_POST["id_commercial"]);
+		else
+			$commande -> setIdCommercial($client->getIdClient());
 		$commande -> setEtat("actif");
 		$id_commande = $objCommande -> ajoutCommande($commande);
-		$commande -> setId($id_commande);
+		$commande -> setIdCommande($id_commande);
 		$codebarre =  str_pad($_POST["client"], 4, "0", STR_PAD_LEFT);
 		$codebarre .=  str_pad($id_commande, 6, "0", STR_PAD_LEFT);
 		$codebarre = ean13_put_digit($codebarre."0");
 		$commande -> setCodeBarre($codebarre);
 		
-		$objAdresse -> updateAdresse($adresse);
+		$objCommande -> updateCommande($commande);
 			
 		$retour_txt = "Commande created";
 		$retour_code = "201 Created";
