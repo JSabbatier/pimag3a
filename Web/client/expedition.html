@@ -1,38 +1,234 @@
-<!doctype html>
-<html>
-<head>
-<meta charset="utf-8">
-<title>Commande - Expedition</title>
-</head>
-
-<body>
-
-    <section>
-        <h1>EXPEDITION</h1>
-    
-    	<label for="choix_client">Indiquez le fourniseur :</label>
-            <input list="client" type="text" id="choix_client">
-            <datalist id="client">
-              <option value="pim">
-              <option value="pam">
-              <option value="poum">
-            </datalist><br>
-            
-         <label for="id">Indiquez l'ID :</label>
-            <input list="id" type="text" id="id">
-            <datalist id="id">
-            </datalist><br>
-            
-         <label for="choix_lot">Indiquez le lot sélectionné :</label>
-            <input list="lot" type="text" id="choix_lot">
-            <datalist id="lot">
-            </datalist><br>
-
-    </section>  
-    <a href="index.html">Retour Accueil</a></li>
+<?php
+    include("header.php"); 
+?>
+         <div class="row">
+            <div class="box">
+                <div class="col-lg-12">
+                   <hr>
+                    <h2 class="intro-text text-center">Approvisionnement | <strong>Commande</strong></h2>
+                    <hr>
+                    <br>
+                    <input align="center" type="button" id="btnaffcmd" class="btn btn-default" onclick='communicate(commande, "get_commandes_clients.php");' value="Afficher">
+                    <input align="center" type="button" id="btnaddcmd" class="btn btn-info" onclick="addcmd('a')" value="Ajouter">
+                    <div id="divcmd"></div>
+                    <br>
+                    <table id="tabeditcmd" style="display:none;" border="1">
+                        <tr>
+                            <td>Informations</td><td>Paniers</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <table>
+                                    <tr>
+                                        <td>Nom client:</td><td><input type="text" name="nomcli"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Date de commande:</td>
+                                        <td>
+                                          <div class="input-append date" id="dt_commande" data-date="12-02-2012" data-date-format="dd/mm/yyyy">
+                                            <input class="span2" size="16" type="text" readonly>
+                                            <span class="add-on"><button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-calendar"></span></button></span>
+                                          </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Date de livraison souhaitée:</td><td>
+                                          <div class="input-append date" id="dt_souhaite" data-date="12-02-2012" data-date-format="dd/mm/yyyy">
+                                            <input class="span2" size="16" type="text" readonly>
+                                            <span class="add-on"><button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-calendar"></span></button></span>
+                                          </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Date de livraison réelle:</td>
+                                        <td>
+                                            <div class="input-append date" id="dt_reelle" data-date="12-02-2012" data-date-format="dd/mm/yyyy">
+                                            <input class="span2" size="16" type="text" readonly>
+                                            <span class="add-on"><button class="btn btn-default btn-xs"><span class="glyphicon glyphicon-calendar"></span></button></span>
+                                          </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Quantité:</td><td><input type="number" step="10000" value="0" min="0" ></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Indiquez le prix du lot(1000):</td><td><input type="number" step="10" value="0" min="0" >
+                                            <select id="devise">
+                                              <option value="€">€</option>
+                                              <option value="$">$</option>
+                                              <option value="£">£</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Délais de paiement :</td><td>
+                                            <select id="delais">
+                                              <option value="30">30 Jours</option>
+                                              <option value="45">45 Jours (fin de mois)</option>
+                                              <option value="60">60 Jours</option>
+                                            </select></td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td>
+                                            <input type="hidden" id="tabeditcmdidcmd" name="id_client" >
+                                            <input type="hidden" id="tabeditcmdope" name="operation" >
+                                            <input type="button" id="tabeditcmdbtnvalid" class="btn btn-default" onclick="actioncmd(\"m\")">
+                                            <input type="button" class="btn btn-danger" onclick="$('#tabeditcmd').slideUp();" value="Annuler">
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
         
+    </div>
+    <!-- /.container -->
+    <?php include("footer.php"); ?>
+
+<script src="datepicker/js/bootstrap-datepicker.js"></script>
+<script>
+
+        $(function(){
+                $('#dt_commande').datepicker();
+                $('#dt_souhaite').datepicker();
+                $('#dt_reelle').datepicker();
+            
+        });
+
+
+//var jsondata = '{"1":{"nom":"Py Companie","numero": "0467394215","fax": null,"contact": "cyril","mail": "toto@riri.frz","raison": "sarl","commercial": "0","adresse_f": "adresse facturation","adresse_l": []},"2": {"nom": "Python corp.","numero": "0467394215","fax": null,"contact": "cyril","mail": "toto@riri.frz","raison": "sarl","commercial": "0","adresse_f": "adresse facturation","adresse_l": [{"livraison1": "cest ici","livraison2": "ou bien la"}]}}';
+var userData;
+
+function communicate (method, keyword){
+    
+         $.ajax({
+                type: "POST",
+                url: "http://perso.imerir.com/jloeve/pimag3a/service/" + keyword
+            }).done(function( msg ) {method(msg);});
+}
+
+       
+/*---------------------------------------
+---------------Commande------------------
+---------------------------------------*/ 
+function commande (data) {
+            //userData = JSONParse(data);
+            userData = data;
+            $("#divcmd").empty();
+            $("#divcmd").append("<table id='tabcmd' width='100%' border='1'><tr><td align='center'>Action</td><td align='center'>Etat</td><td align='center'>Statut</td><td align='center'>Nom</td><td align='center'>Téléphone</td><td align='center'>Fax</td><td align='center'>Contact</td><td align='center'>Mail</td><td align='center'>Commercial</td><td align='center'>Facturation</td><td align='center'>Livraison</td></tr></table>");
+    
+            $.each(userData, function (key, value){
+                $("#tabcmd").append("<tr><td align='center'><button class='btn btn-primary btn-xs' oncmdck='editcmd(\"a\", \""+key+"\");'><span class='glyphicon glyphicon-pencil'></span></button><button class='btn btn-danger btn-xs' oncmdck='etatcmd(\""+key+"\", \"supprimer\");'><span class='glyphicon glyphicon-remove'></span></button><button class='btn btn-warning btn-xs' oncmdck='etatcmd(\""+key+"\", \"masquer\");'><span class='glyphicon glyphicon-eye-close'></span></button><button class='btn btn-success btn-xs' oncmdck='etatcmd(\""+key+"\", \"activer\");'><span class='glyphicon glyphicon-eye-open'></span></button></td><td align='center'>"+value["etat"]+"</td><td align='center'>"+value["raison"]+"</td><td align='center'>"+value["nom"]+"</td><td align='center'>"+value["numero"]+"</td><td align='center'>"+value["fax"]+"</td><td align='center'>"+value["contact"]+"</td><td align='center'>"+value["mail"]+"</td><td align='center'>"+value["commercial"]+"</td><td align='center'>"+value["adresse_f"]+"</td><td align='center'>"+/*value["adresse_l"]["adresse"]*/" "+"</td></tr>");
+            });
+}
+function actioncmd(param){
+    if (param=="m"){
+        if ($('#tabeditcmdope').val() == "modifier"){
+            editcmd(param);
+        }else if ($('#tabeditcmdope').val() == "ajouter"){
+            addcmd();
+        }
+        
+    }else if (param == 'add'){
+        addcmd();
+    }
+}
+function addcmd(action){
+    if (action=="a"){
+            addaddr("1");
+            $('#tabeditcmd').slideDown('slow');
+            $('#tabeditcmdope').val("ajouter");
+            $('#tabeditcmdbtnvalid').val("Ajouter");
+
+            $('#tabeditcmdrais').val("");//------------------------------------------------------------------------------------------------
+            $('#tabeditcmdnom').val("");
+            $('#tabeditcmdtel').val("");
+            $('#tabeditcmdfax').val("");
+            $('#tabeditcmdadrf').val("");
+            $('#tabeditcmdcontact').val("");
+            $('#tabeditcmdmail').val("");
+            $('#tabeditcmdcomm').val("");
+            $('#tabeditcmdidcmd').val("");
+    }else{
+
+        $('#tabeditcmd').slideUp('slow');
+            
+        $.ajax({
+            type: "POST",
+            url: "http://perso.imerir.com/jloeve/pimag3a/service/edit_commande.php",
+            data: { nom : $('#tabeditcmdnom').val(),
+                    raison : $('#tabeditcmdrais').val(),
+                    tel : $('#tabeditcmdtel').val(),
+                    fax : $('#tabeditcmdfax').val(),
+                    adresse_f : $('#tabeditcmdadrf').val(),
+                    adresse_l : $('#adresse1').val(),
+                    contact : $('#tabeditcmdcontact').val(),
+                    mail : $('#tabeditcmdmail').val(),
+                    commercial : $('#tabeditcmdcomm').val(),
+                    operation : 'ajouter'}
+        }).done(function( msg ) {communicate(commande, "get_commandes.php");});
+    }
+}
+function editcmd(action, idcmd){
+    if (action == "a"){
+            $('#tabeditcmd').slideDown('slow');
+
+            $('#tabeditcmdrais').val(userData[idcmd]["raison"]);
+            $('#tabeditcmdnom').val(userData[idcmd]["nom"]);
+            $('#tabeditcmdtel').val(userData[idcmd]["numero"]);
+            $('#tabeditcmdfax').val(userData[idcmd]["fax"]);
+            $('#tabeditcmdadrf').val(userData[idcmd]["adresse_f"]);
+            $('#tabeditcmdcontact').val(userData[idcmd]["contact"]);
+            $('#tabeditcmdmail').val(userData[idcmd]["mail"]);
+            $('#tabeditcmdcomm').val(userData[idcmd]["commercial"]);
+            $('#tabeditcmdope').val("modifier")
+            $('#tabeditcmdidcmd').val(idcmd);
+            $('#tabeditbtnvalid').val("Mise à jour");
+            
+            $('#tabeditcmdaddaddr').empty();
+            $('#tabeditcmdaddaddr').append('<tr><td align="center">Nom</td><td align="center">Adresse</td></tr>');
+
+            $.each(userData[idcmd]["adresse_l"], function (key, value){
+                    if (userData[idcmd].adresse_l[key]["adresse"] != null){
+                        $('#tabeditcmdaddaddr').append('<tr><td><input type="texte" class="tabeditcmdadr" name="adresse_name" value="'+userData[idcmd].adresse_l[key]["nom"]+'"></td><td><input type="texte" class="tabeditcmdadrl" name="adresse_" value="'+userData[idcmd].adresse_l[key]["adresse"]+'"></td></tr>');
+                    }
+            });
+        }else{
+            var majdata = Array();
+
+            $('#tabeditcmd').slideUp('slow');
+            $.ajax({
+                type: "POST",
+                url: "http://perso.imerir.com/jloeve/pimag3a/service/edit_commande.php",
+                data: { nom : $('#tabeditcmdnom').val(),
+                        raison : $('#tabeditcmdrais').val(),
+                        tel : $('#tabeditcmdtel').val(),
+                        fax : $('#tabeditcmdfax').val(),
+                        adresse_f : $('#tabeditcmdadrf').val(),
+                        contact : $('#tabeditcmdcontact').val(),
+                        mail : $('#tabeditcmdmail').val(),
+                        commercial : $('#tabeditcmdcomm').val(),
+                        id_commande : $('#tabeditcmdidcmd').val(),
+                        operation : 'modifier'
+            }}).done(function( msg ) {communicate(commande, "get_commandes.php");});
+        }
+}
+function etatcmd(idcmd, etat){
+    $.ajax({
+        type: "POST",
+        url: "http://perso.imerir.com/jloeve/pimag3a/service/edit_commande.php",
+        data: { id_commande : idcmd,
+                operation : etat}
+    }).done(function( msg ) {communicate(commande, "get_commandes.php");});
+}
+function addaddr(num){
+
+            $('#tabeditcmdaddaddr').append('<tr><td><input id="nom'+num+'" type="texte" class="tabeditcmdadr" name="adresse_name"></td><td><input id="adresse'+num+'" type="texte" class="tabeditcmdadrl" name="adresse_"></td><td align="center"><button class="btn btn-danger btn-xs" oncmdck="supcmd(\""+key+"\");"><span class="glyphicon glyphicon-minus"></span></button></td></tr>');
+}   
+    </script>
 </body>
-<footer>
-   <p>IMERIR<br /></p>
-</footer>
 </html>

@@ -1,47 +1,59 @@
 <?php
-/*	require_once("classes/daoArrivage.php");
-	require_once("connect.php");
+require_once("../../../../mdacosta/www/pima3a/classes/daoArrivage.php");
+require_once("../../../../mdacosta/www/pima3a/classes/daoFournisseur.php");
+require_once("../../../../mdacosta/www/pima3a/classes/daoBouchonA.php");
+require_once("../../../../mdacosta/www/pima3a/connect.php");
 
-	
-	$detail_Arrivage = new Array();
-*//*
+if(isset($_POST["id_arrivage"]))
+	$id = $_POST["id_arrivage"];
+else if(isset($_GET["id_arrivage"]))
+	$id = $_GET["id_arrivage"];
+else
+	die("No id_arrivage");
+
+// $detail_Arrivage = Array();
+
 $arrivage = new Arrivage();
 $objArrivage = new DaoArrivage();
+$objFournisseur = new DaoFournisseur();
+$objBouchonA = new DaoBouchonA();
 
 $arrivage = $objArrivage-> getArrivageById($id);
 // les controles :)
+/*
 $arrivage -> setControle("ok");
 $objArrivage-> updateArrivage($Arrivage);
-
-
 */
 require_once("pdf_gen_arr.php");
+$controle = $arrivage -> getControle();
+
 $etat = $_GET["etat"];
 
-if ($etat == "checked"){
+if ($controle == ""){
 
 	$arrivage = Array();
 	$seuil = Array();
 	$bouchon = Array();
 
 	$retour = Array();
-
-	$arrivage["dateArr"] = "2014-01-15 15:10";//$arrivage -> getNomArrivage();
-	$arrivage["dateCont"] = "2014-01-15 13:30";//$arrivage -> getNomArrivage();
-	$arrivage["numArr"] = 123456;//$arrivage -> getNomArrivage();
-	$arrivage["nomFour"] = "Love Bouchon";//$arrivage -> getAdresseArrivage();
-	$arrivage["qualite"] = 5;//$arrivage -> getNumeroTelArrivage();
-	$arrivage["numTrac"] = 456789;//$arrivage -> getNumeroFaxArrivage();
-	$arrivage["quantite"] = 150000;//$arrivage -> getNumeroFaxArrivage();
-	$arrivage["longueur"] = 44;//$arrivage -> getNumeroFaxArrivage();
+	$fournisseur = $objFournisseur->getFournisseurById($arrivage -> getIdFournisseur());
+	
+	$arrivage["dateArr"] = $arrivage -> getDate();
+	$arrivage["dateCont"] = date('Y/m/d h:i:s', time());//"2014-01-15 13:30";//$arrivage -> getNomArrivage();
+	$arrivage["numArr"] = $arrivage -> getIdLot();//123456;//$arrivage -> getNomArrivage();
+	$arrivage["nomFour"] = $fournisseur -> getNomFournisseur();//"Love Bouchon";//$arrivage -> getAdresseArrivage();
+	$arrivage["qualite"] = $arrivage -> getQualite();//5;//$arrivage -> getNumeroTelArrivage();
+	$arrivage["numTrac"] = $arrivage -> getDate() . $arrivage -> getIdLot();//456789;//$arrivage -> getNumeroFaxArrivage();
+	$arrivage["quantite"] = $arrivage -> getQuantite();//150000;//$arrivage -> getNumeroFaxArrivage();
+	$arrivage["longueur"] = $arrivage -> getTaille();//44;//$arrivage -> getNumeroFaxArrivage();
 	$arrivage["tcaf"] = 5;//$arrivage -> getNumeroFaxArrivage();
 	$arrivage["tcai"] = 1;//$arrivage -> getNumeroFaxArrivage();
 	$arrivage["gout"] = "oui";//$arrivage -> getNumeroFaxArrivage();
 	$arrivage["derog"] = "oui";//$arrivage -> getNumeroFaxArrivage();
 	$arrivage["codebarre"] = "12345678904";//$arrivage -> getNumeroFaxArrivage();
 
-	$seuil["long"]["min"] = 43.5;
-	$seuil["long"]["max"] = 44.5;
+	$seuil["long"]["min"] = $arrivage -> getTaille() - 0.5;
+	$seuil["long"]["max"] = $arrivage -> getTaille() + 0.5;
 	$seuil["diam1"]["min"] = 23.5;
 	$seuil["diam1"]["max"] = 24.5;
 	$seuil["diam2"]["min"] = 23.5;
@@ -56,16 +68,18 @@ if ($etat == "checked"){
 	$retour ["arrivage"] = $arrivage;
 	$retour ["seuil"] = $seuil;
 
-	for ($i = 1; $i<17; $i++){
-		$bouchon["id"] = $i;
-		$bouchon["long"] = 44;
-		$bouchon["diam1"] = 24;
-		$bouchon["diam2"] = 24;
-		$bouchon["ovali"] = 0.5;
-		$bouchon["humi"] = 5;
-		$bouchon["diam_comp"] = 95;
-		
-		$retour ["bouchon"][] = $bouchon;
+	$liste_bouchon = $objBouchonA -> getListeBouchonByIdArrivage();
+	foreach($liste_bouchon as $bouchon_cour)
+	{
+		$bouchon["id"] = $bouchon_cour->getId();
+		$bouchon["long"] = $bouchon_cour->getLongueur();
+		$bouchon["diam1"] = $bouchon_cour->getDiametre1();
+		$bouchon["diam2"] = $bouchon_cour->getDiametre2();
+		$bouchon["ovali"] = abs($bouchon["diam1"] - $bouchon["diam2"]);
+		$bouchon["humi"] = $bouchon_cour->getHumidite();
+		$bouchon["diam_comp"] = $bouchon_cour->getDiametreCompresse();
+	}		
+	$retour ["bouchon"][] = $bouchon;
 		
 	}
 	//echo json_encode($retour);
