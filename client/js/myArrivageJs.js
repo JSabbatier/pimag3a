@@ -5,6 +5,10 @@ var dataF
 
 /**************AJAX************************/
 
+
+/*****
+envoyer okd dans variable controle envoyer modifier dans la table operation id_arrivage *////
+
 function afficherArrivages(){
 
 	$.ajax({			  
@@ -28,26 +32,36 @@ function receptionner(idcmd){
 	  type: 'POST'}).done(function(msg){alert('commande reçue');});
 }
 
+function deroger(idlot){
+
+	$.ajax({			  
+	  url: 'http://perso.imerir.com/jloeve/pimag3a/service/edit_arrivage.php',
+	  data : { 	id_arrivage:idlot,
+	  			operation:'modifier',
+				controle:'OKD'},
+	  type: 'POST'}).done(function(msg){console.log('commande dérogée');afficherArrivages();});
+}
 
 /**************************Tableau ******************************/
 
 function jsonTableA(msg)		
 		{ 		
 		data = msg;
-        $("#jsonTestA").html('<table><tr><td>Date</td><td>Nom Fournisseur</td><td>Qualité</td><td>Validité</td><td>Prix Achat</td><td>Devise</td><td>Taille des Bouchons</td><td>Selection</td><td>Controle</td></tr></table>');
-		
+        $("#jsonTestA").html('<table class="table table-bordered"><tr><td>Action</td><td>Date</td><td>Nom Fournisseur</td><td>Qualité</td><td>Quantité</td><td>Validité</td><td>Prix Achat</td><td>Devise</td><td>Taille des Bouchons</td><td>Controle</td></tr></table>');
+		var i = 0;
 			for(var tok in data.lots)
 			{
-					var row = $('<tr>');
-	
+				var row = $('<tr>');
+
+				row.append('<td><button class=\'btn btn-primary btn-xs\' onclick=\'editarr(\"a\", \"'+i+'\");\'><span class=\'glyphicon glyphicon-pencil\'></span></button><button class=\'btn btn-warning btn-xs\' onclick=\'etatarr(\"'+data.lots[tok].id_lot+'\", \"masquer\");\'><span class=\'glyphicon glyphicon-eye-close\'></span></button><button class=\'btn btn-success btn-xs\' onclick=\'etatarr(\"'+data.lots[tok].id_lot+'\", \"activer\");\'><span class=\'glyphicon glyphicon-eye-open\'></span></button></td>');
 				row.append('<td>' + data.lots[tok].date  + '</td>');
 				row.append('<td>' + data.lots[tok].nom_fournisseur + '</td>');
 				row.append('<td>' + data.lots[tok].qualite + '</td>');
+				row.append('<td>' + data.lots[tok].quantite + '</td>');
 				row.append('<td>' + data.lots[tok].validite + '</td>');
 				row.append('<td>' + data.lots[tok].prix_achat + '</td>');				
 				row.append('<td>' + data.lots[tok].devise + '</td>');
-				row.append('<td>' + data.lots[tok].taille+ '</td>');
-				row.append('<td>' +  '<input type="checkbox" name="selection" value="oui"</label>'+ '</td>');				
+				row.append('<td>' + data.lots[tok].taille+ '</td>');			
 				if(	(data.lots[tok].controle) == "OK") 
 					{
 						row.append('<td>' +'Valide'+'</td>');
@@ -56,18 +70,24 @@ function jsonTableA(msg)
 					{
 						row.append('<td>' +'Derogation'+'</td>');
 					}
+				else if ( (data.lots[tok].controle) =="NOK")
+					{
+						row.append('<td> <input type="button" onclick="deroger(\''+data.lots[tok].id_lot+'\')" class="btn btn-default" value="Déroger"></td>');
+					}
 				else
 				{
-					row.append('<td>' + '<a href="ControleArr.html?idLot='+data.lots[tok].id_lot+'">Effectuer controle</a>'+'</td></tr>');				 
+					row.append('<td>' + '<a class="btn btn-default" href="ControleArr.html?idLot='+data.lots[tok].id_lot+'">Effectuer controle</a>'+'</td>');								 
 				}									  														  
 				$("#jsonTestA>table").append(row);
+				i++;
 			}
 }
+
 
 function jsonTableF(msgF)		
 		{ 		
 		dataF = msgF;
-        $("#jsonTestCF").html('<table><tr><td>Numéro de commande</td><td>Date Commande</td><td>Date Livraison</td><td>Etat</td>><td>Valider la réception</td></tr></table>');
+        $("#jsonTestCF").html('<table class="table table-bordered"><tr><td>Numéro de commande</td><td>Date Commande</td><td>Date Livraison</td><td>Etat</td><td>Valider la réception</td></tr></table>');
 		
 			for(var tok in dataF.commandes)
 			{
@@ -82,13 +102,13 @@ function jsonTableF(msgF)
 						row.append('<td>' +'Déja validée'+'</td>');
 					}
 				else{
-				row.append('<td>' + '<button id="reception" onClick="receptionner('+dataF.commandes[tok].id_commande+')">Recevoir</button>'+'</td></tr>');	}	
+				row.append('<td>' + '<button class="btn btn-default" id="reception" onClick="receptionner('+dataF.commandes[tok].id_commande+')">Recevoir</button>'+'</td></tr>');	}	
 				
 				$("#jsonTestCF>table").append(row);																	  	
 			}
 			
 			
-		$("#jsonTestP").html('<table><tr><td>Commande associée</td><td>longueur</td><td>qualite</td><td>quantite</td><td>marquage</td><td>prix</td><td>devise</td></tr></table>');
+		$("#jsonTestP").html('<table class="table table-bordered"><tr><td>Commande associée</td><td>longueur</td><td>qualite</td><td>quantite</td><td>marquage</td><td>prix</td><td>devise</td></tr></table>');
 		
 			for(var tik in dataF.commandes)
 			{
@@ -110,6 +130,4 @@ function jsonTableF(msgF)
 		}
 		
 	
-
-
 

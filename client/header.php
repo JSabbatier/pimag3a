@@ -29,6 +29,11 @@ echo '<!DOCTYPE html>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+    <script src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/myArrivageJs.js"></script>
+    <script type="text/javascript" src="js/myjs.js"></script>
+    <script src="js/bootstrap.js"></script>
+
 </head>
 
 <body>
@@ -53,11 +58,9 @@ echo '<!DOCTYPE html>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li><a href="arrivages.html">Arrivage</a></li>
-                    <li><a href="controleIn.html">Controle In</a></li>
-                    <li><a href="commande.html">Commande</a></li>
-                    <li><a href="expedition.html">Expédition</a></li>     
-                    <li><a href="controleOut.html">Controle Out</a></li>
+                    <li><a href="approvisionnement.php">Approvisionnement</a></li>
+                    <li><a href="expedition.php">Expédition</a></li>     
+                    <li><a href="administration.php">Administration</a></li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
